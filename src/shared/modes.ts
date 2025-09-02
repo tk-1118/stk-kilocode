@@ -316,6 +316,7 @@ export async function getFullModeDetails(
 	const promptComponent = customModePrompts?.[modeSlug]
 
 	// Get the base custom instructions
+	// For system prompt generation, we still need to use built-in custom instructions
 	const baseCustomInstructions = promptComponent?.customInstructions || baseMode.customInstructions || ""
 	const baseWhenToUse = promptComponent?.whenToUse || baseMode.whenToUse || ""
 	const baseDescription = promptComponent?.description || baseMode.description || ""
@@ -372,8 +373,23 @@ export function getWhenToUse(modeSlug: string, customModes?: ModeConfig[]): stri
 	return mode.whenToUse ?? ""
 }
 
-// Helper function to safely get custom instructions
+// Helper function to safely get custom instructions for UI display
+// Note: This function now only returns custom instructions for custom modes, not built-in modes
 export function getCustomInstructions(modeSlug: string, customModes?: ModeConfig[]): string {
+	// First check if it's a custom mode
+	const customMode = findModeBySlug(modeSlug, customModes)
+	if (customMode) {
+		return customMode.customInstructions ?? ""
+	}
+
+	// For built-in modes, don't return their built-in custom instructions
+	// This hides the built-in mode's specialized instructions from users
+	return ""
+}
+
+// Internal function to get custom instructions for system prompt generation
+// This function returns the actual custom instructions including built-in ones
+export function getCustomInstructionsForSystemPrompt(modeSlug: string, customModes?: ModeConfig[]): string {
 	const mode = getModeBySlug(modeSlug, customModes)
 	if (!mode) {
 		console.warn(`No mode found for slug: ${modeSlug}`)

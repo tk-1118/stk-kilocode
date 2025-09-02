@@ -18,7 +18,6 @@ import {
 	getRoleDefinition,
 	getWhenToUse,
 	getDescription,
-	getCustomInstructions,
 	getAllModes,
 	findModeBySlug as findCustomModeBySlug,
 } from "@roo/modes"
@@ -1080,109 +1079,84 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 						</div>
 					</>
 
-					{/* Role definition for both built-in and custom modes */}
-					<div className="mb-2">
-						<div className="flex justify-between items-center mb-1">
-							<div className="font-bold">{t("prompts:customInstructions.title")}</div>
-							{!findModeBySlug(visualMode, customModes) && (
-								<StandardTooltip content={t("prompts:customInstructions.resetToDefault")}>
-									<Button
-										variant="ghost"
-										size="icon"
-										onClick={() => {
-											const currentMode = getCurrentMode()
-											if (currentMode?.slug) {
-												handleAgentReset(currentMode.slug, "customInstructions")
-											}
-										}}
-										data-testid="custom-instructions-reset">
-										<span className="codicon codicon-discard"></span>
-									</Button>
-								</StandardTooltip>
-							)}
-						</div>
-						<div className="text-[13px] text-vscode-descriptionForeground mb-2">
-							{t("prompts:customInstructions.description", {
-								modeName: getCurrentMode()?.name || "Code",
-							})}
-						</div>
-						<VSCodeTextArea
-							resize="vertical"
-							value={(() => {
-								const customMode = findModeBySlug(visualMode, customModes)
-								const prompt = customModePrompts?.[visualMode] as PromptComponent
-								return (
-									customMode?.customInstructions ??
-									prompt?.customInstructions ??
-									getCustomInstructions(mode, customModes)
-								)
-							})()}
-							onChange={(e) => {
-								const value =
-									(e as unknown as CustomEvent)?.detail?.target?.value ||
-									((e as any).target as HTMLTextAreaElement).value
-								const customMode = findModeBySlug(visualMode, customModes)
-								if (customMode) {
-									// For custom modes, update the JSON file
-									updateCustomMode(visualMode, {
-										...customMode,
-										customInstructions: value.trim() || undefined,
-										source: customMode.source || "global",
-									})
-								} else {
-									// For built-in modes, update the prompts
-									const existingPrompt = customModePrompts?.[visualMode] as PromptComponent
-									updateAgentPrompt(visualMode, {
-										...existingPrompt,
-										customInstructions: value.trim(),
-									})
-								}
-							}}
-							rows={10}
-							className="w-full"
-							data-testid={`${getCurrentMode()?.slug || "code"}-custom-instructions-textarea`}
-						/>
-						<div className="text-xs text-vscode-descriptionForeground mt-1.5">
-							<Trans
-								i18nKey="prompts:customInstructions.loadFromFile"
-								values={{
-									mode: getCurrentMode()?.name || "Code",
-									slug: getCurrentMode()?.slug || "code",
+					{/* Custom instructions section - only show for custom modes */}
+					{findModeBySlug(visualMode, customModes) && (
+						<div className="mb-2">
+							<div className="flex justify-between items-center mb-1">
+								<div className="font-bold">{t("prompts:customInstructions.title")}</div>
+							</div>
+							<div className="text-[13px] text-vscode-descriptionForeground mb-2">
+								{t("prompts:customInstructions.description", {
+									modeName: getCurrentMode()?.name || "Code",
+								})}
+							</div>
+							<VSCodeTextArea
+								resize="vertical"
+								value={(() => {
+									const customMode = findModeBySlug(visualMode, customModes)
+									// For custom modes, show their custom instructions
+									return customMode?.customInstructions ?? ""
+								})()}
+								onChange={(e) => {
+									const value =
+										(e as unknown as CustomEvent)?.detail?.target?.value ||
+										((e as any).target as HTMLTextAreaElement).value
+									const customMode = findModeBySlug(visualMode, customModes)
+									if (customMode) {
+										// For custom modes, update the JSON file
+										updateCustomMode(visualMode, {
+											...customMode,
+											customInstructions: value.trim() || undefined,
+											source: customMode.source || "global",
+										})
+									}
 								}}
-								components={{
-									span: (
-										<span
-											className="text-vscode-textLink-foreground cursor-pointer underline"
-											onClick={() => {
-												const currentMode = getCurrentMode()
-												if (!currentMode) return
-
-												// Open or create an empty file
-												vscode.postMessage({
-													type: "openFile",
-													text: `./.kilocode/rules-${currentMode.slug}/rules.md`,
-													values: {
-														create: true,
-														content: "",
-													},
-												})
-											}}
-										/>
-									),
-									"0": (
-										<VSCodeLink
-											href={buildDocLink(
-												"features/custom-instructions#global-rules-directory",
-												"prompts_mode_specific_global_rules",
-											)}
-											style={{ display: "inline" }}
-											aria-label="Learn about global custom instructions for modes"
-										/>
-									),
-								}}
+								rows={10}
+								className="w-full"
+								data-testid={`${getCurrentMode()?.slug || "code"}-custom-instructions-textarea`}
 							/>
+							<div className="text-xs text-vscode-descriptionForeground mt-1.5">
+								<Trans
+									i18nKey="prompts:customInstructions.loadFromFile"
+									values={{
+										mode: getCurrentMode()?.name || "Code",
+										slug: getCurrentMode()?.slug || "code",
+									}}
+									components={{
+										span: (
+											<span
+												className="text-vscode-textLink-foreground cursor-pointer underline"
+												onClick={() => {
+													const currentMode = getCurrentMode()
+													if (!currentMode) return
+
+													// Open or create an empty file
+													vscode.postMessage({
+														type: "openFile",
+														text: `./.kilocode/rules-${currentMode.slug}/rules.md`,
+														values: {
+															create: true,
+															content: "",
+														},
+													})
+												}}
+											/>
+										),
+										"0": (
+											<VSCodeLink
+												href={buildDocLink(
+													"features/custom-instructions#global-rules-directory",
+													"prompts_mode_specific_global_rules",
+												)}
+												style={{ display: "inline" }}
+												aria-label="Learn about global custom instructions for modes"
+											/>
+										),
+									}}
+								/>
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
 
 				<div className="pb-4 border-b border-vscode-input-border">

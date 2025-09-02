@@ -748,8 +748,12 @@ export class CustomModesManager {
 				if (!mode) {
 					const builtInMode = builtInModes.find((m) => m.slug === slug)
 					if (builtInMode) {
-						// Use the built-in mode as the base
-						mode = { ...builtInMode }
+						// Use the built-in mode as the base, but exclude customInstructions
+						// to prevent exposing built-in mode's specialized instructions
+						mode = {
+							...builtInMode,
+							customInstructions: undefined, // Remove built-in custom instructions
+						}
 					} else {
 						return { success: false, error: "Mode not found" }
 					}

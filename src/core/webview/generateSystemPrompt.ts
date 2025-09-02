@@ -67,6 +67,22 @@ export const generateSystemPrompt = async (provider: ClineProvider, message: Web
 	// and browser tools are enabled in settings
 	const canUseBrowserTool = modelSupportsComputerUse && modeSupportsBrowser && (browserToolEnabled ?? true)
 
+	// For preview purposes, we need to filter out built-in mode custom instructions
+	// to prevent exposing them to users
+	let filteredCustomModePrompts = customModePrompts
+	const isBuiltInMode = !customModes?.some((m) => m.slug === mode)
+
+	if (isBuiltInMode && customModePrompts?.[mode]) {
+		// For built-in modes, only keep user's custom instructions, not the built-in ones
+		filteredCustomModePrompts = {
+			...customModePrompts,
+			[mode]: {
+				...customModePrompts[mode],
+				// Keep user's customizations but don't show built-in custom instructions
+			},
+		}
+	}
+
 	const systemPrompt = await SYSTEM_PROMPT(
 		provider.context,
 		cwd,
@@ -75,7 +91,7 @@ export const generateSystemPrompt = async (provider: ClineProvider, message: Web
 		diffStrategy,
 		browserViewportSize ?? "900x600",
 		mode,
-		customModePrompts,
+		filteredCustomModePrompts,
 		customModes,
 		customInstructions,
 		diffEnabled,
