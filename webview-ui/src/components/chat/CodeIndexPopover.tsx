@@ -44,7 +44,6 @@ import type { IndexingStatus } from "@roo/ExtensionMessage"
 import { CODEBASE_INDEX_DEFAULTS } from "@roo-code/types"
 
 // Default URLs for providers
-const DEFAULT_QDRANT_URL = "http://localhost:6333"
 const DEFAULT_OLLAMA_URL = "http://localhost:11434"
 
 interface CodeIndexPopoverProps {
@@ -188,6 +187,15 @@ export const CodeIndexPopover: React.FC<CodeIndexPopoverProps> = ({
 	// Current settings state - tracks user changes
 	const [currentSettings, setCurrentSettings] = useState<LocalCodeIndexSettings>(getDefaultSettings())
 
+	// Environment variable status
+	const [envStatus, setEnvStatus] = useState<{
+		hasQdrantApiKey: boolean
+		qdrantUrlFromEnv: boolean
+	}>({
+		hasQdrantApiKey: false,
+		qdrantUrlFromEnv: false,
+	})
+
 	// Update indexing status from parent
 	useEffect(() => {
 		setIndexingStatus(externalIndexingStatus)
@@ -217,6 +225,14 @@ export const CodeIndexPopover: React.FC<CodeIndexPopoverProps> = ({
 			}
 			setInitialSettings(settings)
 			setCurrentSettings(settings)
+
+			// Update environment variable status if available
+			if (codebaseIndexConfig._envStatus) {
+				setEnvStatus({
+					hasQdrantApiKey: codebaseIndexConfig._envStatus.hasQdrantApiKey || false,
+					qdrantUrlFromEnv: codebaseIndexConfig._envStatus.qdrantUrlFromEnv || false,
+				})
+			}
 
 			// Request secret status to check if secrets exist
 			vscode.postMessage({ type: "requestCodeIndexSecretStatus" })
@@ -1044,12 +1060,8 @@ export const CodeIndexPopover: React.FC<CodeIndexPopoverProps> = ({
 											onInput={(e: any) =>
 												updateSetting("codebaseIndexQdrantUrl", e.target.value)
 											}
-											onBlur={(e: any) => {
-												// Set default Qdrant URL if field is empty
-												if (!e.target.value.trim()) {
-													currentSettings.codebaseIndexQdrantUrl = DEFAULT_QDRANT_URL
-													updateSetting("codebaseIndexQdrantUrl", DEFAULT_QDRANT_URL)
-												}
+											onBlur={(_e: any) => {
+												// No auto-fill for Qdrant URL - let user input or environment variable handle it
 											}}
 											placeholder={t("settings:codeIndex.qdrantUrlPlaceholder")}
 											className={cn("w-full", {
@@ -1059,6 +1071,17 @@ export const CodeIndexPopover: React.FC<CodeIndexPopoverProps> = ({
 										{formErrors.codebaseIndexQdrantUrl && (
 											<p className="text-xs text-vscode-errorForeground mt-1 mb-0">
 												{formErrors.codebaseIndexQdrantUrl}
+											</p>
+										)}
+										{envStatus.qdrantUrlFromEnv && (
+											<p className="text-xs text-vscode-descriptionForeground mt-1 mb-0 flex items-center gap-1">
+												<span className="text-green-500">✓</span>
+												{/* URL is set via environment variable KILOCODE_QDRANT_BASE_URL */}
+												Built in KILOCODE_QDRANT_BASEURL loaded
+												<br />
+												<span className="text-xs text-vscode-descriptionForeground opacity-75">
+													You can override this by entering a different URL above
+												</span>
 											</p>
 										)}
 									</div>
@@ -1079,6 +1102,17 @@ export const CodeIndexPopover: React.FC<CodeIndexPopoverProps> = ({
 										{formErrors.codeIndexQdrantApiKey && (
 											<p className="text-xs text-vscode-errorForeground mt-1 mb-0">
 												{formErrors.codeIndexQdrantApiKey}
+											</p>
+										)}
+										{envStatus.hasQdrantApiKey && (
+											<p className="text-xs text-vscode-descriptionForeground mt-1 mb-0 flex items-center gap-1">
+												<span className="text-green-500">✓</span>
+												{/* API Key is set via environment variable KILOCODE_QDRANT_API_KEY */}
+												Built in KILOCODE_QDRANT_API_KEY loaded
+												<br />
+												<span className="text-xs text-vscode-descriptionForeground opacity-75">
+													You can override this by entering a different API key above
+												</span>
 											</p>
 										)}
 									</div>

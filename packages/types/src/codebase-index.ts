@@ -34,6 +34,13 @@ export const codebaseIndexConfigSchema = z.object({
 	// OpenAI Compatible specific fields
 	codebaseIndexOpenAiCompatibleBaseUrl: z.string().optional(),
 	codebaseIndexOpenAiCompatibleModelDimension: z.number().optional(),
+	// Environment variable status for UI display
+	_envStatus: z
+		.object({
+			hasQdrantApiKey: z.boolean(),
+			qdrantUrlFromEnv: z.boolean(),
+		})
+		.optional(),
 })
 
 export type CodebaseIndexConfig = z.infer<typeof codebaseIndexConfigSchema>

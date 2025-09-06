@@ -133,11 +133,10 @@ export class CodeIndexServiceFactory {
 			}
 		}
 
-		if (!config.qdrantUrl) {
-			throw new Error(t("embeddings:serviceFactory.qdrantUrlMissing"))
-		}
+		// qdrantUrl现在可以从环境变量获取，所以不再强制要求配置中有值
+		// 如果配置和环境变量都没有，QdrantVectorStore构造函数会使用默认的localhost
 
-		// Assuming constructor is updated: new QdrantVectorStore(workspacePath, url, vectorSize, apiKey?)
+		// 创建QdrantVectorStore实例，支持从环境变量获取默认配置
 		return new QdrantVectorStore(this.workspacePath, config.qdrantUrl, vectorSize, config.qdrantApiKey)
 	}
 

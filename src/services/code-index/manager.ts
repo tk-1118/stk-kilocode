@@ -112,6 +112,13 @@ export class CodeIndexManager {
 	}
 
 	/**
+	 * Gets the config manager instance
+	 */
+	public get configManager(): CodeIndexConfigManager | undefined {
+		return this._configManager
+	}
+
+	/**
 	 * Initializes the manager with configuration and dependent services.
 	 * Must be called before using any other methods.
 	 * @returns Object indicating if a restart is needed

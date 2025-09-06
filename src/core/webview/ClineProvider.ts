@@ -1963,17 +1963,7 @@ export class ClineProvider
 			condensingApiConfigId,
 			customCondensingPrompt,
 			codebaseIndexModels: codebaseIndexModels ?? EMBEDDING_MODEL_PROFILES,
-			codebaseIndexConfig: {
-				codebaseIndexEnabled: codebaseIndexConfig?.codebaseIndexEnabled ?? true,
-				codebaseIndexQdrantUrl: codebaseIndexConfig?.codebaseIndexQdrantUrl ?? "http://localhost:6333",
-				codebaseIndexEmbedderProvider: codebaseIndexConfig?.codebaseIndexEmbedderProvider ?? "openai",
-				codebaseIndexEmbedderBaseUrl: codebaseIndexConfig?.codebaseIndexEmbedderBaseUrl ?? "",
-				codebaseIndexEmbedderModelId: codebaseIndexConfig?.codebaseIndexEmbedderModelId ?? "",
-				codebaseIndexEmbedderModelDimension: codebaseIndexConfig?.codebaseIndexEmbedderModelDimension ?? 1536,
-				codebaseIndexOpenAiCompatibleBaseUrl: codebaseIndexConfig?.codebaseIndexOpenAiCompatibleBaseUrl,
-				codebaseIndexSearchMaxResults: codebaseIndexConfig?.codebaseIndexSearchMaxResults,
-				codebaseIndexSearchMinScore: codebaseIndexConfig?.codebaseIndexSearchMinScore,
-			},
+			codebaseIndexConfig: await this.getEffectiveCodebaseIndexConfig(codebaseIndexConfig),
 			// Only set mdmCompliant if there's an actual MDM policy
 			// undefined means no MDM policy, true means compliant, false means non-compliant
 			mdmCompliant: this.mdmService?.requiresCloudAuth() ? this.checkMdmCompliance() : undefined,
@@ -2188,8 +2178,7 @@ export class ClineProvider
 			codebaseIndexModels: stateValues.codebaseIndexModels ?? EMBEDDING_MODEL_PROFILES,
 			codebaseIndexConfig: {
 				codebaseIndexEnabled: stateValues.codebaseIndexConfig?.codebaseIndexEnabled ?? true,
-				codebaseIndexQdrantUrl:
-					stateValues.codebaseIndexConfig?.codebaseIndexQdrantUrl ?? "http://localhost:6333",
+				codebaseIndexQdrantUrl: stateValues.codebaseIndexConfig?.codebaseIndexQdrantUrl ?? "",
 				codebaseIndexEmbedderProvider:
 					stateValues.codebaseIndexConfig?.codebaseIndexEmbedderProvider ?? "openai",
 				codebaseIndexEmbedderBaseUrl: stateValues.codebaseIndexConfig?.codebaseIndexEmbedderBaseUrl ?? "",
@@ -2777,6 +2766,71 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 	 */
 	public getCurrentWorkspaceCodeIndexManager(): CodeIndexManager | undefined {
 		return CodeIndexManager.getInstance(this.context)
+	}
+
+	/**
+	 * Gets the effective codebase index configuration including environment variables
+	 */
+	private async getEffectiveCodebaseIndexConfig(storedConfig: any) {
+		console.log("[ClineProvider] getEffectiveCodebaseIndexConfig 被调用")
+		console.log("[ClineProvider] 环境变量检查:")
+		console.log("  KILOCODE_QDRANT_BASE_URL:", process.env.KILOCODE_QDRANT_BASE_URL)
+		console.log("  KILOCODE_QDRANT_API_KEY:", process.env.KILOCODE_QDRANT_API_KEY ? "***已设置***" : "未设置")
+		console.log("[ClineProvider] 存储的配置检查:")
+		console.log("  storedConfig:", JSON.stringify(storedConfig, null, 2))
+
+		// 处理配置优先级：用户输入 > 环境变量 > 默认值
+		const envQdrantUrl = process.env.KILOCODE_QDRANT_BASE_URL
+		const envQdrantApiKey = process.env.KILOCODE_QDRANT_API_KEY
+		const userQdrantUrl = storedConfig?.codebaseIndexQdrantUrl
+
+		// 判断最终使用的配置来源
+		const finalQdrantUrl =
+			userQdrantUrl && userQdrantUrl.trim() !== ""
+				? userQdrantUrl // 用户输入优先
+				: envQdrantUrl // 环境变量，无默认值
+
+		// 判断配置来源以显示正确的提示
+		const isUsingEnvUrl = (!userQdrantUrl || userQdrantUrl.trim() === "") && !!envQdrantUrl
+
+		// API Key 的判断需要考虑用户是否输入了 API Key
+		const userQdrantApiKey = storedConfig?.codeIndexQdrantApiKey
+		const isUsingEnvApiKey = (!userQdrantApiKey || userQdrantApiKey.trim() === "") && !!envQdrantApiKey
+
+		const result = {
+			codebaseIndexEnabled: storedConfig?.codebaseIndexEnabled ?? true,
+			codebaseIndexQdrantUrl: finalQdrantUrl,
+			codebaseIndexEmbedderProvider: storedConfig?.codebaseIndexEmbedderProvider ?? "openai",
+			codebaseIndexEmbedderBaseUrl: storedConfig?.codebaseIndexEmbedderBaseUrl ?? "",
+			codebaseIndexEmbedderModelId: storedConfig?.codebaseIndexEmbedderModelId ?? "",
+			codebaseIndexEmbedderModelDimension: storedConfig?.codebaseIndexEmbedderModelDimension ?? 1536,
+			codebaseIndexOpenAiCompatibleBaseUrl: storedConfig?.codebaseIndexOpenAiCompatibleBaseUrl,
+			codebaseIndexSearchMaxResults: storedConfig?.codebaseIndexSearchMaxResults,
+			codebaseIndexSearchMinScore: storedConfig?.codebaseIndexSearchMinScore,
+			// 环境变量状态信息，用于前端显示提示
+			_envStatus: {
+				hasQdrantApiKey: isUsingEnvApiKey,
+				qdrantUrlFromEnv: isUsingEnvUrl,
+			},
+		}
+
+		console.log("[ClineProvider] 最终配置结果:")
+		console.log("  存储的 qdrantUrl:", userQdrantUrl)
+		console.log("  环境变量 qdrantUrl:", envQdrantUrl)
+		console.log("  最终使用的 qdrantUrl:", finalQdrantUrl)
+		console.log("  存储的 apiKey:", userQdrantApiKey ? "***已设置***" : "未设置")
+		console.log("  环境变量 apiKey:", envQdrantApiKey ? "***已设置***" : "未设置")
+		console.log("  显示URL环境变量提示:", isUsingEnvUrl)
+		console.log("  显示API Key环境变量提示:", isUsingEnvApiKey)
+		console.log(
+			"  URL判断逻辑: 无用户输入=" +
+				(!userQdrantUrl || userQdrantUrl.trim() === "") +
+				", 有环境变量=" +
+				!!envQdrantUrl,
+		)
+		console.log("[ClineProvider] 返回配置:", result)
+
+		return result
 	}
 
 	/**

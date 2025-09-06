@@ -19,7 +19,7 @@ export class CodeIndexConfigManager {
 	private openAiCompatibleOptions?: { baseUrl: string; apiKey: string }
 	private geminiOptions?: { apiKey: string }
 	private mistralOptions?: { apiKey: string }
-	private qdrantUrl?: string = "http://localhost:6333"
+	private qdrantUrl?: string
 	private qdrantApiKey?: string
 	private searchMinScore?: number
 	private searchMaxResults?: number
@@ -44,7 +44,7 @@ export class CodeIndexConfigManager {
 		// Load configuration from storage
 		const codebaseIndexConfig = this.contextProxy?.getGlobalState("codebaseIndexConfig") ?? {
 			codebaseIndexEnabled: true,
-			codebaseIndexQdrantUrl: "http://localhost:6333",
+			codebaseIndexQdrantUrl: "",
 			codebaseIndexEmbedderProvider: "openai",
 			codebaseIndexEmbedderBaseUrl: "",
 			codebaseIndexEmbedderModelId: "",
@@ -64,16 +64,35 @@ export class CodeIndexConfigManager {
 
 		const openAiKey = this.contextProxy?.getSecret("codeIndexOpenAiKey") ?? ""
 		const qdrantApiKey = this.contextProxy?.getSecret("codeIndexQdrantApiKey") ?? ""
-		// Fix: Read OpenAI Compatible settings from the correct location within codebaseIndexConfig
+		// Read OpenAI Compatible settings from codebaseIndexConfig
 		const openAiCompatibleBaseUrl = codebaseIndexConfig.codebaseIndexOpenAiCompatibleBaseUrl ?? ""
 		const openAiCompatibleApiKey = this.contextProxy?.getSecret("codebaseIndexOpenAiCompatibleApiKey") ?? ""
 		const geminiApiKey = this.contextProxy?.getSecret("codebaseIndexGeminiApiKey") ?? ""
 		const mistralApiKey = this.contextProxy?.getSecret("codebaseIndexMistralApiKey") ?? ""
 
 		// Update instance variables with configuration
+		// 配置优先级：用户输入 > 环境变量 > 默认值
+		// 如果用户在界面中输入了配置，则优先使用用户输入的值
+		// 否则使用环境变量，最后使用默认值
 		this.codebaseIndexEnabled = codebaseIndexEnabled ?? true
-		this.qdrantUrl = codebaseIndexQdrantUrl
-		this.qdrantApiKey = qdrantApiKey ?? ""
+
+		// Qdrant URL 优先级处理：用户输入 > 环境变量 > 默认值
+		if (codebaseIndexQdrantUrl && codebaseIndexQdrantUrl.trim() !== "") {
+			// 用户输入了 URL，优先使用用户输入
+			this.qdrantUrl = codebaseIndexQdrantUrl
+		} else {
+			// 用户没有输入，使用环境变量，无默认值
+			this.qdrantUrl = process.env.KILOCODE_QDRANT_BASE_URL || ""
+		}
+
+		// Qdrant API Key 优先级处理：用户输入 > 环境变量 > 默认值
+		if (qdrantApiKey && qdrantApiKey.trim() !== "") {
+			// 用户输入了 API Key，优先使用用户输入
+			this.qdrantApiKey = qdrantApiKey
+		} else {
+			// 用户没有输入，使用环境变量或默认值
+			this.qdrantApiKey = process.env.KILOCODE_QDRANT_API_KEY || ""
+		}
 		this.searchMinScore = codebaseIndexSearchMinScore
 		this.searchMaxResults = codebaseIndexSearchMaxResults
 

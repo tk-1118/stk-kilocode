@@ -16,16 +16,28 @@ export class QdrantVectorStore implements IVectorStore {
 
 	private client: QdrantClient
 	private readonly collectionName: string
-	private readonly qdrantUrl: string = "http://localhost:6333"
+	private readonly qdrantUrl: string
 
 	/**
 	 * Creates a new Qdrant vector store
 	 * @param workspacePath Path to the workspace
-	 * @param url Optional URL to the Qdrant server
+	 * @param url URL to the Qdrant server (已通过ConfigManager从环境变量或配置获取)
+	 * @param vectorSize Vector dimension size
+	 * @param apiKey API key (已通过ConfigManager从环境变量或配置获取)
 	 */
-	constructor(workspacePath: string, url: string, vectorSize: number, apiKey?: string) {
+	constructor(workspacePath: string, url?: string, vectorSize?: number, apiKey?: string) {
+		// ConfigManager已经处理了环境变量的优先级，这里直接使用传入的参数
+		// URL 是必需的，不提供默认值
+		if (!url || url.trim() === "") {
+			throw new Error(
+				"Qdrant URL is required. Please set KILOCODE_QDRANT_BASE_URL environment variable or configure it in settings.",
+			)
+		}
+		const finalUrl = url
+		const finalApiKey = apiKey
+
 		// Parse the URL to determine the appropriate QdrantClient configuration
-		const parsedUrl = this.parseQdrantUrl(url)
+		const parsedUrl = this.parseQdrantUrl(finalUrl)
 
 		// Store the resolved URL for our property
 		this.qdrantUrl = parsedUrl
@@ -58,7 +70,7 @@ export class QdrantVectorStore implements IVectorStore {
 				https: useHttps,
 				port: port,
 				prefix: urlObj.pathname === "/" ? undefined : urlObj.pathname.replace(/\/+$/, ""),
-				apiKey,
+				apiKey: finalApiKey,
 				headers: {
 					"User-Agent": "Kilo-Code",
 				},
@@ -68,7 +80,7 @@ export class QdrantVectorStore implements IVectorStore {
 			// Note: This fallback won't correctly handle prefixes, but it's a last resort for malformed URLs.
 			this.client = new QdrantClient({
 				url: parsedUrl,
-				apiKey,
+				apiKey: finalApiKey,
 				headers: {
 					"User-Agent": "Kilo-Code",
 				},
@@ -77,7 +89,7 @@ export class QdrantVectorStore implements IVectorStore {
 
 		// Generate collection name from workspace path
 		const hash = createHash("sha256").update(workspacePath).digest("hex")
-		this.vectorSize = vectorSize
+		this.vectorSize = vectorSize || 1536 // 默认向量维度
 		this.collectionName = `ws-${hash.substring(0, 16)}`
 	}
 
@@ -89,7 +101,7 @@ export class QdrantVectorStore implements IVectorStore {
 	private parseQdrantUrl(url: string | undefined): string {
 		// Handle undefined/null/empty cases
 		if (!url || url.trim() === "") {
-			return "http://localhost:6333"
+			throw new Error("Invalid Qdrant URL: URL cannot be empty")
 		}
 
 		const trimmedUrl = url.trim()
