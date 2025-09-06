@@ -779,6 +779,7 @@ export class ClineProvider
 				| "consecutiveMistakeLimit"
 				| "experiments"
 				| "initialTodos"
+				| "temporarySystemPrompt"
 			>
 		> = {},
 	) {
@@ -1845,7 +1846,8 @@ export class ClineProvider
 			teamManagementEnabled,
 		} = await this.getState()
 
-		console.log("ClineProvider.getStateToPostToWebview - customTeams:", customTeams)
+		// 减少日志输出以避免性能问题
+		// console.log("ClineProvider.getStateToPostToWebview - customTeams:", customTeams)
 
 		const telemetryKey = process.env.KILOCODE_POSTHOG_API_KEY
 		const machineId = vscode.env.machineId
@@ -1988,11 +1990,12 @@ export class ClineProvider
 			includeTaskHistoryInEnhance: includeTaskHistoryInEnhance ?? true,
 			remoteControlEnabled: remoteControlEnabled ?? false,
 			customTeams: customTeams ?? [],
-			currentTeam: currentTeam ?? "backend-team",
+			currentTeam: currentTeam ?? "backend-team", // 确保有默认值
 			teamManagementEnabled: teamManagementEnabled ?? true,
 		}
 
-		console.log("ClineProvider.getStateToPostToWebview - returning state with customTeams:", customTeams ?? [])
+		// 减少日志输出以避免性能问题
+		// console.log("ClineProvider.getStateToPostToWebview - returning state with customTeams:", customTeams ?? [])
 	}
 
 	/**
@@ -2003,20 +2006,23 @@ export class ClineProvider
 
 	async getState() {
 		const stateValues = this.contextProxy.getValues()
+
 		const customModes = await this.customModesManager.getCustomModes()
-		console.log(`[ClineProvider] getState - 获取customModes，数量: ${customModes.length}`)
-		console.log(
-			`[ClineProvider] getState - customModes列表:`,
-			customModes.map((m: any) => m.slug),
-		)
+		// 减少日志输出以避免性能问题
+		// console.log(`[ClineProvider] getState - 获取customModes，数量: ${customModes.length}`)
+		// console.log(
+		// 	`[ClineProvider] getState - customModes列表:`,
+		// 	customModes.map((m: any) => m.slug),
+		// )
 
 		// 直接从globalState获取customTeams数据
 		const customTeams = this.context.globalState.get("customTeams", [])
-		console.log(`[ClineProvider] getState - 从globalState获取customTeams，数量: ${customTeams.length}`)
-		console.log(
-			`[ClineProvider] getState - customTeams列表:`,
-			customTeams.map((t: any) => t.slug),
-		)
+		// 减少日志输出以避免性能问题
+		// console.log(`[ClineProvider] getState - 从globalState获取customTeams，数量: ${customTeams.length}`)
+		// console.log(
+		// 	`[ClineProvider] getState - customTeams列表:`,
+		// 	customTeams.map((t: any) => t.slug),
+		// )
 
 		// Determine apiProvider with the same logic as before.
 		const apiProvider: ProviderName = stateValues.apiProvider ? stateValues.apiProvider : "kilocode" // kilocode_change: fall back to kilocode

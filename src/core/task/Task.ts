@@ -134,6 +134,8 @@ export type TaskOptions = {
 	taskNumber?: number
 	onCreated?: (task: Task) => void
 	initialTodos?: TodoItem[]
+	/** 临时系统提示词，仅在当前任务生命周期内有效 */
+	temporarySystemPrompt?: string
 }
 
 type UserContent = Array<Anthropic.ContentBlockParam> // kilocode_change
@@ -147,6 +149,9 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	readonly metadata: TaskMetadata
 
 	todoList?: TodoItem[]
+
+	/** 临时系统提示词，仅在当前任务生命周期内有效 */
+	private temporarySystemPrompt?: string
 
 	readonly rootTask: Task | undefined
 	readonly parentTask: Task | undefined
@@ -178,6 +183,22 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	 * @see {@link waitForModeInitialization} - To ensure initialization is complete
 	 */
 	private _taskMode: string | undefined
+
+	/**
+	 * 当前任务所属的团队标识
+	 * 用于团队感知和成员切换验证
+	 *
+	 * @private
+	 */
+	private _currentTeam: string | undefined
+
+	/**
+	 * 当前团队的可用成员列表
+	 * 用于智能体了解可切换的团队成员
+	 *
+	 * @private
+	 */
+	private _teamMembers: string[] = []
 
 	/**
 	 * Promise that resolves when the task mode has been initialized.
@@ -304,6 +325,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		taskNumber = -1,
 		onCreated,
 		initialTodos,
+		temporarySystemPrompt,
 	}: TaskOptions) {
 		super()
 		this.context = context // kilocode_change
@@ -319,6 +341,9 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task: historyItem ? historyItem.task : task,
 			images: historyItem ? [] : images,
 		}
+
+		// 初始化临时系统提示词（仅对新任务有效，历史任务不支持）
+		this.temporarySystemPrompt = historyItem ? undefined : temporarySystemPrompt
 
 		// Normal use-case is usually retry similar history task with new workspace.
 		this.workspacePath = parentTask
@@ -426,8 +451,9 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	 * ## Flow
 	 * 1. Attempts to fetch the current mode from provider state
 	 * 2. Sets `_taskMode` to the fetched mode or `defaultModeSlug` if unavailable
-	 * 3. Handles errors gracefully by falling back to default mode
-	 * 4. Logs any initialization errors for debugging
+	 * 3. Initializes team information for team-aware operations
+	 * 4. Handles errors gracefully by falling back to default mode
+	 * 5. Logs any initialization errors for debugging
 	 *
 	 * ## Error handling
 	 * - Network failures when fetching provider state
@@ -444,9 +470,15 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		try {
 			const state = await provider.getState()
 			this._taskMode = state?.mode || defaultModeSlug
+
+			// 初始化团队信息
+			this._currentTeam = state?.currentTeam || "backend-team"
+			this._teamMembers = this.getTeamMembers(this._currentTeam, state?.customTeams)
 		} catch (error) {
 			// If there's an error getting state, use the default mode
 			this._taskMode = defaultModeSlug
+			this._currentTeam = "backend-team"
+			this._teamMembers = []
 			// Use the provider's log method for better error visibility
 			const errorMessage = `Failed to initialize task mode: ${error instanceof Error ? error.message : String(error)}`
 			provider.log(errorMessage)
@@ -541,6 +573,56 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		}
 
 		return this._taskMode
+	}
+
+	/**
+	 * 获取当前团队标识
+	 *
+	 * @returns 当前团队标识
+	 * @public
+	 */
+	public get currentTeam(): string | undefined {
+		return this._currentTeam
+	}
+
+	/**
+	 * 获取当前团队的可用成员列表
+	 *
+	 * @returns 团队成员模式列表
+	 * @public
+	 */
+	public get teamMembers(): string[] {
+		return this._teamMembers
+	}
+
+	/**
+	 * 获取团队成员列表的辅助方法
+	 *
+	 * @param teamSlug - 团队标识
+	 * @param customTeams - 自定义团队配置
+	 * @returns 团队成员模式列表
+	 * @private
+	 */
+	private getTeamMembers(teamSlug: string, customTeams?: any[]): string[] {
+		try {
+			// 导入团队相关函数
+			const { getTeamModes } = require("../../shared/teams")
+			return getTeamModes(teamSlug, customTeams).map((mode: any) => mode.slug)
+		} catch (error) {
+			// 如果获取失败，返回默认的基础模式
+			return ["architect", "code", "ask", "debug"]
+		}
+	}
+
+	/**
+	 * 检查指定模式是否属于当前团队
+	 *
+	 * @param modeSlug - 要检查的模式标识
+	 * @returns 是否属于当前团队
+	 * @public
+	 */
+	public isModeInCurrentTeam(modeSlug: string): boolean {
+		return this._teamMembers.includes(modeSlug)
 	}
 
 	static create(options: TaskOptions): [Task, Promise<void>] {
@@ -2359,7 +2441,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				throw new Error("Provider not available")
 			}
 
-			return SYSTEM_PROMPT(
+			const baseSystemPrompt = SYSTEM_PROMPT(
 				provider.context,
 				this.cwd,
 				// kilocode_change: supports images => supports browser
@@ -2389,6 +2471,13 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				this.api.getModel().id,
 				await provider.getState(), // kilocode_change
 			)
+
+			// 如果存在临时系统提示词，将其附加到基础系统提示词中
+			if (this.temporarySystemPrompt) {
+				return `${baseSystemPrompt}\n\n## 临时任务指令\n\n${this.temporarySystemPrompt}`
+			}
+
+			return baseSystemPrompt
 		})()
 	}
 

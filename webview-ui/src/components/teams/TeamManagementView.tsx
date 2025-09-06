@@ -370,11 +370,11 @@ export const TeamManagementView: React.FC<TeamManagementViewProps> = ({
 							<TeamCard
 								key={team.slug}
 								team={team}
-								availableModes={availableModes}
+								_availableModes={availableModes}
 								onEdit={() => handleEditTeam(team)}
-								onDuplicate={() => handleDuplicateTeam(team)}
+								_onDuplicate={() => handleDuplicateTeam(team)}
 								onDelete={() => handleDeleteTeam(team)}
-								onExport={() => handleExportTeam(team)}
+								_onExport={() => handleExportTeam(team)}
 							/>
 						))}
 					</div>

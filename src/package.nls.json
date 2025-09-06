@@ -6,6 +6,7 @@
 	"views.activitybar.title": "Kilo Code",
 	"views.sidebar.name": "Kilo Code",
 	"command.newTask.title": "New Task",
+	"command.createTaskWithContext.title": "Create Task with Context",
 	"command.mcpServers.title": "MCP Servers",
 	"command.prompts.title": "Modes",
 	"command.history.title": "History",

@@ -48,6 +48,7 @@ export const commandIds = [
 	"handleHumanRelayResponse",
 
 	"newTask",
+	"createTaskWithContext", // 新增：支持自定义系统提示词的任务创建命令
 
 	"setCustomStoragePath",
 	"importSettings",

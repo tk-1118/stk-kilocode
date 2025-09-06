@@ -36,6 +36,34 @@ import {
 } from "./sections"
 import { type ClineProviderState } from "../webview/ClineProvider" // kilocode_change
 
+/**
+ * 生成团队成员推荐信息
+ *
+ * @param clineProviderState - ClineProvider状态信息
+ * @returns 团队推荐信息字符串
+ */
+function generateTeamRecommendationSection(clineProviderState?: ClineProviderState): string {
+	if (!clineProviderState?.currentTeam) {
+		return ""
+	}
+
+	return `====
+
+TEAM COLLABORATION
+
+You are currently working as part of a development team. When you encounter tasks that require specific expertise, consider switching to the appropriate team member using the switch_mode tool.
+
+Key principles for team collaboration:
+1. Analyze the current task requirements
+2. Identify if a different team member would be better suited
+3. Use switch_mode tool to delegate to the appropriate specialist
+4. Provide clear context when switching between team members
+
+This collaborative approach ensures that each task is handled by the most qualified team member, leading to better code quality and more efficient development.
+
+`
+}
+
 // Helper function to get prompt component, filtering out empty objects
 export function getPromptComponent(
 	customModePrompts: CustomModePrompts | undefined,
@@ -88,13 +116,16 @@ async function generatePrompt(
 	const shouldIncludeMcp = hasMcpGroup && hasMcpServers
 
 	const [modesSection, mcpServersSection] = await Promise.all([
-		getModesSection(context),
+		getModesSection(context, clineProviderState?.currentTeam, clineProviderState?.customTeams),
 		shouldIncludeMcp
 			? getMcpServersSection(mcpHub, effectiveDiffStrategy, enableMcpServerCreation)
 			: Promise.resolve(""),
 	])
 
 	const codeIndexManager = CodeIndexManager.getInstance(context, cwd)
+
+	// 生成团队成员推荐信息
+	const teamRecommendationSection = generateTeamRecommendationSection(clineProviderState)
 
 	const basePrompt = `${roleDefinition}
 
@@ -126,6 +157,8 @@ ${mcpServersSection}
 ${getCapabilitiesSection(cwd, supportsComputerUse, shouldIncludeMcp ? mcpHub : undefined, effectiveDiffStrategy, codeIndexManager, clineProviderState /* kilocode_change */)}
 
 ${modesSection}
+
+${teamRecommendationSection}
 
 ${getRulesSection(cwd, supportsComputerUse, effectiveDiffStrategy, codeIndexManager, clineProviderState /* kilocode_change */)}
 

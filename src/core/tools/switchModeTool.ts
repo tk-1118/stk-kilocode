@@ -45,6 +45,20 @@ export async function switchModeTool(
 				return
 			}
 
+			// 验证模式是否属于当前团队
+			if (!cline.isModeInCurrentTeam(mode_slug)) {
+				cline.recordToolError("switch_mode")
+				const currentTeam = cline.currentTeam || "unknown"
+				const availableMembers = cline.teamMembers.join(", ")
+				pushToolResult(
+					formatResponse.toolError(
+						`Mode "${mode_slug}" is not available in the current team "${currentTeam}". ` +
+							`Available team members: ${availableMembers}`,
+					),
+				)
+				return
+			}
+
 			// Check if already in requested mode
 			const currentMode = (await cline.providerRef.deref()?.getState())?.mode ?? defaultModeSlug
 

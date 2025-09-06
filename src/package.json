@@ -218,6 +218,11 @@
 				"category": "%configuration.title%"
 			},
 			{
+				"command": "kilo-code.createTaskWithContext",
+				"title": "%command.createTaskWithContext.title%",
+				"category": "%configuration.title%"
+			},
+			{
 				"command": "kilo-code.terminalAddToContext",
 				"title": "%command.terminal.addToContext.title%",
 				"category": "%extension.displayName%"

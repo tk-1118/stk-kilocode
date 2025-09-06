@@ -44,11 +44,12 @@ export class TeamManagementService {
 	 */
 	private async loadCustomTeams(): Promise<void> {
 		const savedTeams = this.context.globalState.get<ExtendedTeamConfig[]>("customTeams", [])
-		console.log(`[TeamManagementService] 从globalState加载团队数据，数量: ${savedTeams.length}`)
-		console.log(
-			`[TeamManagementService] 加载的团队列表:`,
-			savedTeams.map((t) => t.slug),
-		)
+		// 减少日志输出以避免性能问题
+		// console.log(`[TeamManagementService] 从globalState加载团队数据，数量: ${savedTeams.length}`)
+		// console.log(
+		// 	`[TeamManagementService] 加载的团队列表:`,
+		// 	savedTeams.map((t) => t.slug),
+		// )
 		this.customTeams = savedTeams
 	}
 

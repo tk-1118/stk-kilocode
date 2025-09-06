@@ -3177,23 +3177,24 @@ export const webviewMessageHandler = async (
 		case "createTeam": {
 			try {
 				if (message.teamData) {
-					console.log("Backend - Creating team with data:", message.teamData)
+					// 减少日志输出以避免性能问题
+					// console.log("Backend - Creating team with data:", message.teamData)
 
 					// 使用TeamManagementService统一管理
 					const teamManagementService = new TeamManagementService(provider.context)
 					const newTeam = await teamManagementService.createTeam(message.teamData)
-					console.log("Backend - Team created via TeamManagementService:", newTeam)
+					// console.log("Backend - Team created via TeamManagementService:", newTeam)
 
 					// 发送成功响应
 					await provider.postMessageToWebview({
 						type: "teamCreated",
 						teamData: newTeam,
 					})
-					console.log("Backend - Sent teamCreated message")
+					// console.log("Backend - Sent teamCreated message")
 
 					// 更新状态
 					await provider.postStateToWebview()
-					console.log("Backend - Posted state to webview")
+					// console.log("Backend - Posted state to webview")
 				}
 			} catch (error) {
 				await provider.postMessageToWebview({
@@ -3216,7 +3217,8 @@ export const webviewMessageHandler = async (
 
 				// 更新状态到webview
 				await provider.postStateToWebview()
-				console.log("团队更新成功:", updatedTeam.name)
+				// 减少日志输出以避免性能问题
+				// console.log("团队更新成功:", updatedTeam.name)
 			} catch (error) {
 				await provider.postMessageToWebview({
 					type: "teamManagementError",
@@ -3248,10 +3250,11 @@ export const webviewMessageHandler = async (
 
 						// 更新状态到webview
 						await provider.postStateToWebview()
-						console.log("团队删除成功:", message.teamSlug)
+						// 减少日志输出以避免性能问题
+						// console.log("团队删除成功:", message.teamSlug)
 					}
 				} else {
-					console.log("用户取消删除团队")
+					// console.log("用户取消删除团队")
 				}
 			} catch (error) {
 				await provider.postMessageToWebview({

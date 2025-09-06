@@ -1,0 +1,10 @@
+{
+	"createTaskWithContext": {
+		"errors": {
+			"missing_user_prompt": "User prompt is required to create a task with context",
+			"no_provider": "No Kilo Code provider instance found",
+			"task_creation_failed": "Failed to create task due to policy restrictions",
+			"general": "Failed to create task with context: {{error}}"
+		}
+	}
+}
