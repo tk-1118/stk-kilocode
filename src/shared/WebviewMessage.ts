@@ -264,6 +264,29 @@ export interface WebviewMessage {
 		| "createCommand"
 		| "insertTextIntoTextarea"
 		| "showMdmAuthRequiredNotification"
+		// 团队管理相关消息
+		| "createTeam"
+		| "updateTeam"
+		| "deleteTeam"
+		| "duplicateTeam"
+		| "exportTeam"
+		| "importTeam"
+		| "addTeamMember"
+		| "removeTeamMember"
+		| "updateTeamMember"
+		| "getAvailableModes"
+		| "setCurrentTeam"
+		| "editMode"
+		| "deleteMode"
+		| "exportMode"
+		| "importMode"
+		| "createMode"
+		| "exportAllTeams"
+		| "resetTeamsToDefaults"
+		| "showInformationMessage"
+		| "showErrorMessage"
+		| "showWarningMessage"
+		| "openTeamsView"
 	text?: string
 	editedMessageContent?: string
 	tab?: "settings" | "history" | "mcp" | "modes" | "chat" | "marketplace" | "account"
@@ -274,7 +297,7 @@ export interface WebviewMessage {
 	apiConfiguration?: ProviderSettings
 	images?: string[]
 	bool?: boolean
-	value?: number
+	value?: number | boolean
 	commands?: string[]
 	audioType?: AudioType
 	// kilocode_change begin
@@ -343,6 +366,18 @@ export interface WebviewMessage {
 		codebaseIndexGeminiApiKey?: string
 		codebaseIndexMistralApiKey?: string
 	}
+	// 团队管理相关参数
+	teamData?: any // 团队数据
+	teamSlug?: string // 团队标识
+	sourceSlug?: string // 源团队标识（用于复制）
+	newSlug?: string // 新团队标识
+	newName?: string // 新团队名称
+	updates?: any // 更新数据
+	modeSlug?: string // 模式标识
+	memberConfig?: any // 成员配置
+	modeData?: any // 模式数据
+	currentTeam?: string // 当前团队
+	options?: string[] // 用于消息框选项
 }
 
 // kilocode_change begin

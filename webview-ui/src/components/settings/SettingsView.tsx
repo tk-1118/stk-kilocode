@@ -25,6 +25,7 @@ import {
 	Bot, // kilocode_change
 	MessageSquare,
 	Monitor,
+	Users, // 团队管理图标
 	LucideIcon,
 } from "lucide-react"
 
@@ -71,6 +72,7 @@ import { ExperimentalSettings } from "./ExperimentalSettings"
 import { LanguageSettings } from "./LanguageSettings"
 import { About } from "./About"
 import { Section } from "./Section"
+import { TeamManagementSettings } from "./TeamManagementSettings"
 import PromptsSettings from "./PromptsSettings"
 import { cn } from "@/lib/utils"
 import McpView from "../kilocodeMcp/McpView" // kilocode_change
@@ -98,6 +100,7 @@ const sectionNames = [
 	"contextManagement",
 	"terminal",
 	"prompts",
+	"teams", // 团队管理
 	"experimental",
 	"language",
 	"mcp",
@@ -513,6 +516,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			{ id: "contextManagement", icon: Database },
 			{ id: "terminal", icon: SquareTerminal },
 			{ id: "prompts", icon: MessageSquare },
+			{ id: "teams", icon: Users }, // 团队管理
 			{ id: "experimental", icon: FlaskConical },
 			{ id: "language", icon: Globe },
 			{ id: "mcp", icon: Server },
@@ -854,6 +858,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 							// kilocode_change end
 						/>
 					)}
+
+					{/* Teams Section */}
+					{activeTab === "teams" && <TeamManagementSettings />}
 
 					{/* Language Section */}
 					{activeTab === "language" && (

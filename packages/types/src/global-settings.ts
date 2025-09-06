@@ -153,6 +153,11 @@ export const globalSettingsSchema = z.object({
 	customModes: z.array(modeConfigSchema).optional(),
 	customModePrompts: customModePromptsSchema.optional(),
 	customSupportPrompts: customSupportPromptsSchema.optional(),
+
+	// 团队管理相关设置
+	customTeams: z.array(z.any()).optional(), // 自定义团队配置
+	currentTeam: z.string().optional(), // 当前选中的团队
+	teamManagementEnabled: z.boolean().optional(), // 是否启用团队管理功能
 	enhancementApiConfigId: z.string().optional(),
 	dismissedNotificationIds: z.string().array().optional(), // kilocode_change
 	commitMessageApiConfigId: z.string().optional(), // kilocode_change

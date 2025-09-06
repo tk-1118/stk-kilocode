@@ -44,6 +44,46 @@ export const teamConfigSchema = z.object({
 export type TeamConfig = z.infer<typeof teamConfigSchema>
 
 /**
+ * 团队管理操作类型
+ */
+export const teamManagementActionSchema = z.enum([
+	"create",
+	"update",
+	"delete",
+	"addMember",
+	"removeMember",
+	"duplicate",
+])
+
+export type TeamManagementAction = z.infer<typeof teamManagementActionSchema>
+
+/**
+ * 团队成员配置
+ */
+export const teamMemberConfigSchema = z.object({
+	modeSlug: z.string(),
+	displayName: z.string().optional(),
+	isActive: z.boolean().default(true),
+	permissions: z.array(z.string()).optional(), // 成员权限
+	priority: z.number().default(0), // 成员优先级
+})
+
+export type TeamMemberConfig = z.infer<typeof teamMemberConfigSchema>
+
+/**
+ * 扩展的团队配置（包含成员详细信息）
+ */
+export const extendedTeamConfigSchema = teamConfigSchema.extend({
+	members: z.array(teamMemberConfigSchema).optional(),
+	isBuiltIn: z.boolean().default(false), // 是否为内置团队
+	createdAt: z.string().optional(),
+	updatedAt: z.string().optional(),
+	version: z.string().default("1.0.0"),
+})
+
+export type ExtendedTeamConfig = z.infer<typeof extendedTeamConfigSchema>
+
+/**
  * 项目上下文信息
  */
 export const projectContextSchema = z.object({

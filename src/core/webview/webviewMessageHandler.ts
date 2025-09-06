@@ -48,6 +48,7 @@ import { exportSettings, importSettingsWithFeedback } from "../config/importExpo
 import { getOpenAiModels } from "../../api/providers/openai"
 import { getVsCodeLmModels } from "../../api/providers/vscode-lm"
 import { openMention } from "../mentions"
+import { TeamManagementService } from "../../services/TeamManagementService"
 import { TelemetrySetting } from "../../shared/TelemetrySetting"
 import { getWorkspacePath } from "../../utils/path"
 import { ensureSettingsDirectoryExists } from "../../utils/globalContext"
@@ -1941,6 +1942,31 @@ export const webviewMessageHandler = async (
 					break
 				}
 
+				// 检查是否有团队在使用这个模式
+				const teamManagementService = new TeamManagementService(provider.context)
+				const allTeams = await teamManagementService.getAllTeams()
+				const teamsUsingMode = allTeams.filter(
+					(team) =>
+						team.baseModes.includes(message.slug!) ||
+						team.specialtyModes.includes(message.slug!) ||
+						team.members?.some((member) => member.modeSlug === message.slug!),
+				)
+
+				if (teamsUsingMode.length > 0) {
+					const teamNames = teamsUsingMode.map((team) => team.name).join(", ")
+					const errorMessage = `无法删除模式 "${message.slug}"，以下团队正在使用: ${teamNames}`
+
+					// 显示错误消息给用户
+					await vscode.window.showErrorMessage(errorMessage)
+
+					// 同时发送到webview
+					await provider.postMessageToWebview({
+						type: "teamManagementError",
+						text: errorMessage,
+					})
+					break
+				}
+
 				// Delete the mode
 				await provider.customModesManager.deleteCustomMode(message.slug)
 
@@ -3127,6 +3153,504 @@ export const webviewMessageHandler = async (
 		case "showMdmAuthRequiredNotification": {
 			// Show notification that organization requires authentication
 			vscode.window.showWarningMessage(t("common:mdm.info.organization_requires_auth"))
+			break
+		}
+
+		// 团队管理相关消息处理
+		case "openTeamsView": {
+			// 直接在webview中打开团队管理视图
+			await provider.postMessageToWebview({
+				type: "openTeamsView",
+			})
+			break
+		}
+
+		case "setCurrentTeam": {
+			// 设置当前团队
+			if (message.currentTeam) {
+				await updateGlobalState("currentTeam", message.currentTeam)
+				await provider.postStateToWebview()
+			}
+			break
+		}
+
+		case "createTeam": {
+			try {
+				if (message.teamData) {
+					console.log("Backend - Creating team with data:", message.teamData)
+
+					// 使用TeamManagementService统一管理
+					const teamManagementService = new TeamManagementService(provider.context)
+					const newTeam = await teamManagementService.createTeam(message.teamData)
+					console.log("Backend - Team created via TeamManagementService:", newTeam)
+
+					// 发送成功响应
+					await provider.postMessageToWebview({
+						type: "teamCreated",
+						teamData: newTeam,
+					})
+					console.log("Backend - Sent teamCreated message")
+
+					// 更新状态
+					await provider.postStateToWebview()
+					console.log("Backend - Posted state to webview")
+				}
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `创建团队失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "updateTeam": {
+			try {
+				const teamManagementService = new TeamManagementService(provider.context)
+				const updatedTeam = await teamManagementService.updateTeam(message.teamSlug!, message.updates)
+
+				await provider.postMessageToWebview({
+					type: "teamUpdated",
+					teamData: updatedTeam,
+				})
+
+				// 更新状态到webview
+				await provider.postStateToWebview()
+				console.log("团队更新成功:", updatedTeam.name)
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `更新团队失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "deleteTeam": {
+			try {
+				const teamManagementService = new TeamManagementService(provider.context)
+
+				// 显示确认对话框
+				const confirm = await vscode.window.showWarningMessage(
+					message.text || `确定要删除团队吗？此操作不可撤销。`,
+					{ modal: true },
+					"确定删除",
+				)
+
+				if (confirm === "确定删除") {
+					const success = await teamManagementService.deleteTeam(message.teamSlug!)
+
+					if (success) {
+						await provider.postMessageToWebview({
+							type: "teamDeleted",
+							teamSlug: message.teamSlug,
+						})
+
+						// 更新状态到webview
+						await provider.postStateToWebview()
+						console.log("团队删除成功:", message.teamSlug)
+					}
+				} else {
+					console.log("用户取消删除团队")
+				}
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `删除团队失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "duplicateTeam": {
+			try {
+				const teamManagementService = new TeamManagementService(provider.context)
+				const duplicatedTeam = await teamManagementService.duplicateTeam(
+					message.sourceSlug!,
+					message.newSlug!,
+					message.newName!,
+				)
+
+				await provider.postMessageToWebview({
+					type: "teamCreated",
+					teamData: duplicatedTeam,
+				})
+
+				// 更新状态到webview
+				await provider.postStateToWebview()
+				console.log("团队复制成功:", duplicatedTeam.name)
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `复制团队失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "exportTeam": {
+			try {
+				const teamManagementService = new TeamManagementService(provider.context)
+				const teamConfig = await teamManagementService.exportTeam(message.teamSlug!)
+
+				// 显示保存对话框
+				const saveUri = await vscode.window.showSaveDialog({
+					defaultUri: vscode.Uri.file(`${message.teamSlug}-team-config.json`),
+					filters: {
+						"JSON Files": ["json"],
+					},
+				})
+
+				if (saveUri) {
+					await fs.writeFile(saveUri.fsPath, teamConfig, "utf8")
+					vscode.window.showInformationMessage(`团队配置已导出到: ${saveUri.fsPath}`)
+				}
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `导出团队失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "importTeam": {
+			try {
+				// 显示文件选择对话框
+				const openUri = await vscode.window.showOpenDialog({
+					canSelectFiles: true,
+					canSelectMany: false,
+					filters: {
+						"JSON Files": ["json"],
+					},
+				})
+
+				if (openUri && openUri[0]) {
+					const teamConfigJson = await fs.readFile(openUri[0].fsPath, "utf8")
+					const teamManagementService = new TeamManagementService(provider.context)
+					const importedTeam = await teamManagementService.importTeam(teamConfigJson)
+
+					await provider.postMessageToWebview({
+						type: "teamCreated",
+						teamData: importedTeam,
+					})
+
+					// 更新状态到webview
+					await provider.postStateToWebview()
+					vscode.window.showInformationMessage(`团队 "${importedTeam.name}" 导入成功`)
+				}
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `导入团队失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "addTeamMember": {
+			try {
+				const teamManagementService = new TeamManagementService(provider.context)
+				const updatedTeam = await teamManagementService.addMemberToTeam(
+					message.teamSlug!,
+					message.modeSlug!,
+					message.memberConfig,
+				)
+
+				await provider.postMessageToWebview({
+					type: "teamUpdated",
+					teamData: updatedTeam,
+				})
+
+				// 更新状态到webview
+				await provider.postStateToWebview()
+				console.log("团队成员添加成功")
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `添加团队成员失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "removeTeamMember": {
+			try {
+				const teamManagementService = new TeamManagementService(provider.context)
+				const updatedTeam = await teamManagementService.removeMemberFromTeam(
+					message.teamSlug!,
+					message.modeSlug!,
+				)
+
+				await provider.postMessageToWebview({
+					type: "teamUpdated",
+					teamData: updatedTeam,
+				})
+
+				// 更新状态到webview
+				await provider.postStateToWebview()
+				console.log("团队成员移除成功")
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `移除团队成员失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "getAvailableModes": {
+			try {
+				const teamManagementService = new TeamManagementService(provider.context)
+				const availableModes = await teamManagementService.getAvailableModes()
+
+				await provider.postMessageToWebview({
+					type: "availableModesResponse",
+					text: JSON.stringify(availableModes),
+				})
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `获取可用模式失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "exportAllTeams": {
+			try {
+				const teamManagementService = new TeamManagementService(provider.context)
+				const allTeams = await teamManagementService.getAllTeams()
+				const customTeams = allTeams.filter((team) => !team.isBuiltIn)
+
+				if (customTeams.length === 0) {
+					vscode.window.showInformationMessage("没有自定义团队可以导出")
+					break
+				}
+
+				const exportData = {
+					version: "1.0.0",
+					exportDate: new Date().toISOString(),
+					teams: customTeams,
+				}
+
+				// 显示保存对话框
+				const saveUri = await vscode.window.showSaveDialog({
+					defaultUri: vscode.Uri.file(`all-teams-config.json`),
+					filters: {
+						"JSON Files": ["json"],
+					},
+				})
+
+				if (saveUri) {
+					await fs.writeFile(saveUri.fsPath, JSON.stringify(exportData, null, 2), "utf8")
+					vscode.window.showInformationMessage(`所有团队配置已导出到: ${saveUri.fsPath}`)
+				}
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `导出所有团队失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "resetTeamsToDefaults": {
+			try {
+				// 显示确认对话框
+				const confirm = await vscode.window.showWarningMessage(
+					message.text || "确定要重置为默认团队配置吗？这将删除所有自定义团队。",
+					{ modal: true },
+					"确定重置",
+				)
+
+				if (confirm === "确定重置") {
+					// 清空自定义团队
+					await provider.context.globalState.update("customTeams", [])
+
+					// 更新状态到webview
+					await provider.postStateToWebview()
+					vscode.window.showInformationMessage("已重置为默认团队配置")
+				}
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `重置团队配置失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "updateTeamMember": {
+			try {
+				const teamManagementService = new TeamManagementService(provider.context)
+				const updatedTeam = await teamManagementService.updateTeamMember(
+					message.teamSlug!,
+					message.modeSlug!,
+					message.memberConfig,
+				)
+
+				await provider.postMessageToWebview({
+					type: "teamUpdated",
+					teamData: updatedTeam,
+				})
+
+				// 更新状态到webview
+				await provider.postStateToWebview()
+				console.log("团队成员更新成功")
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `更新团队成员失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "createMode": {
+			try {
+				// 使用ClineProvider的customModesManager来创建模式
+				const modeData = message.modeData
+				if (!modeData || !modeData.slug || !modeData.name) {
+					throw new Error("模式数据无效：缺少必需的slug或name字段")
+				}
+
+				// 检查slug是否已存在
+				const existingModes = await provider.customModesManager.getCustomModes()
+				if (existingModes.find((mode) => mode.slug === modeData.slug)) {
+					throw new Error(`模式标识 "${modeData.slug}" 已存在`)
+				}
+
+				// 创建新模式
+				const newMode = {
+					slug: modeData.slug,
+					name: modeData.name,
+					roleDefinition: modeData.roleDefinition || "",
+					groups: modeData.groups || ["read", "edit"],
+					source: "project" as const,
+					iconName: modeData.iconName || "codicon-person",
+					description: modeData.description,
+					whenToUse: modeData.whenToUse,
+					customInstructions: modeData.customInstructions,
+				}
+
+				// 保存模式 - 使用updateCustomMode方法来创建新模式
+				await provider.customModesManager.updateCustomMode(newMode.slug, newMode)
+
+				await provider.postMessageToWebview({
+					type: "modeCreated",
+					customMode: newMode,
+				})
+
+				// 更新状态到webview
+				await provider.postStateToWebview()
+				console.log("自定义模式创建成功:", newMode.name)
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `创建模式失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "editMode": {
+			try {
+				// 使用ClineProvider的customModesManager来更新模式
+				const modeSlug = message.modeSlug!
+				const modeData = message.modeData
+
+				// 获取现有模式
+				const existingModes = await provider.customModesManager.getCustomModes()
+				const existingMode = existingModes.find((mode) => mode.slug === modeSlug)
+
+				if (!existingMode) {
+					throw new Error(`模式 "${modeSlug}" 不存在或不是自定义模式`)
+				}
+
+				// 更新模式
+				const updatedMode = {
+					...existingMode,
+					...modeData,
+				}
+
+				// 保存更新后的模式
+				await provider.customModesManager.updateCustomMode(updatedMode.slug, updatedMode)
+
+				await provider.postMessageToWebview({
+					type: "modeUpdated",
+					customMode: updatedMode,
+				})
+
+				// 更新状态到webview
+				await provider.postStateToWebview()
+				console.log("自定义模式更新成功:", updatedMode.name)
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `更新模式失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
+			break
+		}
+
+		case "deleteMode": {
+			try {
+				const modeSlug = message.modeSlug!
+
+				// 显示确认对话框
+				const confirm = await vscode.window.showWarningMessage(
+					message.text || `确定要删除模式吗？此操作不可撤销。`,
+					{ modal: true },
+					"确定删除",
+				)
+
+				if (confirm === "确定删除") {
+					// 检查是否有团队在使用这个模式
+					const teamManagementService = new TeamManagementService(provider.context)
+					const allTeams = await teamManagementService.getAllTeams()
+					const teamsUsingMode = allTeams.filter(
+						(team) =>
+							team.baseModes.includes(modeSlug) ||
+							team.specialtyModes.includes(modeSlug) ||
+							team.members?.some((member) => member.modeSlug === modeSlug),
+					)
+
+					if (teamsUsingMode.length > 0) {
+						const teamNames = teamsUsingMode.map((team) => team.name).join(", ")
+						const errorMessage = `无法删除模式 "${modeSlug}"，以下团队正在使用: ${teamNames}`
+
+						// 显示错误消息给用户
+						await vscode.window.showErrorMessage(errorMessage)
+
+						// 同时发送到webview
+						await provider.postMessageToWebview({
+							type: "teamManagementError",
+							text: errorMessage,
+						})
+						return
+					}
+
+					// 使用customModesManager删除模式
+					await provider.customModesManager.deleteCustomMode(modeSlug)
+
+					await provider.postMessageToWebview({
+						type: "modeDeleted",
+						slug: modeSlug,
+					})
+
+					// 更新状态到webview
+					await provider.postStateToWebview()
+					console.log("自定义模式删除成功:", modeSlug)
+				} else {
+					console.log("用户取消删除模式")
+				}
+			} catch (error) {
+				await provider.postMessageToWebview({
+					type: "teamManagementError",
+					text: `删除模式失败: ${error instanceof Error ? error.message : "未知错误"}`,
+				})
+			}
 			break
 		}
 	}

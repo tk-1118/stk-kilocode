@@ -5,7 +5,8 @@ import { TeamWorkStatus } from "./TeamWorkStatus"
 import { Button } from "@/components/ui"
 import { useAppTranslation } from "@/i18n/TranslationContext"
 import { useExtensionState } from "@/context/ExtensionStateContext"
-import { getAllTeams, getModeDisplayName } from "@/utils/teams"
+import { getModeDisplayName } from "@/utils/teams"
+import { DEFAULT_TEAMS } from "@roo-code/types"
 
 interface TeamsViewProps {
 	onDone: () => void
@@ -21,10 +22,11 @@ export const TeamsView: React.FC<TeamsViewProps> = ({ onDone }) => {
 
 	// 获取所有团队
 	const allTeams = useMemo(() => {
-		// 这里应该调用 getAllTeams，但由于是在webview中，我们需要通过消息传递
-		// 暂时使用默认团队
-		// 使用团队工具函数获取所有团队
-		return getAllTeams(customTeams)
+		// 直接合并内置团队和自定义团队，避免数据污染
+		const safeCustomTeams = customTeams || []
+		const customTeamSlugs = new Set(safeCustomTeams.map((team) => team.slug))
+		const uniqueBuiltinTeams = DEFAULT_TEAMS.filter((team) => !customTeamSlugs.has(team.slug))
+		return [...uniqueBuiltinTeams, ...safeCustomTeams]
 	}, [customTeams])
 
 	// 获取当前选中的团队配置
@@ -160,7 +162,7 @@ export const TeamsView: React.FC<TeamsViewProps> = ({ onDone }) => {
 						<div className="space-y-3">
 							<h4 className="font-medium text-[var(--vscode-foreground)]">基础能力</h4>
 							<div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-								{selectedTeam.baseModes.map((modeSlug) => (
+								{selectedTeam.baseModes.map((modeSlug: string) => (
 									<button
 										key={modeSlug}
 										className="p-3 text-sm rounded border border-[var(--vscode-widget-border)] bg-[var(--vscode-editor-background)] hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
@@ -176,7 +178,7 @@ export const TeamsView: React.FC<TeamsViewProps> = ({ onDone }) => {
 							<div className="space-y-3">
 								<h4 className="font-medium text-[var(--vscode-foreground)]">专业技能</h4>
 								<div className="grid grid-cols-1 gap-2">
-									{selectedTeam.specialtyModes.map((modeSlug) => (
+									{selectedTeam.specialtyModes.map((modeSlug: string) => (
 										<button
 											key={modeSlug}
 											className="p-3 text-sm text-left rounded border border-[var(--vscode-widget-border)] bg-[var(--vscode-editor-background)] hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"

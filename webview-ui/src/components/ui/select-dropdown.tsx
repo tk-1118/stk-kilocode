@@ -180,15 +180,9 @@ export const SelectDropdown = React.memo(
 
 					if (!option) return
 
-					if (option.type === DropdownOptionType.ACTION) {
-						window.postMessage({ type: "action", action: option.value })
-						setSearchValue("")
-						setOpen(false)
-						return
-					}
-
 					if (option.disabled) return
 
+					// Always call onChange for all option types, including ACTION
 					onChange(option.value)
 					setSearchValue("")
 					setOpen(false)

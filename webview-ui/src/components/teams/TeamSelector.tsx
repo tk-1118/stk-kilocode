@@ -3,7 +3,8 @@ import { TeamConfig } from "@roo-code/types"
 import { SelectDropdown, DropdownOptionType } from "@/components/ui"
 import { useAppTranslation } from "@/i18n/TranslationContext"
 import { cn } from "@/lib/utils"
-import { getAllTeams, defaultTeamSlug } from "@roo/teams"
+import { defaultTeamSlug } from "@roo/teams"
+import { DEFAULT_TEAMS } from "@roo-code/types"
 
 export type Team = string
 
@@ -29,7 +30,13 @@ export const TeamSelector = ({
 	initiallyOpen,
 }: TeamSelectorProps) => {
 	const { t } = useAppTranslation()
-	const allTeams = React.useMemo(() => getAllTeams(customTeams), [customTeams])
+	const allTeams = React.useMemo(() => {
+		// 直接合并内置团队和自定义团队，避免数据污染
+		const safeCustomTeams = customTeams || []
+		const customTeamSlugs = new Set(safeCustomTeams.map((team) => team.slug))
+		const uniqueBuiltinTeams = DEFAULT_TEAMS.filter((team) => !customTeamSlugs.has(team.slug))
+		return [...uniqueBuiltinTeams, ...safeCustomTeams]
+	}, [customTeams])
 
 	const handleChange = React.useCallback(
 		(selectedValue: string) => {

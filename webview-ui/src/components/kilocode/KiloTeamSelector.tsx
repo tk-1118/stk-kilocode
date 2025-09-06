@@ -3,7 +3,9 @@ import { TeamConfig } from "@roo-code/types"
 import { SelectDropdown, DropdownOptionType } from "@/components/ui"
 import { useAppTranslation } from "@/i18n/TranslationContext"
 import { cn } from "@/lib/utils"
-import { getAllTeams, defaultTeamSlug } from "@roo/teams"
+import { defaultTeamSlug } from "@roo/teams"
+import { DEFAULT_TEAMS } from "@roo-code/types"
+import { vscode } from "@/utils/vscode"
 
 export type Team = string
 
@@ -29,20 +31,31 @@ export const KiloTeamSelector = ({
 	initiallyOpen,
 }: KiloTeamSelectorProps) => {
 	const { t } = useAppTranslation()
-	const allTeams = React.useMemo(() => getAllTeams(customTeams), [customTeams])
+	const allTeams = React.useMemo(() => {
+		// 直接合并内置团队和自定义团队，避免数据污染
+		const safeCustomTeams = customTeams || []
+		const customTeamSlugs = new Set(safeCustomTeams.map((team) => team.slug))
+		const uniqueBuiltinTeams = DEFAULT_TEAMS.filter((team) => !customTeamSlugs.has(team.slug))
+		return [...uniqueBuiltinTeams, ...safeCustomTeams]
+	}, [customTeams])
 
 	const handleChange = React.useCallback(
 		(selectedValue: string) => {
 			if (selectedValue === "teamsButtonClicked") {
-				// TODO: 添加 openTeamsView 消息类型到 WebviewMessage
-				console.log("Open teams view requested")
+				// 打开团队管理视图
+				vscode.postMessage({
+					type: "openTeamsView",
+				})
 				return
 			}
 
 			const newTeam = selectedValue as Team
 			onChange(newTeam)
-			// TODO: 添加 team 消息类型到 WebviewMessage
-			console.log("Team changed to:", selectedValue)
+			// 发送团队切换消息
+			vscode.postMessage({
+				type: "setCurrentTeam",
+				currentTeam: selectedValue,
+			})
 		},
 		[onChange],
 	)

@@ -138,6 +138,23 @@ export interface ExtensionMessage {
 		| "usageDataResponse" // kilocode_change
 		| "commands"
 		| "insertTextIntoTextarea"
+		// 团队管理相关响应
+		| "openTeamsView"
+		| "teamCreated"
+		| "teamUpdated"
+		| "teamDeleted"
+		| "teamDuplicated"
+		| "teamExported"
+		| "teamImported"
+		| "teamMemberAdded"
+		| "teamMemberRemoved"
+		| "teamMemberUpdated"
+		| "availableModesResponse"
+		| "currentTeamChanged"
+		| "teamManagementError"
+		| "modeCreated"
+		| "modeUpdated"
+		| "modeDeleted"
 	text?: string
 	payload?: ProfileDataResponsePayload | BalanceDataResponsePayload // kilocode_change: Add payload for profile and balance data
 	action?:
@@ -239,6 +256,16 @@ export interface ExtensionMessage {
 	}>
 	// kilocode_change end
 	commands?: Command[]
+	// 团队管理相关字段
+	teamData?: any
+	teamSlug?: string
+	sourceSlug?: string
+	newSlug?: string
+	newName?: string
+	updates?: any
+	memberConfig?: any
+	availableModes?: any[]
+	currentTeam?: string
 }
 
 export type ExtensionState = Pick<
@@ -328,6 +355,9 @@ export type ExtensionState = Pick<
 	| "includeDiagnosticMessages"
 	| "maxDiagnosticMessages"
 	| "remoteControlEnabled"
+	| "customTeams" // 自定义团队
+	| "currentTeam" // 当前团队
+	| "teamManagementEnabled" // 团队管理功能开关
 > & {
 	version: string
 	clineMessages: ClineMessage[]

@@ -1840,7 +1840,12 @@ export class ClineProvider
 			maxDiagnosticMessages,
 			includeTaskHistoryInEnhance,
 			remoteControlEnabled,
+			customTeams,
+			currentTeam,
+			teamManagementEnabled,
 		} = await this.getState()
+
+		console.log("ClineProvider.getStateToPostToWebview - customTeams:", customTeams)
 
 		const telemetryKey = process.env.KILOCODE_POSTHOG_API_KEY
 		const machineId = vscode.env.machineId
@@ -1982,7 +1987,12 @@ export class ClineProvider
 			maxDiagnosticMessages: maxDiagnosticMessages ?? 50,
 			includeTaskHistoryInEnhance: includeTaskHistoryInEnhance ?? true,
 			remoteControlEnabled: remoteControlEnabled ?? false,
+			customTeams: customTeams ?? [],
+			currentTeam: currentTeam ?? "backend-team",
+			teamManagementEnabled: teamManagementEnabled ?? true,
 		}
+
+		console.log("ClineProvider.getStateToPostToWebview - returning state with customTeams:", customTeams ?? [])
 	}
 
 	/**
@@ -1994,6 +2004,19 @@ export class ClineProvider
 	async getState() {
 		const stateValues = this.contextProxy.getValues()
 		const customModes = await this.customModesManager.getCustomModes()
+		console.log(`[ClineProvider] getState - 获取customModes，数量: ${customModes.length}`)
+		console.log(
+			`[ClineProvider] getState - customModes列表:`,
+			customModes.map((m: any) => m.slug),
+		)
+
+		// 直接从globalState获取customTeams数据
+		const customTeams = this.context.globalState.get("customTeams", [])
+		console.log(`[ClineProvider] getState - 从globalState获取customTeams，数量: ${customTeams.length}`)
+		console.log(
+			`[ClineProvider] getState - customTeams列表:`,
+			customTeams.map((t: any) => t.slug),
+		)
 
 		// Determine apiProvider with the same logic as before.
 		const apiProvider: ProviderName = stateValues.apiProvider ? stateValues.apiProvider : "kilocode" // kilocode_change: fall back to kilocode
@@ -2180,6 +2203,10 @@ export class ClineProvider
 			includeTaskHistoryInEnhance: stateValues.includeTaskHistoryInEnhance ?? true,
 			// Add remoteControlEnabled setting
 			remoteControlEnabled: stateValues.remoteControlEnabled ?? false,
+			// Add team management settings
+			customTeams: customTeams,
+			currentTeam: stateValues.currentTeam ?? "backend-team",
+			teamManagementEnabled: stateValues.teamManagementEnabled ?? true,
 		}
 	}
 

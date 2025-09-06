@@ -189,6 +189,13 @@ const App = () => {
 			if (message.type === "acceptInput") {
 				chatViewRef.current?.acceptInput()
 			}
+
+			// 处理团队管理相关消息
+			if (message.type === "openTeamsView") {
+				// 切换到设置页面并显示团队管理
+				switchTab("settings")
+				setCurrentSection("teams")
+			}
 		},
 		// kilocode_change: add tab
 		[tab, switchTab],
