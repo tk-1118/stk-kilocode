@@ -64,6 +64,7 @@ import QueuedMessages from "./QueuedMessages"
 import { getLatestTodo } from "@roo/todo"
 import { QueuedMessage } from "@roo-code/types"
 import { buildDocLink } from "@/utils/docLinks"
+import { TeamStatusBar } from "../teams/TeamStatusBar"
 
 export interface ChatViewProps {
 	isHidden: boolean
@@ -127,6 +128,9 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		soundEnabled,
 		soundVolume,
 		// cloudIsAuthenticated, // kilocode_change
+		// Team-related state
+		customTeams,
+		currentTeam,
 	} = useExtensionState()
 
 	const messagesRef = useRef(messages)
@@ -1667,6 +1671,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 					highlighted={highlightedMessageIndex === index} // kilocode_change: add highlight prop
 					onFollowUpUnmount={handleFollowUpUnmount}
 					isFollowUpAnswered={messageOrGroup.ts === currentFollowUpTs}
+					currentMode={mode} // kilocode_change: pass current mode for team activity display
 					editable={
 						messageOrGroup.type === "ask" &&
 						messageOrGroup.ask === "tool" &&
@@ -1700,6 +1705,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 			highlightedMessageIndex, // kilocode_change: add highlightedMessageIndex
 			handleFollowUpUnmount,
 			currentFollowUpTs,
+			mode, // kilocode_change: add mode for team activity display
 			alwaysAllowUpdateTodoList,
 			enableButtons,
 			primaryButtonText,
@@ -1975,7 +1981,15 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						isTaskActive={sendingDisabled}
 						todos={latestTodos}
 					/>
-					{/* kilocode_change start */}
+					{/* kilocode_change end */}
+
+					{/* 团队状态栏 */}
+					<TeamStatusBar
+						currentTeam={currentTeam}
+						currentMode={mode}
+						customTeams={customTeams}
+						isWorking={sendingDisabled}
+					/>
 
 					{hasSystemPromptOverride && (
 						<div className="px-3">

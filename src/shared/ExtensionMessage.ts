@@ -9,6 +9,8 @@ import type {
 	ClineMessage,
 	MarketplaceItem,
 	TodoItem,
+	TeamConfig,
+	TeamWorkStatus,
 } from "@roo-code/types"
 import type { CloudUserInfo, OrganizationAllowList, ShareVisibility } from "@roo-code/cloud"
 
@@ -359,6 +361,11 @@ export type ExtensionState = Pick<
 	mode: Mode
 	customModes: ModeConfig[]
 	toolRequirements?: Record<string, boolean> // Map of tool names to their requirements (e.g. {"apply_diff": true} if diffEnabled)
+
+	// Team-related state
+	customTeams?: TeamConfig[]
+	currentTeam?: string
+	teamWorkStatus?: TeamWorkStatus
 
 	cwd?: string // Current working directory
 	telemetrySetting: TelemetrySetting

@@ -23,7 +23,7 @@ import { DropdownOptionType, Button, StandardTooltip } from "@/components/ui" //
 
 import Thumbnails from "../common/Thumbnails"
 import ModeSelector from "./ModeSelector"
-import KiloModeSelector from "../kilocode/KiloModeSelector"
+import { KiloTeamSelector } from "../kilocode/KiloTeamSelector"
 import { KiloProfileSelector } from "../kilocode/chat/KiloProfileSelector" // kilocode_change
 import { MAX_IMAGES_PER_MESSAGE } from "./ChatView"
 import ContextMenu from "./ContextMenu"
@@ -109,6 +109,10 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 			globalWorkflows, // kilocode_change
 			taskHistory,
 			clineMessages,
+			// Team-related state
+			customTeams,
+			currentTeam,
+			setCurrentTeam,
 		} = useExtensionState()
 
 		// Find the ID and display text for the currently selected API configuration
@@ -1181,14 +1185,13 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				className={cn("flex", "justify-between", "items-center", "mt-auto")}>
 				<div className={cn("flex", "items-center", "gap-1", "min-w-0")}>
 					<div className="shrink-0">
-						{/* kilocode_change start: KiloModeSelector instead of ModeSelector */}
-						<KiloModeSelector
-							value={mode}
-							onChange={setMode}
-							modeShortcutText={modeShortcutText}
-							customModes={customModes}
+						{/* 团队选择器 - 紧凑版本 */}
+						<KiloTeamSelector
+							value={currentTeam || "backend-team"}
+							onChange={setCurrentTeam}
+							teamShortcutText="选择团队"
+							customTeams={customTeams}
 						/>
-						{/* kilocode_change end */}
 					</div>
 
 					<KiloProfileSelector

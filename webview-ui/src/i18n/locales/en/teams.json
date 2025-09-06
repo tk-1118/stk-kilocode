@@ -1,0 +1,56 @@
+{
+	"title": "Development Teams",
+	"selectTeam": "Select development team",
+	"manageTeams": "Manage teams",
+	"currentTeam": "Current Team",
+	"teamMembers": "Team Members",
+	"activeMembers": "Active Members",
+	"workflow": "Workflow",
+	"teamActivity": "Team Activity",
+	"teamStats": "Team Statistics",
+	"autoDetect": "Smart Detection",
+	"autoDetecting": "Detecting...",
+	"noActivity": "No team activity yet",
+	"workingOn": "Working on",
+	"waitingForTask": "Waiting for task assignment",
+	"teamSettings": "Team Settings",
+	"done": "Done",
+	"baseModes": "Base Capabilities",
+	"specialtyModes": "Specialty Skills",
+	"projectDetection": {
+		"title": "Project Detection",
+		"description": "Automatically select the best team based on project characteristics",
+		"detecting": "Analyzing project structure...",
+		"confidence": "Confidence",
+		"reasons": "Detection Reasons"
+	},
+	"collaboration": {
+		"title": "Team Collaboration",
+		"workflow": "Workflow Stages",
+		"currentStage": "Current Stage",
+		"nextStage": "Next Stage",
+		"memberRoles": "Member Roles",
+		"taskAssignment": "Task Assignment"
+	},
+	"teams": {
+		"frontend": {
+			"name": "Frontend Development Team",
+			"description": "Focused on user interface and user experience development"
+		},
+		"backend": {
+			"name": "Backend Development Team",
+			"description": "Focused on server-side architecture and business logic development"
+		},
+		"fullstack": {
+			"name": "Full-Stack Development Team",
+			"description": "Comprehensive team with both frontend and backend capabilities"
+		}
+	},
+	"members": {
+		"architect": "Architect",
+		"developer": "Developer",
+		"specialist": "Specialist",
+		"expert": "Expert",
+		"engineer": "Engineer"
+	}
+}

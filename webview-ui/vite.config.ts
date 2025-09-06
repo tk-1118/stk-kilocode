@@ -99,6 +99,7 @@ export default defineConfig(({ mode }) => {
 				"@": resolve(__dirname, "./src"),
 				"@src": resolve(__dirname, "./src"),
 				"@roo": resolve(__dirname, "../src/shared"),
+				"@roo/teams": resolve(__dirname, "./src/utils/teams-alias.ts"), // 添加团队别名
 			},
 		},
 		build: {

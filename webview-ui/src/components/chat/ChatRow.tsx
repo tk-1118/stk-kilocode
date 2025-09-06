@@ -55,6 +55,7 @@ import { cn } from "@/lib/utils"
 import { KiloChatRowUserFeedback } from "../kilocode/chat/KiloChatRowUserFeedback" // kilocode_change
 import { StandardTooltip } from "../ui" // kilocode_change
 import { FastApplyChatDisplay } from "./kilocode/FastApplyChatDisplay" // kilocode_change
+import { getModeActivityDescription } from "@/utils/teams" // kilocode_change
 
 interface ChatRowProps {
 	message: ClineMessage
@@ -71,6 +72,7 @@ interface ChatRowProps {
 	onFollowUpUnmount?: () => void
 	isFollowUpAnswered?: boolean
 	editable?: boolean
+	currentMode?: string // kilocode_change: Add current mode for team activity display
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -131,6 +133,7 @@ export const ChatRowContent = ({
 	onChatReset, // kilocode_change
 	isFollowUpAnswered,
 	editable,
+	currentMode, // kilocode_change
 }: ChatRowContentProps) => {
 	const { t } = useTranslation()
 	const { mcpServers, alwaysAllowMcp, currentCheckpoint } = useExtensionState()
@@ -324,11 +327,15 @@ export const ChatRowContent = ({
 							</span>
 						)
 					) : cost !== null && cost !== undefined ? (
-						<span style={{ color: normalColor, fontWeight: "bold" }}>{t("chat:apiRequest.title")}</span>
+						<span style={{ color: normalColor, fontWeight: "bold" }}>
+							{currentMode ? getModeActivityDescription(currentMode) : t("chat:apiRequest.title")}
+						</span>
 					) : apiRequestFailedMessage ? (
 						<span style={{ color: errorColor, fontWeight: "bold" }}>{t("chat:apiRequest.failed")}</span>
 					) : (
-						<span style={{ color: normalColor, fontWeight: "bold" }}>{t("chat:apiRequest.streaming")}</span>
+						<span style={{ color: normalColor, fontWeight: "bold" }}>
+							{currentMode ? getModeActivityDescription(currentMode) : t("chat:apiRequest.streaming")}
+						</span>
 					),
 				]
 			case "followup":
@@ -342,7 +349,17 @@ export const ChatRowContent = ({
 			default:
 				return [null, null]
 		}
-	}, [type, isCommandExecuting, message, isMcpServerResponding, apiReqCancelReason, cost, apiRequestFailedMessage, t])
+	}, [
+		type,
+		isCommandExecuting,
+		message,
+		isMcpServerResponding,
+		apiReqCancelReason,
+		cost,
+		apiRequestFailedMessage,
+		t,
+		currentMode,
+	])
 
 	const headerStyle: React.CSSProperties = {
 		display: "flex",

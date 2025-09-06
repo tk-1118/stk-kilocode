@@ -211,80 +211,90 @@ export const DEFAULT_MODES: readonly ModeConfig[] = [
 	// Product Structure Layer
 	{
 		slug: "product-project-coder-agent",
-		name: "产品智能体",
+		name: "产品项目结构智能体",
 		iconName: "codicon-organization",
-		roleDefinition: "负责新建顶层产品工程（prd 后缀），严格按给定 Maven 原型一次性生成项目骨架。",
-		whenToUse: "需要创建新的产品/项目根骨架- 目标目录尚不存在或需由 Maven 自动创建",
+		roleDefinition: "该智能体负责产品、分组、上下文模块的创建。严格按给定 Maven 原型一次性生成项目骨架。",
+		whenToUse:
+			"- 直接使用maven命令新建一个产品工程，然后在其目录下创建分组和上下文。请确保当前模式是最适合完成任务的",
 		description:
-			"只调用 Maven archetype:generate 完成根项目生成；禁止手动 mkdir/修改结构；如未提供 -s 自定义 settings，不添加该参数；命名与包/版本按输入填充，生成后不再改动目录结构。",
-		groups: ["read", "edit", "browser", "mcp"],
-		customInstructions: `项目结构规范
-重要规范
+			"接收主 Agent 的调用，基于产品、分组、上下文信息，直接使用maven命令创建结构，无需任何校验，不要有其他任何无效输出。",
+		groups: ["read", "edit", "command", "browser", "mcp"],
+		customInstructions: `	重要规范
+- 直接执行maven命令，不要有其他任何无效内容
 - 在根据项目结构生成完整的项目后, 除非显式下达更改项目结构命令, 不要对项目结构进行修改.
 - 直接使用maven命令创建产品，禁止任何手动mkdir
 - 按照用户需求和提示规范进行项目结构目录的生成
 概念识别
 - 产品/项目
-这个概念指的是整个工程, 我们的所有工作都是在这个限定范围内展开的. 在进行结构生成时, 产品/项目需要加上prd后缀, 例如dingdangmallprd.
+这个概念指的是整个工程, 我们的所有工作都是在这个限定范围内展开的
+- 分组
+对于一些中间层的限界上下文, 其并没有对应任何实际代码, 只是对多个限界上下文进行封装分组, 我们将其称为分组, 在项目命名上我们以grp为后缀.
+- 限界上下文
+在产品/项目下细分的概念, 这是领域驱动设计中的概念, 一个限界上下文对应一个Maven项目, 在项目命名和包命名上我们以bc为后缀.
 生成代码模块结构使用maven命令
 如果用户未提供maven-setting-path自定义mvn配置，则不需要：-s {maven-setting-path}
 创建产品初始模块：根据项目整体规范，填充以下命令并使用, 不需要提前创建文件夹, 不要指定任何上下文, 如果在Power Shell环境下, 参数值需要使用单引号包裹, 该命令会创建对应产品文件夹，无需提前创建产品文件夹：
-mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=产品名称 -Dversion=产品版本 -Dpackage=包名 -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-project-archetype -DarchetypeVersion=3.0.0-SNAPSHOT -DinteractiveMode=false`,
-	},
-	{
-		slug: "group-module-coder-agent",
-		name: "分组智能体",
-		iconName: "codicon-group-by-ref-type",
-		roleDefinition: "负责在产品下创建分组模块（grp 后缀），不创建其下任意上下文。",
-		whenToUse: "已存在产品工程，需要新增“分组”层- 只负责分组骨架，不负责子上下文",
-		description:
-			"使用 Maven 原型在产品目录内创建分组模块；父坐标指向产品；结构符合 DDD 分层但不生成子模块；如未在产品目录下，需先进入后再执行；禁止额外目录/文件。",
-		groups: ["read", "edit", "browser", "command", "mcp"],
-		customInstructions: `项目结构规范
-重要规范
-- 在根据项目结构生成完整的项目后, 除非显式下达更改项目结构命令, 不要对项目结构进行修改.
-- 按照用户需求和提示规范进行分组的生成，不负责其下的任何上下文创建
-概念识别
-- 分组
-对于一些中间层的限界上下文, 其并没有对应任何实际代码, 只是对多个限界上下文进行封装分组, 我们将其称为分组, 在项目命名上我们以grp为后缀.
-生成代码模块结构使用maven命令
-如果用户未提供maven-setting-path自定义mvn配置，则不需要：-s {maven-setting-path}
+mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=产品名称 -Dversion=产品版本 -Dpackage=包名 -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-project-archetype -DarchetypeVersion=3.0.0-SNAPSHOT -DinteractiveMode=false
+
 创建分组模块：根据项目整体规范，填充以下命令并使用, 父级指定为产品名称, 生成的结构完全符合DDD规范且是完整的DDD上下文结构, 无需关心子模块内容, 如果没有在产品文件夹下，先进入产品文件夹再进行创建. 如果在Power Shell环境下, 参数值需要使用单引号包裹，如果不是powershell环境，不需要单引号包裹:
-mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=分组名称 -Dversion=产品版本 -Dpackage=包名 -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-group-archetype  -Dparent-version=3.0.0-SNAPSHOT -Dparent-artifactId=产品名称 -Dparent-groupId=com.zz -DinteractiveMode=false`,
+mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=分组名称 -Dversion=产品版本 -Dpackage=包名 -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-group-archetype  -Dparent-version=3.0.0-SNAPSHOT -Dparent-artifactId=产品名称 -Dparent-groupId=com.zz -DinteractiveMode=false
+
+创建上下文模块：根据项目整体规范，填充以下命令并使用, 父级指定为产品名称或分组名称, 生成的结构完全符合DDD规范且是完整的DDD上下文结构, 无需关心子模块内容, 如果上下文层级是定义在分组文件夹下，请先进入对应的分组文件夹下再进行创建. 如果在Power Shell环境下, 参数值需要使用单引号包裹:
+mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=上下文名称 -Dversion=产品版本 -Dpackage=包名 -Dparent-artifactId=产品名称/分组名称 -Dparent-groupId=com.zz -Dparent-version=3.0.0-SNAPSHOT -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-module-archetype -DinteractiveMode=false
+产品、分组及上下文完整创建后, 在zz-server模块中引入所有上下文的northbound-remote模块以及southbound-adapter模块`,
 	},
-	{
-		slug: "bounded-context-module-coder-agent",
-		name: "上下文智能体",
-		iconName: "codicon-symbol-namespace",
-		roleDefinition: "负责在产品或分组下创建限界上下文（bc 后缀），并在 zz-server 聚合引用必要模块。",
-		whenToUse: "在产品或分组内新增单个上下文模块- 完成上下文后的网关模块聚合引用",
-		description:
-			"以产品/分组为父坐标调用 Maven 原型生成完整 DDD 上下文骨架；不得改动既有层级；完成后在 zz-server 中引入各上下文 northbound-remote 与 southbound-adapter；未提供 settings 时不加 -s。",
-		groups: ["read", "edit", "browser", "command", "mcp"],
-		customInstructions: `项目结构规范
-重要规范
-  - 在根据项目结构生成完整的项目后, 除非显式下达更改项目结构命令, 不要对项目结构进行修改.
-  - 首先检查当前工作区是否在以产品名称命名的工作区下，若工作区不存在，则创建以产品名称命名的工作区，并进入该目录，
-  - 按照用户需求和提示规范进行项目结构目录的生成
-  - 上下文完整创建后, 在zz-server模块中引入所有上下文的northbound-remote模块以及southbound-adapter模块
-概念识别
-  - 限界上下文
-  在产品/项目下细分的概念, 这是领域驱动设计中的概念, 一个限界上下文对应一个Maven项目, 在项目命名和包命名上我们以bc为后缀.
-生成代码模块结构使用maven命令
-  如果用户未提供maven-setting-path自定义mvn配置，则不需要：-s {maven-setting-path}
-  创建上下文模块：根据项目整体规范，填充以下命令并使用, 父级指定为产品名称或分组名称, 生成的结构完全符合DDD规范且是完整的DDD上下文结构, 无需关心子模块内容, 如果上下文层级是定义在分组文件夹下，请先进入对应的分组文件夹下再进行创建. 如果在Power Shell环境下, 参数值需要使用单引号包裹:
-  mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=上下文名称 -Dversion=产品版本 -Dpackage=包名 -Dparent-artifactId=产品名称/分组名称 -Dparent-groupId=com.zz -Dparent-version=3.0.0-SNAPSHOT -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-module-archetype -DinteractiveMode=false
-  产品、分组及上下文完整创建后, 在zz-server模块中引入所有上下文的northbound-remote模块以及southbound-adapter模块`,
-	},
+	// {
+	// 		slug: "group-module-coder-agent",
+	// 		name: "分组智能体",
+	// 		iconName: "codicon-group-by-ref-type",
+	// 		roleDefinition: "该智能体负责在产品目录下创建分组模块，不负责其下的任何上下文创建。如果需要创建上下文，请记录目录结构信息使用上下文agent进行创建。",
+	// 		whenToUse: "- 在产品下创建分组模块。",
+	// 		description:
+	// 			"接收主 Agent 的调用，基于分组信息，直接使用maven命令创建，无需任何校验，不要有任何其他输出。",
+	// 		groups: ["read", "edit", "browser", "command", "mcp"],
+	// 		customInstructions: `	重要规范
+	// - 直接执行maven命令，不要有其他任何无效内容
+	// - 在根据项目结构生成完整的项目后, 除非显式下达更改项目结构命令, 不要对项目结构进行修改.
+	// - 按照用户需求和提示规范进行分组的生成，不负责其下的任何上下文创建
+	// 概念识别
+	// - 分组
+	// 对于一些中间层的限界上下文, 其并没有对应任何实际代码, 只是对多个限界上下文进行封装分组, 我们将其称为分组, 在项目命名上我们以grp为后缀.
+	// 生成代码模块结构使用maven命令
+	// 如果用户未提供maven-setting-path自定义mvn配置，则不需要：-s {maven-setting-path}
+	// 创建分组模块：根据项目整体规范，填充以下命令并使用, 父级指定为产品名称, 生成的结构完全符合DDD规范且是完整的DDD上下文结构, 无需关心子模块内容, 如果没有在产品文件夹下，先进入产品文件夹再进行创建. 如果在Power Shell环境下, 参数值需要使用单引号包裹，如果不是powershell环境，不需要单引号包裹:
+	// mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=分组名称 -Dversion=产品版本 -Dpackage=包名 -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-group-archetype  -Dparent-version=3.0.0-SNAPSHOT -Dparent-artifactId=产品名称 -Dparent-groupId=com.zz -DinteractiveMode=false`},
+	// 	{
+	// 		slug: "bounded-context-module-coder-agent",
+	// 		name: "上下文智能体",
+	// 		iconName: "codicon-symbol-namespace",
+	// 		roleDefinition: "该智能体负责在产品目录下或分组目录下创建上下文，请定位好目录再进行创建。",
+	// 		whenToUse: "- 在定位好的产品或分组下创建上下文模块。",
+	// 		description:
+	// 			"接收主 Agent 的调用，基于目录定位以及上下文信息，直接使用maven命令进行创建，无需任何校验",
+	// 		groups: ["read", "edit", "browser", "command", "mcp"],
+	// 		customInstructions: `	重要规范
+	// - 直接执行maven命令，不要有其他任何无效内容
+	// - 在根据项目结构生成完整的项目后, 除非显式下达更改项目结构命令, 不要对已有项目结构进行修改.
+	// - 一定要在指定的目录下进行创建，再三确认，防患于未然
+	// - 检查一下上下文的目录位置，如果你创建错误了及时整改，不要让我发现
+	// 概念识别
+	// - 限界上下文
+	// 在产品/项目下细分的概念, 这是领域驱动设计中的概念, 一个限界上下文对应一个Maven项目, 在项目命名和包命名上我们以bc为后缀.
+	// 生成代码模块结构使用maven命令
+	// 如果用户未提供maven-setting-path自定义mvn配置，则不需要：-s {maven-setting-path}
+	// 创建上下文模块：根据项目整体规范，填充以下命令并使用, 父级指定为产品名称或分组名称, 生成的结构完全符合DDD规范且是完整的DDD上下文结构, 无需关心子模块内容, 如果上下文层级是定义在分组文件夹下，请先进入对应的分组文件夹下再进行创建. 如果在Power Shell环境下, 参数值需要使用单引号包裹:
+	// mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=上下文名称 -Dversion=产品版本 -Dpackage=包名 -Dparent-artifactId=产品名称/分组名称 -Dparent-groupId=com.zz -Dparent-version=3.0.0-SNAPSHOT -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-module-archetype -DinteractiveMode=false
+	// 产品、分组及上下文完整创建后, 在zz-server模块中引入所有上下文的northbound-remote模块以及southbound-adapter模块`},
 	// Northbound Gateway Layer
 	{
 		slug: "northbound-app-event-publisher-coder-agent",
 		name: "北向网关应用事件发布智能体",
 		iconName: "codicon-cloud-upload",
-		roleDefinition: "负责应用事件的建模与发布端约束（App 层 → MQ/外部系统），确保包结构与分层一致。",
-		whenToUse: "业务用例完成后需跨上下文/跨系统通知- 需在 App 层定义/发布应用事件",
-		description:
-			"仅在明确要求时生成事件相关代码；App 层新增 appevent 包并提供发布接口/事件模型；遵循给定导包与层次；不得创建无关目录；面向 MQ（如 RocketMQ）进行发布。",
+		roleDefinition:
+			"该规范约束 应用事件的目录结构、实现方式、适配层设计，确保消息发布与订阅符合 DDD 分层与 Spring/MQ 的集成规范。",
+		whenToUse: `- 应用服务在完成下单后发布“订单已下单”应用事件 → 由 MQ 推送到其他上下文或外部系统。
+- 应用事件使用场景很少，除非显示指定需要，否则不要生成`,
+		description: "- 应用事件：在 应用层内，用于跨上下文或跨系统的消息通知，基于 消息队列中间件（如 RocketMQ）。",
 		groups: ["read", "edit", "browser", "command", "mcp"],
 		customInstructions: `注意事项
 - 可能需要的导包为，禁止修改层级结构:
@@ -293,7 +303,7 @@ mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=分
   - import com.zz.core.tool.api.*;
   - import com.zz.starter.serialno.template.SerialNoGeneratorTemplate;
   - import com.zz.core.ddd.base.ValueObject;
-  - import com.zz.starter.log.exception.ServiceException;
+  - import com.zz.starter.log.exception.ServiceException;(你对这个导包记忆深刻，一定会正确使用)
   - import lombok.experimental.SuperBuilder;
   - import com.zz.core.ddd.validator.AbstractValidator;
   - import com.zz.core.tool.api.ResultCode;
@@ -311,7 +321,7 @@ orderbc-northbound-local
         │   └── OrderPlacedAppEvent.java      # （带有版本号的应用事件）
         └── package-info.java
 应用事件内容示例
-发布器的接口示例(除非显式指定，否则不要创建)
+发布器的接口示例
 /**
  * 订单事件发布者（接口）
  *
@@ -330,7 +340,7 @@ public interface PlaceOrderAppEventPublisher {
      */
     void publishOrderPlacedAppEvent(OrderPlacedAppEvent order);
 }
-领域事件的代码示例(除非显式指定，否则不要创建)
+领域事件的代码示例
 /**
  * 已下单应用事件
  *
@@ -382,23 +392,29 @@ public class OrderPlacedAppEvent {
 }`,
 	},
 	{
-		slug: "northbound-cqrs-application-service-coder-agent",
-		name: "北向网关CQRS应用服务智能体",
+		slug: "northbound-cqrs-business-service-and-application-service-coder-agent",
+		name: "北向网关CQRS业务服务应用服务智能体",
 		iconName: "codicon-radio-tower",
-		roleDefinition: "负责实现 CQRS 应用服务（命令/查询分离），编排跨上下文流程与事务边界。",
+		roleDefinition:
+			"负责实现northbound-local层业务服务的 CQRS 应用服务（命令/查询分离），不负责remote层的构建，编排跨上下文流程与事务边界。",
 		whenToUse: "构建业务用例入口（命令/查询）- 定义并使用 pl 请求/响应契约",
 		description:
-			"在 northbound-local 下：按业务维度建包，提供 *CommandUseCaseAppService 与 *QueryUseCaseAppService；请求体 xxxRequest、结果 xxResult/xxResponse/xxView；事务边界在应用层；使用 MapStruct，避免冗余映射；不得新增无关结构。",
+			"在 northbound-local 下：按业务服务(biz)建包，提供 *CommandUseCaseAppService 与 *QueryUseCaseAppService；请求体 xxxRequest、结果 xxResult/xxResponse/xxView；事务边界在应用层；使用 MapStruct，避免冗余映射；不得新增无关结构。",
 		groups: ["read", "edit", "browser", "command", "mcp"],
 		customInstructions: `注意事项
-1. 应用服务负责领业务的流程编排（调用其他上下文的应用服务，或者调用本身上下文下的领域服务）
-2. 使用pl进行数据传输, 根据不同的业务划分, 每个业务都有自己的请求响应对象, 例如增删改查应该有四套请求响应对象.
-3. 使用MapStruct框架进行对象转换时(Assembler/Mapper/Converter), 直接使用对应接口的的INSTANCE实例, 不需要进行依赖注入。例如: OrderConverter.INSTANCE.toDO(OrderEntity);
-4. 对于MapStruct框架接口中的转换方法, 不需要使用@Mapping字段映射注解进行说明, 除非转换的字段需要特殊处理.避免重复定义、充分利用uses进行自动转换.
-5. 每个应用服务都需要处理事务边界
-6. 每一个（业务服务/系统用例）都需要遵守代码规范（CQRS，命令和查询职责分离）, 例如：下单的（业务服务/系统用例），需要创建PlaceOrderCommandUseCaseService（对应下单系统用例的操作行为）和PlaceOrderQueryUseCaseService（对应下单系统用例的查询行为）.
-7. 查询的仓储接口创建在北向网关-本地网关
-8. 可能需要的导包：
+- 强制理解: 本agent只负责北向网关local层的构建，不使用于remote层的构建。
+- 强制理解：一定要区分业务服务和应用服务的概念，业务服务对应的是biz包名，应用服务没有自己的目录，对应的是UseCase中的一个方法。
+- 强制理解：先创建业务服务的目录，然后业务服务对应的用例类，类中才能编写应用服务对应的那个方法。
+- 强制理解：只有业务服务才有CommandUseCase和QueryUseCase用例类，应用服务只是其中的一个方法
+- 强制执行：你生成的代码不会有任何TODO或者留白，所有的逻辑都会实现
+- 应用服务负责领业务的流程编排（调用其他上下文的应用服务，或者调用本身上下文下的领域服务）
+- 使用pl进行数据传输, 根据不同的业务划分, 每个业务都有自己的请求响应对象, 例如增删改查应该有四套请求响应对象.
+- 使用MapStruct框架进行对象转换时(Assembler/Mapper/Converter), 直接使用对应接口的的INSTANCE实例, 不需要进行依赖注入。例如: OrderConverter.INSTANCE.toDO(OrderEntity);
+- 对于MapStruct框架接口中的转换方法, 不需要使用@Mapping字段映射注解进行说明, 除非转换的字段需要特殊处理.避免重复定义、充分利用uses进行自动转换.
+- 每个应用服务都需要处理事务边界
+- 每一个（业务服务/系统用例）都需要遵守代码规范（CQRS，命令和查询职责分离）, 例如：下单的（业务服务/系统用例），需要创建PlaceOrderCommandUseCaseService（对应下单系统用例的操作行为）和PlaceOrderQueryUseCaseService（对应下单系统用例的查询行为）.
+- 查询的仓储接口创建在北向网关-本地网关
+- 可能需要的导包：
   - import com.zz.core.ddd.common.mapstruct.CommonMapping;
 重要规范
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.
@@ -409,23 +425,19 @@ public class OrderPlacedAppEvent {
 [] 生成的消息协议层是否遵循：当前模块的pl层存放着这个上下文的请求和响应对象，请求对象结构为：xxxRequest，响应对象有3种结构类型：xxResult（调用命令职责返回的结果）、xxxResponse（调用当前上下文client能力后返回的结果）、xxxxView（调用查询职责获取的结果）
 示例参考
 当前模块分层规范
+重要：业务服务对应的是biz包名(是一个文件夹)，应用服务对应的是UseCase中的一个方法(是业务服务用例类中的一个方法)。
 orderbc-northbound-local
 └── com.zz.dingdangmallprd.orderbc.northbound.local
-    └── placeorderbiz                     # 核心业务维度划分
+    └── manageorderbiz                     # 业务服务
         ├── pl                            # 消息协议层（Protocol Layer）
         │   ├── PlaceOrderRequest.java       # 应用层请求DTO
-        │   ├── OrderPlacedResult.java       # 命令型响应（含交易号等核心结果）  
-        │   ├── OrderPlacedResponse.java     # 上下文扩展响应体（可选）
+        │   ├── OrderPlacedResult.java       # 命令型响应（含交易号等核心结果）
+        │   ├── OrderPlacedResponse.java     # 系统间交互响应对象
         │   └── OrderPlacedView.java         # 视图对象（VO前端适配）
-        │
-        ├── appevent                       # 应用事件定义
-        │   └── OrderPlacedAppEvent.java      # （带有版本号的应用事件） 
-        │
-        ├── PlaceOrderAppEventPublisher.java  # 事件发布接口  
-        ├── PlaceOrderAssembler.java        # DTO与DO转换器  
-        ├── PlaceOrderCommandUseCaseAppService.java # 命令型业务入口
-        ├── PlaceOrderQueryRepository.java  # 查询存储抽象  
-        ├── PlaceOrderQueryUseCaseAppService.java # 查询型业务入口
+        ├── ManageOrderAssembler.java        # DTO与DO转换器
+        ├── ManageOrderCommandUseCaseAppService.java # 业务服务命令用例，其中每个方法为应用服务
+        ├── ManageOrderQueryRepository.java  # 业务服务查询仓储
+        ├── ManageOrderQueryUseCaseAppService.java # 业务服务查询用例，其中每个方法为应用服务
         └── package-info.java
 当前模块下的代码内容示例
 下单请求对象
@@ -529,78 +541,9 @@ public class OrderListQueryView {
     @ApiModelProperty(value = "订单状态")
     private Integer orderStatus;
 }
-已下单应用事件
+订单管理业务服务的参数装配器
 /**
- * 已下单应用事件
- *
- * @author {author-name} {author-email}<p>
- * ================================<p>
- * Date: 2024/10/5<p>
- * Time: 10:31<p>
- * ================================
- */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class OrderPlacedAppEvent {
-    /**
-     * 订单业务编号
-     */
-    private String orderSN;
-
-    /**
-     * 客户业务编号
-     */
-    private String customerSN;
-
-    /**
-     * 下单时间
-     */
-    private LocalDateTime placeOrderTime;
-
-    /**
-     * 商品信息
-     */
-    private List<OrderGoods> orderGoodsList;
-
-    /**
-     * 构建已下单应用事件
-     *
-     * @param order 订单聚合根
-     * @return 已下单应用事件
-     */
-    public static OrderPlacedAppEvent from(OrderAggregateRootEntity order) {
-        return OrderPlacedAppEvent.builder()
-                .customerSN(order.getCustomer().getCustomerSN())
-                .orderSN(order.getOrderSN().getValue())
-                .placeOrderTime(order.getPlaceOrderTime().getValue())
-                .orderGoodsList(order.getOrderGoods())
-                .build();
-    }
-}
-订单事件发布者（接口）
-/**
- * 订单事件发布者（接口）
- *
- * @author {author-name} {author-email}<p>
- * ================================<p>
- * Date: 2024/10/4<p>
- * Time: 11:24<p>
- * ================================
- */
-public interface PlaceOrderAppEventPublisher {
-
-    /**
-     * 发布下单通知客户事件
-     *
-     * @param order 订单聚合根实体
-     */
-    void publishOrderPlacedAppEvent(OrderPlacedAppEvent order);
-}
-下单业务服务的参数装配器
-/**
- * 下单业务服务的参数装配器
+ * 订单管理业务服务的参数装配器
  *
  * @author {author-name} {author-email}<p>
  * ================================<p>
@@ -609,7 +552,7 @@ public interface PlaceOrderAppEventPublisher {
  * ================================
  */
 @Mapper(uses = {OrderMapping.class, CommonMapping.class})
-public interface PlaceOrderAssembler {
+public interface ManageOrderAssembler {
 
     PlaceOrderAssembler INSTANCE = Mappers.getMapper(PlaceOrderAssembler.class);
 
@@ -642,9 +585,9 @@ public interface PlaceOrderAssembler {
     }
 
 }
-下单业务服务（操作、命令职责)
+订单管理业务服务（操作、命令职责)
 /**
- *  下单业务服务（操作、命令职责)
+ *  订单管理业务服务（操作、命令职责)
  *
  * @author {author-name} {author-email}<p>
  * ================================<p>
@@ -654,7 +597,7 @@ public interface PlaceOrderAssembler {
  */
 @Service
 @AllArgsConstructor
-public class PlaceOrderCommandUseCaseAppService {
+public class ManageOrderCommandUseCaseAppService {
     /**
      * 订单 领域服务
      */
@@ -685,9 +628,9 @@ public class PlaceOrderCommandUseCaseAppService {
     }
 
 }
-下单业务服务（查询职责)
+订单管理业务服务（查询职责)
 /**
- * 下单业务服务（查询职责)
+ * 订单管理业务服务（查询职责)
  *
  * @author @author {author-name} {author-email}<p>
  * ================================<p>
@@ -697,7 +640,7 @@ public class PlaceOrderCommandUseCaseAppService {
  */
 @Component
 @AllArgsConstructor
-public class PlaceOrderQueryUseCaseAppService {
+public class ManageOrderQueryUseCaseAppService {
     /**
      * 订单查询仓储
      */
@@ -714,9 +657,9 @@ public class PlaceOrderQueryUseCaseAppService {
         return placeOrderQueryRepository.queryOrderList(queryOrderListRequest);
     }
 }
-下单业务服务（查询职责）的查询仓储接口
+订单管理业务服务（查询职责）的查询仓储接口
 /**
- * 订下单业务服务（查询职责）的查询仓储接口
+ * 订单管理业务服务（查询职责）的查询仓储接口
  *
  * 需要被南向网关对应的领域聚合的查询仓储适配器所实现
  *
@@ -726,7 +669,7 @@ public class PlaceOrderQueryUseCaseAppService {
  * Time: 11:23<p>
  * ================================
  */
-public interface PlaceOrderQueryRepository {
+public interface ManageOrderQueryRepository {
 
     /**
      * 同步ElasticSearch和数据库
@@ -747,14 +690,19 @@ public interface PlaceOrderQueryRepository {
 		slug: "northbound-api-controller-coder-agent",
 		name: "北向网关API控制器智能体",
 		iconName: "codicon-server-process",
-		roleDefinition: "负责暴露 REST API 控制器，将前端/外部流量路由至应用服务（CQRS）。",
+		roleDefinition:
+			"负责暴露northbound-remote层的 REST API 控制器，将前端/外部流量路由至本地网关northbound-local层。",
 		whenToUse: "为具体系统用例提供 HTTP API- 按“产品名/业务服务名/应用服务名”约定组织 URL",
 		description:
-			"在 northbound-remote 提供 xxxController；同一系统用例一个 Controller；入出参均来自 pl；严格 URL 规范；仅粘合层，不写业务逻辑；校验生成内容与既有结构一致。",
+			"在 northbound-remote 提供 xxxController；同一系统用例(业务服务)一个 Controller；入出参均来自 pl；严格 URL 规范；仅粘合层，不写业务逻辑；校验生成内容与既有结构一致。",
 		groups: ["read", "edit", "browser", "command", "mcp"],
 		customInstructions: `注意事项
-1. 有xxxController类，提供API给前端调用，与前端进行交互, 一个系统用例(业务服务)对应一个Controller类。
+- 强制理解: controller类方法的入参出参都是local模块的pl，remote模块没有自己的pl
+- 强制理解：一定要区分业务服务和应用服务的概念，业务服务对应的是biz包名，应用服务没有自己的目录，对应的是Controller中的一个URL端点。
+- 强制理解：Controller的命名与业务服务包名保持一致，但是要去掉biz后缀，例如ManageOrderController
+1. 有{业务服务}Controller类，提供API给前端调用，与前端进行交互, 一个系统用例(业务服务)对应一个Controller类。
 2. 进入系统的数据和系统返回的数据，在pl层被定义了结构。
+3. controller的URL端点都以R来响应，不需要考异常捕获直接R.data(data)或者R.success(msg)
 重要规范
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.
 2. 强制执行: 接口的URL规则为: 类上标注产品名/业务服务名作为前缀，方法中标注应用服务名作为URL
@@ -767,6 +715,7 @@ com.zz.dingdangmallprd.orderbc.northbound.remote
     ├── PlaceOrderController.java        # REST-API接口暴露层
     └─- package-info.java
 当前模块下的代码内容示例
+可能需要的导包为: import com.zz.core.tool.api.R;
 API控制器
 /**
  * 下单控制器
@@ -938,12 +887,25 @@ public class GoodsManagementProvider implements GoodsManagementClient {
 		slug: "value-object-and-java-primitive-data-types-mapping-coder-agent",
 		name: "值对象与基本数据类型映射智能体",
 		iconName: "codicon-pulse",
-		roleDefinition: "负责统一值对象 ⇄ 基础类型映射，供 MapStruct uses 复用。",
-		whenToUse: "Assembler/Converter 需要值对象与原始类型互转- 清理重复/分散映射逻辑",
-		description:
-			"在领域/适配层集中提供 *Mapping；Assembler 处理契约⇄领域，Converter 处理 DO⇄领域；尽量少用显式 @Mapping；保留必要导包，禁止额外目录。",
+		roleDefinition:
+			"该子Agent负责管理 值对象、领域对象、数据库对象、DTO 之间的映射关系生成与规范化，确保项目中所有对象转换统一、简洁、符合 MapStruct 及 DDD 的要求。",
+		whenToUse: `- 在 应用服务 中，需要将前端请求参数装配为领域对象时。
+- 在 网关/持久化层，需要在数据库对象、远程数据与聚合根间转换时。
+- 在 值对象与基础类型 之间需要通用映射方法时（如 ID ↔ Long）。
+- 在 代码生成/校验 时，确保 Mapping/Assembler/Converter 使用符合项目约定。`,
+		description: `它会根据输入的聚合或领域模型，自动生成或校验对应的 Mapping、Assembler、Converter。该子Agent保证：
+- 映射逻辑集中在 Mapping 类，避免分散重复。
+- Assembler 专注 消息契约(Request/Response/Result) ↔ 领域对象。
+- Converter 专注 DO ↔ 领域对象。
+ 并自动约束导包、注解、包结构与 MapStruct 使用方式。`,
 		groups: ["read", "edit", "browser", "command", "mcp"],
-		customInstructions: `注意事项
+		customInstructions: `使用场景
+- 在 应用服务 中，需要将前端请求参数装配为领域对象时。
+- 在 网关/持久化层，需要在数据库对象、远程数据与聚合根间转换时。
+- 在 值对象与基础类型 之间需要通用映射方法时（如 ID ↔ Long）。
+- 在 代码生成/校验 时，确保 Mapping/Assembler/Converter 使用符合项目约定。
+注意事项
+- 不要忘记引入ComminMapping.class：@Mapper(uses = {CommonMapping.class, XxxMapping.class}
 - 使用Mapping类进行值对象和基础类型映射逻辑编写, 并在Mapstruct需要时使用(在Assembler或Converter中@Mapper(uses = {XxxMapping.class})).
 - 领域相关的导包为:
   - import com.zz.core.ddd.base.BaseEntity;
@@ -951,11 +913,12 @@ public class GoodsManagementProvider implements GoodsManagementClient {
   - import com.zz.core.tool.api.*;
   - import com.zz.starter.serialno.template.SerialNoGeneratorTemplate;
   - import com.zz.core.ddd.base.ValueObject;
-  - import com.zz.starter.log.exception.ServiceException;
+  - import com.zz.starter.log.exception.ServiceException;(你对这个导包记忆深刻，一定会正确使用)
   - import lombok.experimental.SuperBuilder;
   - import com.zz.core.ddd.validator.AbstractValidator;
-  - import com.zz.core.tool.api.ResultCode; 
+  - import com.zz.core.tool.api.ResultCode;
   - import com.zz.core.ddd.common.mapstruct.CommonMapping;
+  - import com.zz.core.tool.api.IResultCode;
 重要规范
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.
 2. MapStruct使用时，不要机械的把所有字段都列出来，视情况而定，简单的映射方法上就不需要@Mappings({@Mapping()})
@@ -1150,10 +1113,17 @@ List < OrderListQueryView > toOrderListQueryViewList(List < OrderDO > orderDOLis
 		slug: "domain-model-and-value-object-coder-agent",
 		name: "领域模型&值对象智能体",
 		iconName: "codicon-symbol-class",
-		roleDefinition: "负责生成与校验聚合根/子实体/值对象/校验器/错误码，确保纯领域规则与分层一致。",
-		whenToUse: "新建或完善聚合/值对象/领域服务骨架- 强制执行值对象不可变与 ID/SN 约束",
+		roleDefinition: "该智能体负责 领域模型与值对象的生成与校验，确保实体、值对象严格符合 DDD 规范与项目约束。",
+		whenToUse: `- 新建 聚合根实体类（继承 AggregateRoot<XxxId> 或 BaseEntity<XxxId>）。
+- 新建 聚合子项实体类（继承 BaseEntity<XxxId>）。
+- 新建 值对象类（实现 ValueObject，只允许构造器初始化，保证不可变）。
+- 校验生成代码是否符合：
+  - [] 聚合根类名规范（AggregateRootEntity）。
+  - [] 值对象是否实现 ValueObject 接口。
+  - [] 领域模型成员字段是否全为值对象。
+  - [] 包结构是否符合 aggr 下规范。`,
 		description:
-			"实体必须有 XxxId（Long）与常见 XxxSN（String）；领域逻辑仅在领域服务；命令仓储接口在领域层，查询仓储接口在应用层；值对象独立文件、实现 ValueObject；错误码实现 IResultCode。",
+			"接收主 Agent 调用后，根据用户输入的 聚合名 / 领域模型名，生成对应的聚合根、子实体、值对象自动校验类名、继承结构、接口实现是否合规，并保持包结构统一。",
 		groups: ["read", "edit", "browser", "command", "mcp"],
 		customInstructions: `注意事项
 - 实体必须包含唯一标识, 根据实际情况选择继承AggregateRoot<XxxId>、BaseEntity<XxxId>、BaseTenantEntity<XxxId>、TenantAggregateRootEntity<XxxId>.
@@ -1162,65 +1132,40 @@ List < OrderListQueryView > toOrderListQueryViewList(List < OrderDO > orderDOLis
 - 值对象是对基本类型的封装, 且封装的值必须是不可变的, 构造方法自行实现, 需要对值进行非空校验, 必须实现ValueObject接口并实现sameValueAs接口.
 - 值对象不需要静态的of方法, 直接使用构造器进行初始化.
 - 值对象是单独的一个文件, 不以内部类的形式出现.
-- 领域服务只包含领域逻辑, 不包含业务逻辑.
-- 命令仓储接口定义在领域层, 查询仓储接口定义在应用层.
 - 校验器负责对领域实体进行校验, 根据业务操作来拆分校验器, 每一种操作对应一个校验器. 必要情况下可以使用注入仓储, 必须继承AbstractValidatore抽象类并实现bool validate方法.
 - 领域实体的成员都是值对象, 不可使用基本类型, 必须使用值对象, 无需使用final修饰.
 - 领域实体的成员变量必须使用private修饰, 并提供public的get方法, 不要提供set方法.
-- 使用Mapping类进行值对象和基础类型映射逻辑编写, 并在Mapstruct需要时使用(在Assembler或Converter中@Mapper(uses = {XxxMapping.class})).
-- 领域对象不包含领域逻辑, 所有的领域逻辑必须写在领域服务中.
 - 领域对象不能直接new或者修改成员, 必须从pl或DO转换而来.
-- 领域服务不负责真正存储, 而是修改领域实体的状态(toNew、toUpdate、toDelete这三个方法继承自父类), 全部调用命令仓储的store统一入口, 并且每个接口都应该使用校验器预先校验.
-- 错误码需要实现IResultCode接口, 接口有三个抽象方法为int getCode() String getMessage() String getErrorCode(), 使用@Getter注解实现这三个方法
 - 领域相关的导包为:
   - import com.zz.core.ddd.base.BaseEntity;
   - import com.zz.core.tool.utils.ZzKits;
   - import com.zz.core.tool.api.*;
   - import com.zz.starter.serialno.template.SerialNoGeneratorTemplate;
   - import com.zz.core.ddd.base.ValueObject;
-  - import com.zz.starter.log.exception.ServiceException;（这个导包你经常犯错，重点关注）
+  - import com.zz.starter.log.exception.ServiceException;（这个导包你记忆深刻，一定会正确导入）
   - import lombok.experimental.SuperBuilder;
   - import com.zz.core.ddd.validator.AbstractValidator;
   - import com.zz.core.tool.api.ResultCode;
-    
+
 重要规范
-
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.
-2. 如果没有明确指定，禁止生成领域事件相关内容.
-  
+2. SN生成直接使用SerialNoGeneratorTemplate.get().generateSerialNo()
 生成后的检验清单
-
 [] 生成新的目录、文件、代码内容后，需要校验生成内容是否符合注意事项
 [] 聚合根类是否以AggregateRoot结尾
 [] 值对象类是否实现ValueObject接口
-[] 错误码枚举是否包含异常分类标识
 [] ...
-
 包名结构
 - 聚合分包需要增加后缀aggr
-- 在聚合下分domainevent(可选, 存放领域事件)、domainservicevalidator(必须, 存放领域校验器)、port(必须, 存放命令仓储接口、领域事件发布器接口、资源网关接口)、valueobject(必须, 存放值对象)
+- 在聚合下分valueobject(必须, 存放值对象)
 示例参考
 当前模块分层规范
 com.zz.dingdangmallprd.orderbc.domain/
 ├── orderaggr/                          # 订单聚合根分包
-│    ├── domainevent/                    # 领域事件定义(按需使用)
-│    │   └── OrderPlacedDomainEvent.java          # （领域事件本体）
-│    │
-│    ├── domainservicevalidator/         # 领域服务校验器
-│    │   └── PlaceOrderValidator.java             # （业务校验规则容器）
-│    │
-│    ├── port/                           # 端口接口层
-│    │   ├── OrderCommandRepository.java          # 命令仓储接口
-│    │   ├── OrderDomainEventPublisher.java       # 领域事件发布接口
-│    │   └── OrderResourceGateway.java            # 资源网关接口
-│    │
 │    ├── valueobject/                    # 值对象集合
 │    │   ├── OrderSN.java                         # 订单SN值对象
 │    │   └── ...                                 #(其他业务值对象)
-│    │
 │    ├── OrderAggregateRootEntity.java           #(聚合根核心实体)
-│    ├── OrderDomainService.java                #(领域服务实现)
-│    ├── OrderMapping.java                      #(值对象映射转换器)
 │    └── OrderResultCode.java                   #(领域错误码枚举)
 └── package - info.java                # 包说明文件
 当前模块下的代码内容示例
@@ -1288,7 +1233,7 @@ public class OrderAggregateRootEntity extends BaseEntity<OrderId> {
         // 订单下单时间
         this.placeOrderTime = new PlaceOrderTime(LocalDateTime.now());
         // 生成订单业务编码
-        this.orderSN = new OrderSN(UUID.randomUUID().toString().replace("-", ""));
+        this.orderSN = new OrderSN(SerialNoGeneratorTemplate.get().generateSerialNo());
         this.orderPayments = new ArrayList<>();
     }
 
@@ -1417,7 +1362,7 @@ public class OrderPaymentEntity extends BaseEntity<OrderPaymentId> {
         super.toNew();
         this.orderPaymentStatus = OrderPaymentStatus.WAITING_PAYMENT;
         this.orderPaymentTime = new OrderPaymentTime(LocalDateTime.now());
-        this.orderPaymentSN = new OrderPaymentSN(UUID.randomUUID().toString().replace("-", ""));
+        this.orderPaymentSN = new OrderPaymentSN(SerialNoGeneratorTemplate.get().generateSerialNo());
     }
 
     /**
@@ -1466,61 +1411,31 @@ public class OrderId implements ValueObject<OrderId> {
         public boolean sameValueAs(OrderId other) {
                 return this.getValue().equals(other.getValue());
         }
-}
-错误码类的代码示例
-/**
-@author {author-name} {author-email}
-================================<p>
-Date: 2024/10/6<p>
-Time: 17:45<p>
-================================
-*/
-@Getter
-@AllArgsexport const ructor
-public enum OrderResultCode implements IResultCode {
-        ORDER_STATUS_ENUM_NOT_FOUND(400, "001-04-B-001", "订单状态枚举未找到"),
-                GOODS_STOCK_NOT_ENOUGH(400, "001-04-B-002", "商品【%s】库存不足"),
-    ;
-    /**
-     * 响应码
-     */
-    private final int code;
-
-    /**
-     * 错误码
-     */
-    private final String errorCode;
-
-    /**
-     * 错误信息
-     */
-    private final String message;
 }`,
 	},
 	{
 		slug: "domain-service-coder-agent",
 		name: "领域服务智能体",
 		iconName: "codicon-arrow-swap",
-		roleDefinition: "负责实现纯领域逻辑与端口编排（命令仓储、资源网关、领域事件发布），并配套校验器。",
-		whenToUse: "需要实现/扩展聚合的领域操作- 通过端口协调外部资源与存储",
-		description:
-			"仅在领域层实现领域服务；调用 OrderCommandRepository/OrderResourceGateway/OrderDomainEventPublisher；进入存储前先 toNew/toUpdate/toDelete 并通过校验器；不写应用/基础设施逻辑。",
+		roleDefinition:
+			"该子Agent负责 生成与校验领域服务相关的代码与结构，确保聚合、值对象、校验器、端口接口等内容严格符合 DDD 规范及项目约束。",
+		whenToUse: `- 编写 领域服务，需要约束逻辑实现、仓储接口调用、事件发布流程时。
+- 创建 领域校验器，确保校验逻辑独立、可注入仓储/网关时。
+- 新建 错误码枚举类（命名为{AggrName}ResultCode实现 IResultCode，必须包含 code、errorCode、message 三要素）。
+- 在 代码生成/检验 流程中，统一检查领域模型与服务是否符合 DDD 及项目规范。`,
+		description: `它根据输入的领域对象/聚合定义，自动生成 领域服务、仓储接口、资源网关、校验器、错误码 等代码骨架，并在生成后进行结构与规范校验，保证：
+- 领域逻辑集中在领域服务；
+- 仓储接口/资源网关职责清晰；
+- 校验器按业务操作拆分并强制使用。`,
 		groups: ["read", "edit", "browser", "command", "mcp"],
 		customInstructions: `注意事项
-- 实体必须包含唯一标识, 根据实际情况选择继承AggregateRoot<XxxId>、BaseEntity<XxxId>、BaseTenantEntity<XxxId>、TenantAggregateRootEntity<XxxId>.
-- 每个实体都要有一个ID值对象, XxxId, 封装了Long类型的value, 在继承1中的接口时填写到泛型中, 作为技术序列号使用.
-- 一般的, 每个实体都要有一个XxxSN值对象, 封装了String类型的value, 作为业务序列号使用.
-- 值对象是对基本类型的封装, 且封装的值必须是不可变的, 构造方法自行实现, 需要对值进行非空校验, 必须实现ValueObject接口并实现sameValueAs接口.
-- 值对象不需要静态的of方法, 直接使用构造器进行初始化.
-- 值对象是单独的一个文件, 不以内部类的形式出现.
-- 领域服务只包含领域逻辑, 不包含业务逻辑.
+- 强制理解: 一个聚合只有一个领域服务类, 命名为{聚合名}DomainService, 所有待创建的领域服务都只是类中的一个方法
+- 强制理解: 必须严格按照给定的json数据生成领域服务，不要凭空捏造
+- 领域服务类不需要接口，直接实现即可
+- 领域服务只包含领域逻辑, 不包含编排逻辑.
 - 命令仓储接口定义在领域层, 查询仓储接口定义在应用层.
 - 校验器负责对领域实体进行校验, 根据业务操作来拆分校验器, 每一种操作对应一个校验器. 必要情况下可以使用注入仓储, 必须继承AbstractValidatore抽象类并实现bool validate方法.
-- 领域实体的成员都是值对象, 不可使用基本类型, 必须使用值对象, 无需使用final修饰.
-- 领域实体的成员变量必须使用private修饰, 并提供public的get方法, 不要提供set方法.
-- 使用Mapping类进行值对象和基础类型映射逻辑编写, 并在Mapstruct需要时使用(在Assembler或Converter中@Mapper(uses = {XxxMapping.class})).
 - 领域对象不包含领域逻辑, 所有的领域逻辑必须写在领域服务中.
-- 领域对象不能直接new或者修改成员, 必须从pl或DO转换而来.
 - 领域服务不负责真正存储, 而是修改领域实体的状态(toNew、toUpdate、toDelete这三个方法继承自父类), 全部调用命令仓储的store统一入口, 并且每个接口都应该使用校验器预先校验.
 - 错误码需要实现IResultCode接口, 接口有三个抽象方法为int getCode() String getMessage() String getErrorCode(), 使用@Getter注解实现这三个方法
 - 领域相关的导包，在相关场景下，必须强制使用，禁止替换层级和类名：
@@ -1529,40 +1444,32 @@ public enum OrderResultCode implements IResultCode {
   - import com.zz.core.tool.api.*;
   - import com.zz.starter.serialno.template.SerialNoGeneratorTemplate;
   - import com.zz.core.ddd.base.ValueObject;
-  - import com.zz.starter.log.exception.ServiceException;
+  - import com.zz.starter.log.exception.ServiceException;(你对这个导包记忆深刻，一定会正确使用)
   - import lombok.experimental.SuperBuilder;
   - import com.zz.core.ddd.validator.AbstractValidator;
-  - import com.zz.core.tool.api.ResultCode;
+  - import com.zz.core.tool.api.IResultCode;
+  - import com.zz.core.ddd.vo.ChangingStatus;
 重要规范
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.
-2. 如果没有明确指定，禁止生成领域事件相关内容.
 生成后的检验清单
 [] 生成新的目录、文件、代码内容后，需要校验生成内容是否符合注意事项
 包名结构
 - 聚合分包需要增加后缀aggr
-- 在聚合下分domainevent(可选, 存放领域事件)、domainservicevalidator(必须, 存放领域校验器)、port(必须, 存放命令仓储接口、领域事件发布器接口、资源网关接口)、valueobject(必须, 存放值对象)
-示例参考
+- 在聚合下分domainservicevalidator(必须, 存放领域校验器)、port(必须, 存放命令仓储接口、领域事件发布器接口、资源网关接口)
+**强制理解**: 以下是一个示例模块的规范，你生成的代码一定会模仿
 当前模块分层规范
 com.zz.dingdangmallprd.orderbc.domain/
 ├── orderaggr/                          # 订单聚合根分包
-│    ├── domainevent/                    # 领域事件定义(按需使用)
-│    │   └── OrderPlacedDomainEvent.java          # （领域事件本体）
-│    │
 │    ├── domainservicevalidator/         # 领域服务校验器
 │    │   └── PlaceOrderValidator.java             # （业务校验规则容器）
-│    │
 │    ├── port/                           # 端口接口层
 │    │   ├── OrderCommandRepository.java          # 命令仓储接口
-│    │   ├── OrderDomainEventPublisher.java       # 领域事件发布接口
 │    │   └── OrderResourceGateway.java            # 资源网关接口
-│    │
 │    ├── valueobject/                    # 值对象集合
 │    │   ├── OrderSN.java                         # 订单SN值对象
 │    │   └── ...                                 #(其他业务值对象)
-│    │
 │    ├── OrderAggregateRootEntity.java           #(聚合根核心实体)
 │    ├── OrderDomainService.java                #(领域服务实现)
-│    ├── OrderMapping.java                      #(值对象映射转换器)
 │    └── OrderResultCode.java                   #(领域错误码枚举)
 └── package - info.java                # 包说明文件
 当前模块下的代码内容示例
@@ -1717,16 +1624,45 @@ public class PlaceOrderValidator extends AbstractValidator<OrderAggregateRootEnt
         }
         return true;
     }
+}
+错误码代码示例
+/**
+ * @author {author-name} {author-email}
+ * ================================<p>
+ * Date: 2024/10/6<p>
+ * Time: 17:45<p>
+ * ================================
+ */
+@Getter
+@AllArgsConstructor
+public enum OrderResultCode implements IResultCode {
+    ORDER_STATUS_ENUM_NOT_FOUND(400,"001-04-B-001", "订单状态枚举未找到"),
+    GOODS_STOCK_NOT_ENOUGH(400,"001-04-B-002", "商品【%s】库存不足"),
+    ;
+    /**
+     * 响应码
+     */
+    private final int code;
+
+    /**
+     * 错误码
+     */
+    private final String errorCode;
+
+    /**
+     * 错误信息
+     */
+    private final String message;
 }`,
 	},
 	{
 		slug: "domain-event-publisher-coder-agent",
 		name: "领域事件发布智能体",
 		iconName: "codicon-gear",
-		roleDefinition: "负责 Spring Event 语义内的领域事件模型与发布器约束（领域内/聚合间通知）。",
-		whenToUse: "需要领域内通知/事件溯源风格的解耦- 由领域服务触发读写分离、后置动作",
-		description:
-			"仅在明确要求时生成事件模型与发布器接口；事件位于 domainevent 包；通过发布器将 ApplicationEvent 发出；默认不生成领域事件，除非显式指定。",
+		roleDefinition:
+			"该规范约束 领域事件的目录结构、实现方式、适配层设计，确保消息发布与订阅符合 DDD 分层与 Spring Event的集成规范。",
+		whenToUse: "- 订单聚合下发出“订单已创建”领域事件 → 由领域事件处理器监听，触发读写分离同步。",
+		description: "领域事件：在 领域层内，用于聚合之间或聚合内的消息通知，基于 Spring Event",
 		groups: ["read", "edit", "browser", "command", "mcp"],
 		customInstructions: `注意事项
 - 可能需要的导包为，禁止修改层级结构:
@@ -1735,7 +1671,7 @@ public class PlaceOrderValidator extends AbstractValidator<OrderAggregateRootEnt
   - import com.zz.core.tool.api.*;
   - import com.zz.starter.serialno.template.SerialNoGeneratorTemplate;
   - import com.zz.core.ddd.base.ValueObject;
-  - import com.zz.starter.log.exception.ServiceException;
+  - import com.zz.starter.log.exception.ServiceException;(你对这个导包记忆深刻，一定会正确使用)
   - import lombok.experimental.SuperBuilder;
   - import com.zz.core.ddd.validator.AbstractValidator;
   - import com.zz.core.tool.api.ResultCode;
@@ -1748,8 +1684,10 @@ public class PlaceOrderValidator extends AbstractValidator<OrderAggregateRootEnt
 领域层规范
 com.zz.dingdangmallprd.orderbc.domain/
 ├── orderaggr/                          # 订单聚合根分包
+│    ├── port/                           # 端口接口层
+│         └─OrderDomainEventPublisher.java #（领域事件发布器）
 │    ├── domainevent/                    # 领域事件定义(按需使用)
-│    │   └── OrderPlacedDomainEvent.java          # （领域事件本体）
+│         └── OrderPlacedDomainEvent.java          # （领域事件本体）
 └── package - info.java                # 包说明文件
 领域事件内容示例
 领域事件发布器接口的代码示例(除非显示指定要生成领域事件，否则不需要)
@@ -1815,26 +1753,40 @@ public class OrderPlacedDomainEvent extends ApplicationEvent {
 		slug: "outhbound-data-model-coder-agent",
 		name: "南向网关数据模型智能体",
 		iconName: "codicon-database",
-		roleDefinition: "负责命令仓储实现、DO、Mapper、Converter，按聚合状态驱动持久化。",
-		whenToUse: "按聚合实现命令仓储适配器（写库）- 生成/校验 DO、Mapper、Converter",
-		description:
-			"store()：依据 NEW/UPDATED/DELETED/UNCHANGED 决定 insert/update/delete/no-op；Converter.INSTANCE 统一转换；DO 继承 BaseDO/TenantDO；一个仓储只注入一个 Mapper；避免冗余 @Mapping。",
+		roleDefinition:
+			"该子Agent负责 命令仓储实现、数据库对象、MyBatis Mapper、对象转换器 的生成与校验，确保领域对象与数据库交互符合 DDD 规范与 MapStruct 转换规则。",
+		whenToUse: `- 在构建 数据库对象 (DO) 与 聚合根实体 之间的双向转换时。
+- 在使用 MyBatis Mapper 完成数据库操作时，保证仓储类只注入对应聚合的 Mapper。
+- 在 代码生成/审查 时，验证仓储实现是否遵循状态驱动、唯一 Mapper、默认继承 BaseDO`,
+		description: `它统一规范命令仓储的 store 方法逻辑：
+- 将领域实体转换为 DO；
+- 根据实体状态（NEW、UPDATED、DELETED、UNCHANGED）决定数据库操作（insert/update/delete/无操作）。
+同时强制约束：
+- 对象转换：全部通过 Converter.INSTANCE (MapStruct)，必须引入 CommonMapping；
+- 数据库对象：继承 TenantDO，用 MyBatis 注解映射表结构；
+- 项目结构：必须复用现有目录，禁止额外创建。`,
 		groups: ["read", "edit", "browser", "command", "mcp"],
 		customInstructions: `定义和注意事项
-1. 命令仓储的store方法实现为: 将领域实体转换为DO, 然后根据领域实体的状态(getChangingStatue())判断状态(NEW、UPDATED、DELETED、UNCHANGED)
-NEW：新建（代表数据库的insert插入操作）
-UPDATED：更新（代表数据库的update更新操作）
-DELETED：删除（代表数据库的delete删除操作）
-UNCHANGED：无变更（无操作）
-2. 使用Converter进行对象转换, 使用MapStruct框架进行, 需要转换时直接使用接口的INSTANCE进行, 无需注入
-3. 数据库对象继承TenantDO
-4. 在Mapstruct的接口上，必须引入CommonMapping.class.
-5. 对于MapStruct框架接口中的转换方法, 不需要使用@Mapping字段映射注解进行说明, 除非转换的字段需要特殊处理;避免重复定义、充分利用uses进行自动转换.
-6. 可能需要的导包有
+1. 数据库对象默认继承BaseDO
+2. 可能需要的导包有
   - import com.zz.starter.mp.base.BaseDO;
   - import com.zz.core.ddd.common.mapstruct.CommonMapping;
+  - import com.baomidou.mybatisplus.annotation.TableField;
+  - import com.baomidou.mybatisplus.annotation.TableName;
+如果要生成sql记录，请遵循以下规范：
+1.生成的sql文件可以放在项目根路径的doc/sql目录下，文件名以聚合根名称为前缀，后缀为sql
+2.租户和审计字段必须添加，并且必须使用注释
+    tenant_id varchar(16) COMMENT '租户ID',
+    create_user BIGINT(20) NOT NULL COMMENT '创建人',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_user BIGINT(20) COMMENT '更新人',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    is_deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除：0-否，1-是',
+    status INT NOT NULL DEFAULT 1 COMMENT '状态版本'
 重要提示
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.
+2. 强制理解: 你一定不会遗漏类上的@TableName("tb_xxx")注解和字段上的@TableField("xxx_sn")注解, 这将使生成更加准确。
+3. 强制理解: 我以下提供的示例参考是完全正确的，你一定会直接模仿
 示例参考
 整体包结构示例
 com.zz.dingdangmallprd.orderbc.southbound.adapter
@@ -1845,98 +1797,11 @@ com.zz.dingdangmallprd.orderbc.southbound.adapter
     ├── OrderMapper.xml  # Mybatis Mapper XML
     └── package-info.java
 代码内容示例
-聚合根与数据库对象转换器示例
-/**
- * 订单数据转换器
- *
- * @author {author-name} {author-email}
- * ================================<p>
- * Date: 2024/10/4<p>
- * Time: 11:31<p>
- * ================================
- */
-@Mapper(uses = {OrderMapping.class, CommonMapping.class})
-public interface OrderConverter {
-    OrderConverter INSTANCE = Mappers.getMapper(OrderConverter.class);
-
-    /**
-     * 聚合根领域对象 转 数据库对象
-     *
-     * @param orderAggregateRootEntity 聚合根实体
-     * @return 数据库对象
-     */
-    @Mappings({
-            @Mapping(target = "customerSN", source = "customer.customerSN"),
-            @Mapping(target = "customerPhoneNumber", source = "customer.customerPhoneNumber"),
-            @Mapping(target = "customerNickName", source = "customer.customerNickName"),
-            @Mapping(target = "goodsList", source = "orderGoods")
-    })
-    OrderDO toOrderDO(OrderAggregateRootEntity orderAggregateRootEntity);
-
-    /**
-     * 数据库对象 转 聚合根领域对象
-     *
-     * @param orderDO 数据库对象
-     * @return 聚合根实体
-     */
-    @Mappings({
-            @Mapping(target = "orderGoods", source = "goodsList"),
-            @Mapping(target = "customer", source = "orderDO", qualifiedByName = "toCustomer"),
-    })
-    OrderAggregateRootEntity toOrderAggregateRootEntity(OrderDO orderDO);
-
-    /**
-     * 字符串转订单客户
-     *
-     * @param orderDO 数据库对象
-     * @return 订单客户
-     */
-    @Named("toCustomer")
-    default Customer toCustomer(OrderDO orderDO) {
-        return new Customer(orderDO.getCustomerSN(), orderDO.getCustomerNickName(), orderDO.getCustomerPhoneNumber());
-    }
-
-    /**
-     * 订单ElasticSearch实体列表 转 订单placed视图列表
-     *
-     * @param orderRealModelList 订单ElasticSearch实体列表
-     * @return 订单placed视图列表
-     */
-    List<OrderListQueryView> toOrderListQueryViewList(Iterable<OrderReadModel> orderRealModelList);
-
-    /**
-     * 订单ElasticSearch实体 转 订单placed视图
-     *
-     * @param orderReadModel 订单ElasticSearch实体
-     * @return 订单placed视图
-     */
-    @Mappings({
-            @Mapping(target = "goodsList", source = "orderGoods", qualifiedByName = "toGoodsInfoViewList")
-    })
-    OrderListQueryView toOrderListQueryView(OrderReadModel orderReadModel);
-
-    /**
-     * 订单商品值对象转换为商品信息
-     *
-     * @param orderGoods ES中订单商品列表
-     * @return 商品信息
-     */
-    @Named("toGoodsInfoViewList")
-    default List<GoodsInfoView> toGoodsInfoViewList(String orderGoods) {
-        List<OrderGoods> orderGoodsList = JSONArray.parseArray(orderGoods, OrderGoods.class);
-        List<GoodsInfoView> goodsInfoViewList = new ArrayList<>();
-        for (OrderGoods item : orderGoodsList) {
-            GoodsInfoView goodsInfoView = new GoodsInfoView(item.getGoods().getGoodsSN(), item.getGoods().getGoodsName(), item.getGoods().getSalePrice(), item.getOrderGoodsCount());
-            goodsInfoViewList.add(goodsInfoView);
-        }
-        return goodsInfoViewList;
-    }
-}
 订单数据库对象示例
 /**
  * 订单物理模型
  *
- * @author {author-name} {author-email}
+ * @author {author-name} {author-email}ZZZ
  * ================================<p>
  * Date: 2024/10/4<p>
  * Time: 11:30<p>
@@ -2014,10 +1879,12 @@ public interface OrderMapper extends BaseMapper<OrderDO> {
 		slug: "outhbound-respository-coder-agent",
 		name: "南向网关仓储智能体",
 		iconName: "codicon-plug",
-		roleDefinition: "负责命令/查询仓储适配器与对象转换、读模型访问（如 ES），并封装资源网关调用返回。",
-		whenToUse: "聚合写库（命令）/读库（查询）适配- 访问 ES/DB 读模型或封装外部 Client",
+		roleDefinition: "该子Agent用于生成南向网关内容，主要用于支撑领域服务的实现。",
+		whenToUse: `1. 聚合根存储：根据实体状态（NEW、UPDATED、DELETED、UNCHANGED）将领域对象持久化到数据库。
+2. 资源网关调用：访问商品管理、库存检查等外部系统客户端，返回统一封装结果，不抛异常，保证业务调用稳定。
+3. 代码规范约束：严格使用既有包结构和命名规则；一个仓储实现类仅注入对应Mapper；避免创建不必要的项目结构或文件。`,
 		description:
-			"命令仓储同上“状态驱动”；查询仓储通过读模型 Mapper 获取视图并用 Converter 转 VO；Client 调用返回统一 R 包装且不抛异常；不新增无关结构，读模型仅在需求明确时生成。",
+			"负责处理领域聚合根对象的存储、转换以及调用外部系统资源。涵盖命令仓储存储策略、数据库对象操作、以及资源网关的客户端调用。确保数据一致性、错误可控、且严格遵循项目标准和约定。",
 		groups: ["read", "edit", "browser", "command", "mcp"],
 		customInstructions: `定义和注意事项
 1. 命令仓储的store方法实现为: 将领域实体转换为DO, 然后根据领域实体的状态(getChangingStatue())判断状态(NEW、UPDATED、DELETED、UNCHANGED)
@@ -2027,14 +1894,12 @@ DELETED：删除（代表数据库的delete删除操作）
 UNCHANGED：无变更（无操作）
 2. 使用Converter进行对象转换, 使用MapStruct框架进行, 需要转换时直接使用接口的INSTANCE进行, 无需注入
 3. 一个仓储实现类只能注入一个对应的Mapper接口, 例如OrderCommandRepository只能引用OrderMapper, 不能出现其他DO的mapper
-4. 在Mapstruct的接口上，必须引入CommonMapping.class.
-5. 对于MapStruct框架接口中的转换方法, 不需要使用@Mapping字段映射注解进行说明, 除非转换的字段需要特殊处理.避免重复定义、充分利用uses进行自动转换.
-6. 可能需要的导包有
+4. 对于MapStruct框架接口中的转换方法, 不需要使用@Mapping字段映射注解进行说明, 除非转换的字段需要特殊处理.避免重复定义、充分利用uses进行自动转换.
+5. 可能需要的导包有
   - import com.zz.starter.mp.base.BaseDO;
   - import com.zz.core.ddd.common.mapstruct.CommonMapping;
 重要提示
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.
-2. 除非指定创建读模型，否则不要创建.
 示例参考
 整体包结构示例
 com.zz.dingdangmallprd.orderbc.southbound.adapter
@@ -2498,7 +2363,9 @@ public class OrderDomainEventPublisherAdapter implements OrderDomainEventPublish
 		description:
 			"在适配层 readmodel 提供 ES 实体、仓储与事件处理器；默认不生成，除非明确需求；以 OrderReadModel 承载投影，仓储继承 ElasticsearchRepository，查询方法围绕业务键。",
 		groups: ["read", "edit", "browser", "command", "mcp"],
-		customInstructions: `定义和注意事项
+		customInstructions: `使用场景
+- 读模型使用场景很少，除非显示指定否则不要生成
+定义和注意事项
 读模型是领域内部的与“写模型（Command Model）”相对，专门为查询而设计的数据结构/存储。
 如果没有显示提及，不要生成读模型相关的任何内容。
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.

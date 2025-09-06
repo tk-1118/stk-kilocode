@@ -121,6 +121,8 @@
 		}
 	},
 	"selectMode": "Select mode for interaction",
+	"selectTeam": "Select development team",
+	"manageTeams": "Manage teams",
 	"selectApiConfig": "Select API configuration",
 	"selectModelConfig": "Select model",
 	"enhancePrompt": "Enhance prompt with additional context",

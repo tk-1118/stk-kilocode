@@ -9,6 +9,8 @@ import {
 	GhostServiceSettings, // kilocode_change
 	openRouterDefaultModelId, // kilocode_change
 	type TodoItem,
+	type TeamConfig,
+	type TeamWorkStatus,
 } from "@roo-code/types"
 
 import { type OrganizationAllowList, ORGANIZATION_ALLOW_ALL } from "@roo/cloud"
@@ -63,6 +65,12 @@ export interface ExtensionStateContextType extends ExtensionState {
 	mdmCompliant?: boolean
 	hasOpenedModeSelector: boolean // New property to track if user has opened mode selector
 	setHasOpenedModeSelector: (value: boolean) => void // Setter for the new property
+	// Team-related state
+	customTeams?: TeamConfig[] // Custom team configurations
+	currentTeam?: string // Current active team slug
+	teamWorkStatus?: TeamWorkStatus // Current team work status
+	setCurrentTeam: (value: string) => void // Setter for current team
+	setTeamWorkStatus: (value: TeamWorkStatus) => void // Setter for team work status
 	alwaysAllowFollowupQuestions: boolean // New property for follow-up questions auto-approve
 	setAlwaysAllowFollowupQuestions: (value: boolean) => void // Setter for the new property
 	followupAutoApproveTimeoutMs: number | undefined // Timeout in ms for auto-approving follow-up questions
@@ -244,6 +252,10 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		hasOpenedModeSelector: false, // Default to false (not opened yet)
 		autoApprovalEnabled: true,
 		customModes: [],
+		// Team-related state initialization
+		customTeams: [],
+		currentTeam: "backend-team", // Default to backend team
+		teamWorkStatus: undefined,
 		maxOpenTabsContext: 20,
 		maxWorkspaceFiles: 200,
 		cwd: "",
@@ -582,6 +594,9 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		setHistoryPreviewCollapsed: (value) =>
 			setState((prevState) => ({ ...prevState, historyPreviewCollapsed: value })),
 		setHasOpenedModeSelector: (value) => setState((prevState) => ({ ...prevState, hasOpenedModeSelector: value })),
+		// Team-related setters
+		setCurrentTeam: (value) => setState((prevState) => ({ ...prevState, currentTeam: value })),
+		setTeamWorkStatus: (value) => setState((prevState) => ({ ...prevState, teamWorkStatus: value })),
 		setAutoCondenseContext: (value) => setState((prevState) => ({ ...prevState, autoCondenseContext: value })),
 		setAutoCondenseContextPercent: (value) =>
 			setState((prevState) => ({ ...prevState, autoCondenseContextPercent: value })),
