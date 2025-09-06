@@ -3,7 +3,7 @@
 	"displayName": "%extension.displayName%",
 	"description": "%extension.description%",
 	"publisher": "kilocode",
-	"version": "4.87.0",
+	"version": "4.90.0",
 	"icon": "assets/icons/logo-outline-black.png",
 	"galleryBanner": {
 		"color": "#FFFFFF",
@@ -15,6 +15,9 @@
 	},
 	"extensionKind": [
 		"workspace"
+	],
+	"enabledApiProposals": [
+		"contribSecondarySideBar"
 	],
 	"author": {
 		"name": "Kilo Code"
@@ -52,7 +55,8 @@
 	],
 	"activationEvents": [
 		"onLanguage",
-		"onStartupFinished"
+		"onStartupFinished",
+		"onCommand:kilo-code.focusAux"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -109,18 +113,17 @@
 			}
 		],
 		"viewsContainers": {
-			"activitybar": [
+			"secondarySideBar": [
 				{
-					"id": "kilo-code-ActivityBar",
+					"id": "kilo-code-AuxiliaryBar",
 					"title": "%views.activitybar.title%",
 					"icon": "assets/icons/kilo.png",
-					"darkIcon": "assets/icons/kilo-dark.png",
-					"when": "isMac"
+					"darkIcon": "assets/icons/kilo-dark.png"
 				}
 			]
 		},
 		"views": {
-			"kilo-code-ActivityBar": [
+			"kilo-code-AuxiliaryBar": [
 				{
 					"type": "webview",
 					"id": "kilo-code.SidebarProvider",
@@ -129,6 +132,11 @@
 			]
 		},
 		"commands": [
+			{
+				"command": "kilo-code.focusAux",
+				"title": "Open Kilo Code (Right Sidebar)",
+				"category": "%configuration.title%"
+			},
 			{
 				"command": "kilo-code.plusButtonClicked",
 				"title": "%command.newTask.title%",

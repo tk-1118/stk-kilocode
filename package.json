@@ -15,6 +15,8 @@
 		"format": "turbo format --log-order grouped --output-logs new-only",
 		"build": "pnpm vsix",
 		"bundle": "turbo bundle --log-order grouped --output-logs new-only",
+		"build:dist": "node scripts/build-dist.mjs",
+		"package:dist": "pnpm build:dist && cd dist && tar -czf kilo-code-dist.tgz kilo-code",
 		"bundle:nightly": "turbo bundle:nightly --log-order grouped --output-logs new-only",
 		"vsix:production": "turbo vsix --log-order grouped --output-logs new-only --force",
 		"vsix": "turbo vsix --log-order grouped --output-logs new-only",

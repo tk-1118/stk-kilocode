@@ -197,6 +197,32 @@ export async function activate(context: vscode.ExtensionContext) {
 		}),
 	)
 
+	// 业务：确保视图位于右侧栏容器（Auxiliary Bar），避免历史状态把视图留在左侧
+	try {
+		await vscode.commands.executeCommand("vscode.moveViews", {
+			viewIds: [ClineProvider.sideBarId],
+			destinationId: "kilo-code-AuxiliaryBar",
+		})
+	} catch (error) {
+		outputChannel.appendLine(
+			`[Init] moveViews to AuxiliaryBar failed: ${error instanceof Error ? error.message : String(error)}`,
+		)
+	}
+
+	// 业务：注册命令，聚焦右侧栏容器（Auxiliary Bar）的 Kilo Code 视图
+	context.subscriptions.push(
+		vscode.commands.registerCommand("kilo-code.focusAux", async () => {
+			// VS Code 会记忆视图位置。为保证一键聚焦始终在右侧栏，先尝试移动到 Auxiliary Bar 再聚焦。
+			try {
+				await vscode.commands.executeCommand("vscode.moveViews", {
+					viewIds: [ClineProvider.sideBarId],
+					destinationId: "kilo-code-AuxiliaryBar",
+				})
+			} catch {}
+			await vscode.commands.executeCommand(`${ClineProvider.sideBarId}.focus`)
+		}),
+	)
+
 	// kilocode_change start
 	if (!context.globalState.get("firstInstallCompleted")) {
 		outputChannel.appendLine("First installation detected, opening Kilo Code sidebar!")
