@@ -28,8 +28,9 @@ export interface CreateTaskWithContextParams {
  *
  * 业务逻辑：
  * 1. 验证必需参数
- * 2. 创建带有临时系统提示词的任务
- * 3. 确保任务结束时清除临时系统提示词
+ * 2. 关闭当前运行的任务（如果存在）
+ * 3. 创建带有临时系统提示词的任务
+ * 4. 确保任务结束时清除临时系统提示词
  *
  * @param params 任务创建参数
  */
@@ -51,6 +52,19 @@ export const handleCreateTaskWithContext = async (params: CreateTaskWithContextP
 
 		if (!provider) {
 			throw new Error(t("commands:createTaskWithContext.errors.no_provider"))
+		}
+
+		// 在创建新任务前，先关闭当前运行的任务
+		const currentTask = provider.getCurrentTask()
+		if (currentTask) {
+			console.log(`[createTaskWithContext] 关闭当前任务 ${currentTask.taskId}.${currentTask.instanceId}`)
+
+			// 显示用户通知
+			vscode.window.showInformationMessage(t("commands:createTaskWithContext.info.closing_current_task"))
+
+			await provider.cancelTask()
+			// 等待任务完全关闭
+			await new Promise((resolve) => setTimeout(resolve, 500))
 		}
 
 		// 如果指定了模式，先切换模式

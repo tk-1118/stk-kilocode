@@ -135,6 +135,11 @@ export class CodeIndexManager {
 		const { requiresRestart } = await this._configManager.loadConfiguration()
 		console.log(`[CodeIndexManager] Configuration loaded, requiresRestart: ${requiresRestart}`)
 
+		// Initialize Qdrant connection from VSCode built-in service if needed
+		console.log("[CodeIndexManager] Initializing Qdrant connection...")
+		await this._configManager.initializeQdrantConnection()
+		console.log("[CodeIndexManager] Qdrant connection initialized")
+
 		// 2. Check if feature is enabled
 		console.log(`[CodeIndexManager] Feature enabled check: ${this.isFeatureEnabled}`)
 		if (!this.isFeatureEnabled) {

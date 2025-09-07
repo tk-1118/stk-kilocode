@@ -634,11 +634,15 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	}
 
 	/**
-	 * 基于任务描述推荐最适合的团队成员（专业成员优先）
+	 * 基于任务描述推荐最适合的团队成员（备选机制，仅供内部使用）
+	 *
+	 * ⚠️ 重要：此方法已被新的智能体主动分析工作流程取代
+	 * 现在仅作为 shouldSwitchTeamMember 的内部备选机制使用
 	 *
 	 * @param taskDescription - 任务描述
 	 * @returns 推荐的团队成员模式标识
-	 * @public
+	 * @internal 内部使用，外部应依赖智能体的主动分析和决策
+	 * @deprecated 推荐使用智能体主动分析和决策，而非依赖此简单的关键词匹配
 	 */
 	public recommendTeamMember(taskDescription: string): string {
 		if (!taskDescription) {

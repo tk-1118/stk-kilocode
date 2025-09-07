@@ -76,25 +76,23 @@ export class CodeIndexConfigManager {
 		// 否则使用环境变量，最后使用默认值
 		this.codebaseIndexEnabled = codebaseIndexEnabled ?? true
 
-		// Qdrant URL 优先级处理：用户输入 > 环境变量 > 默认值
+		// Qdrant URL 优先级处理：用户输入 > VSCode内置服务 > 环境变量 > 默认值
 		if (codebaseIndexQdrantUrl && codebaseIndexQdrantUrl.trim() !== "") {
 			// 用户输入了 URL，优先使用用户输入
 			this.qdrantUrl = codebaseIndexQdrantUrl
 			console.log(`[ConfigManager] Using user input qdrantUrl: "${this.qdrantUrl}"`)
 		} else {
-			// 用户没有输入，使用环境变量，无默认值
+			// 用户没有输入，先使用环境变量作为初始值
 			this.qdrantUrl = process.env.KILOCODE_QDRANT_BASE_URL || ""
-			console.log(
-				`[ConfigManager] Using env var qdrantUrl: "${this.qdrantUrl}" (env: "${process.env.KILOCODE_QDRANT_BASE_URL}")`,
-			)
+			console.log(`[ConfigManager] Initial qdrantUrl from env: "${this.qdrantUrl}"`)
 		}
 
-		// Qdrant API Key 优先级处理：用户输入 > 环境变量 > 默认值
+		// Qdrant API Key 优先级处理：用户输入 > VSCode内置服务 > 环境变量 > 默认值
 		if (qdrantApiKey && qdrantApiKey.trim() !== "") {
 			// 用户输入了 API Key，优先使用用户输入
 			this.qdrantApiKey = qdrantApiKey
 		} else {
-			// 用户没有输入，使用环境变量或默认值
+			// 使用环境变量作为初始值
 			this.qdrantApiKey = process.env.KILOCODE_QDRANT_API_KEY || ""
 		}
 		this.searchMinScore = codebaseIndexSearchMinScore
@@ -149,6 +147,42 @@ export class CodeIndexConfigManager {
 
 		this.geminiOptions = geminiApiKey ? { apiKey: geminiApiKey } : undefined
 		this.mistralOptions = mistralApiKey ? { apiKey: mistralApiKey } : undefined
+	}
+
+	/**
+	 * 异步初始化方法，尝试从 VSCode 内置 Qdrant 服务获取连接信息
+	 * 如果用户没有手动配置 URL 和 API Key，则尝试使用内置服务
+	 */
+	async initializeQdrantConnection(): Promise<void> {
+		// 如果用户已经手动配置了 URL 和 API Key，则不需要从内置服务获取
+		if (this.qdrantUrl && this.qdrantApiKey) {
+			console.log("[ConfigManager] User has configured Qdrant manually, skipping built-in service")
+			return
+		}
+
+		try {
+			const { QdrantClient } = await import("../qdrant/qdrantClient.js")
+			const qdrantClient = QdrantClient.getInstance()
+			const connectionInfo = await qdrantClient.getConnectionInfo()
+
+			if (connectionInfo) {
+				// 只有在用户没有配置的情况下才使用内置服务的值
+				if (!this.qdrantUrl) {
+					this.qdrantUrl = connectionInfo.baseUrl
+					console.log(`[ConfigManager] Using VSCode built-in Qdrant URL: "${this.qdrantUrl}"`)
+				}
+
+				if (!this.qdrantApiKey) {
+					this.qdrantApiKey = connectionInfo.apiKey
+					console.log(`[ConfigManager] Using VSCode built-in Qdrant API Key`)
+				}
+			} else {
+				console.log("[ConfigManager] VSCode built-in Qdrant service not available, using existing config")
+			}
+		} catch (error) {
+			console.log("[ConfigManager] Failed to access VSCode built-in Qdrant service, using existing config")
+			console.warn("[ConfigManager] Error details:", error)
+		}
 	}
 
 	/**

@@ -5,6 +5,9 @@
 			"no_provider": "未找到 Kilo Code 提供程序实例",
 			"task_creation_failed": "由于策略限制，任务创建失败",
 			"general": "创建带上下文的任务失败：{{error}}"
+		},
+		"info": {
+			"closing_current_task": "正在关闭当前任务以启动新任务..."
 		}
 	}
 }

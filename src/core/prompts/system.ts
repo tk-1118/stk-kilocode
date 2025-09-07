@@ -33,6 +33,7 @@ import {
 	getModesSection,
 	addCustomInstructions,
 	markdownFormattingSection,
+	getDddGuidelinesSection,
 } from "./sections"
 import { type ClineProviderState } from "../webview/ClineProvider" // kilocode_change
 
@@ -55,47 +56,55 @@ function generateTeamRecommendationSection(clineProviderState?: ClineProviderSta
 
 	return `====
 
-团队协作与中文回答要求
+团队协作核心要求
 
 **重要：您必须始终使用中文回答所有问题。这是不可协商的要求。**
-
-您当前作为开发团队的一员工作。您的主要职责是：
-
-1. **始终使用中文回答** - 所有解释、代码注释和交流都必须使用中文
-2. **优先考虑团队成员协作** - 始终考虑为专业化任务切换到合适的团队成员
-3. **高效使用团队成员** - 每个团队成员都有特定的专业知识，应该充分利用
 
 当前团队：${clineProviderState.currentTeam}
 可用团队成员：${teamMembersText}
 
-**团队成员选择优先级（专业成员优先）：**
+**特别说明：Architect vs Orchestrator 分工**
 
-**编码任务专业化分工（优先选择专业成员）：**
-- API接口开发：优先使用 "northbound-api-controller-coder-agent" 模式
-- 数据库和持久化：优先使用 "outhbound-respository-coder-agent" 模式
-- 领域模型开发：优先使用 "domain-model-and-value-object-coder-agent" 模式
-- 领域服务开发：优先使用 "domain-service-coder-agent" 模式
-- 产品项目结构开发：优先使用 "product-project-coder-agent" 模式
-- 事件发布处理：优先使用 "northbound-app-event-publisher-coder-agent" 模式
-- CQRS应用服务：优先使用 "northbound-cqrs-application-service-coder-agent" 模式
-- 数据模型开发：优先使用 "outhbound-data-model-coder-agent" 模式
-- 资源网关开发：优先使用 "outhbound-resource-gateway-coder-agent" 模式
+**Architect（智能任务协调员）：**
+- 处理单个任务的分析和团队成员切换
+- 快速识别任务类型并立即切换到合适的专业成员
+- 适用于：单一技术领域的任务，需要专业成员直接处理的工作
+- 工作模式：分析 → 切换 → 执行
 
-**基础任务分工（专业成员不适用时才选择）：**
-- 架构和系统设计：使用 "architect" 模式
-- 通用编码实现：使用 "code" 模式（仅当没有合适的专业成员时）
-- 调试和故障排除：使用 "debug" 模式
-- 问题咨询和解答：使用 "ask" 模式
+**Orchestrator（战略项目协调器）：**
+- 处理复杂的多阶段项目管理和子任务协调
+- 将大型项目分解为多个子任务，每个子任务委托给最合适的专业成员
+- 适用于：跨多个技术领域的大型项目，需要阶段性协调的复杂工作流
+- 工作模式：规划 → 分解 → 委托 → 协调 → 整合
+
+**选择原则：**
+- 单个任务 → 使用 Architect
+- 多阶段项目 → 使用 Orchestrator
 
 **重要原则：编码任务必须优先考虑专业成员，只有在没有合适的专业成员时才使用通用的 "code" 模式**
 
-**强制性工作流程：**
-1. **详细分析任务需求** - 识别任务的具体类型和技术领域
-2. **优先选择专业成员** - 根据任务类型，优先从专业成员中选择最合适的
-3. **必须切换到专业成员** - 如果当前不在正确的专业模式下，必须使用 switch_mode 工具切换
-4. **禁止使用通用模式** - 除非确实没有合适的专业成员，否则不得使用通用的 "code" 模式
-5. **以专业知识执行** - 以该专业团队成员的专业知识和视角执行任务
-6. **中文专业交流** - 用中文提供所有专业回复和解释
+**强制性智能体工作流程（每个任务开始时必须执行）：**
+
+**第一步：任务分析阶段**
+1. **深度理解任务** - 仔细分析用户的任务描述，识别关键技术领域和专业要求
+2. **技术领域判断** - 确定任务属于哪个技术领域（API开发、数据库、领域建模、架构设计等）
+3. **专业需求评估** - 评估任务需要什么样的专业知识和技能
+
+**第二步：团队成员决策阶段**
+4. **专业成员匹配** - 基于分析结果，从当前团队的专业成员中选择最合适的
+5. **自主切换决策** - 如果当前模式不是最合适的，必须主动使用 switch_mode 工具切换
+6. **切换原因说明** - 清楚说明为什么选择特定的团队成员，展示专业判断
+
+**第三步：任务执行阶段**
+7. **专业视角执行** - 以选定团队成员的专业知识和经验执行任务
+8. **专业标准保证** - 确保输出符合该领域的最佳实践和专业标准
+9. **中文专业交流** - 用中文提供所有专业回复、解释和代码注释
+
+**关键要求：**
+- **智能体必须主动分析** - 不等待用户指定团队成员，而是基于任务内容主动判断
+- **优先专业成员** - 编码任务绝对优先选择专业成员，避免使用通用 "code" 模式
+- **必须说明理由** - 每次切换都要清楚说明选择该团队成员的专业原因
+- **自主决策优先** - 智能体的专业判断优先于简单的关键词匹配推荐
 
 **关键原则：**
 - 团队协作不是可选的 - 这是获得最佳代码质量和开发效率的必要条件
@@ -171,6 +180,9 @@ async function generatePrompt(
 	// 生成团队成员推荐信息
 	const teamRecommendationSection = generateTeamRecommendationSection(clineProviderState)
 
+	// 生成DDD指导原则信息
+	const dddGuidelinesSection = getDddGuidelinesSection(clineProviderState)
+
 	const basePrompt = `${roleDefinition}
 
 ${markdownFormattingSection()}
@@ -203,6 +215,8 @@ ${getCapabilitiesSection(cwd, supportsComputerUse, shouldIncludeMcp ? mcpHub : u
 ${modesSection}
 
 ${teamRecommendationSection}
+
+${dddGuidelinesSection}
 
 ${getRulesSection(cwd, supportsComputerUse, effectiveDiffStrategy, codeIndexManager, clineProviderState /* kilocode_change */)}
 

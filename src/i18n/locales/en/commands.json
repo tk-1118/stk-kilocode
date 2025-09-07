@@ -5,6 +5,9 @@
 			"no_provider": "No Kilo Code provider instance found",
 			"task_creation_failed": "Failed to create task due to policy restrictions",
 			"general": "Failed to create task with context: {{error}}"
+		},
+		"info": {
+			"closing_current_task": "Closing current task to start a new one..."
 		}
 	}
 }

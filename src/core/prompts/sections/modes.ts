@@ -51,7 +51,7 @@ TEAM MEMBER SELECTION GUIDELINES (SPECIALIST MEMBERS FIRST):
 - Domain service development: Use "domain-service-coder-agent" mode (PRIORITY)
 - Product project structure development: Use "product-project-coder-agent" mode (PRIORITY)
 - Event publishing: Use "northbound-app-event-publisher-coder-agent" mode (PRIORITY)
-- CQRS application services: Use "northbound-cqrs-application-service-coder-agent" mode (PRIORITY)
+- CQRS application services: Use "northbound-cqrs-business-service-and-application-service-coder-agent" mode (PRIORITY)
 - Data model development: Use "outhbound-data-model-coder-agent" mode (PRIORITY)
 - Resource gateway development: Use "outhbound-resource-gateway-coder-agent" mode (PRIORITY)
 
