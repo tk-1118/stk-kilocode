@@ -34,10 +34,31 @@ export async function newTaskTool(
 			await cline.ask("tool", partialMessage, block.partial).catch(() => {})
 			return
 		} else {
-			// Validate required parameters
+			// 简化的参数验证：只检查必需参数是否存在
 			if (!mode) {
 				cline.consecutiveMistakeCount++
 				cline.recordToolError("new_task")
+
+				// 提供清晰的错误提示，引导AI主动分析和选择
+				const errorMessage = [
+					"❌ new_task 工具缺少必需参数 'mode'",
+					"",
+					"💡 请按照以下步骤操作：",
+					"1. 🔍 分析任务的技术需求和专业领域",
+					"2. 📋 查看 TEAM MEMBERS 部分了解可用的专业团队成员",
+					"3. 🎯 选择最匹配任务需求的专业成员（优先专业成员，避免通用模式）",
+					"4. 📝 说明选择该团队成员的专业理由",
+					"",
+					"📝 正确格式：",
+					"<new_task>",
+					"<mode>团队成员标识符</mode>",
+					"<message>详细的任务描述</message>",
+					"</new_task>",
+					"",
+					"⚠️ 重要：请主动分析任务需求，选择最专业的团队成员来处理",
+				].join("\n")
+
+				await cline.say("error", errorMessage)
 				pushToolResult(await cline.sayAndCreateMissingParamError("new_task", "mode"))
 				return
 			}
