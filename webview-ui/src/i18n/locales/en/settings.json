@@ -6,7 +6,9 @@
 		"reset": "Reset",
 		"select": "Select",
 		"add": "Add Header",
-		"remove": "Remove"
+		"remove": "Remove",
+		"notSelected": "Not selected",
+		"count": ""
 	},
 	"header": {
 		"title": "Settings",
@@ -31,6 +33,7 @@
 		"terminal": "Terminal",
 		"prompts": "Prompts",
 		"experimental": "Experimental",
+		"teams": "Team Management",
 		"language": "Language",
 		"about": "About HN Code"
 	},
@@ -528,6 +531,51 @@
 		"enable": {
 			"label": "Enable automatic checkpoints",
 			"description": "When enabled, HN Code will automatically create checkpoints during task execution, making it easy to review changes or revert to earlier states. <0>Learn more</0>"
+		}
+	},
+	"teams": {
+		"title": "Team Management",
+		"description": "Manage development teams and member configurations, supporting multi-team collaborative development",
+		"enable": {
+			"label": "Enable Team Management",
+			"description": "When enabled, you can create and manage custom development teams"
+		},
+		"disabled": {
+			"warning": "Team management functionality is disabled. Enable it to create and manage custom development teams."
+		},
+		"status": {
+			"title": "Current Status",
+			"currentTeam": "Current Team",
+			"customTeams": "Custom Teams",
+			"customModes": "Custom Modes"
+		},
+		"management": {
+			"title": "Management Operations",
+			"teamManagement": "Team Management",
+			"importConfig": "Import Configuration",
+			"exportConfig": "Export Configuration",
+			"resetDefaults": "Reset to Defaults",
+			"importTooltip": "Import team configuration file",
+			"exportTooltip": "Export all team configurations",
+			"resetTooltip": "Reset to default team configuration",
+			"resetConfirm": "Are you sure you want to reset to default team configuration? This will delete all custom teams."
+		},
+		"usage": {
+			"title": "Usage Instructions",
+			"features": "Team management features:",
+			"feature1": "Create custom development teams with different member roles",
+			"feature2": "Select suitable members from the template library to join teams",
+			"feature3": "Create specialized modes to meet specific development needs",
+			"feature4": "Import and export team configurations for easy sharing between teams",
+			"feature5": "Support team workflow and task assignment strategy configuration"
+		},
+		"quickStart": {
+			"title": "Quick Start:",
+			"step1": "Click the 'Team Management' button to enter the management interface",
+			"step2": "Create new teams or edit existing teams",
+			"step3": "Add suitable members from the template library",
+			"step4": "Configure team collaboration processes and assignment strategies",
+			"step5": "Select a team in the chat interface to start collaborative development"
 		}
 	},
 	"display": {

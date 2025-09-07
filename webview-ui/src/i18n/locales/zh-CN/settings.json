@@ -6,7 +6,9 @@
 		"reset": "恢复默认设置",
 		"select": "选择",
 		"add": "添加标头",
-		"remove": "移除"
+		"remove": "移除",
+		"notSelected": "未选择",
+		"count": "个"
 	},
 	"header": {
 		"title": "设置",
@@ -30,6 +32,7 @@
 		"terminal": "终端",
 		"prompts": "提示词",
 		"experimental": "实验性",
+		"teams": "团队管理",
 		"language": "语言",
 		"about": "关于 HN Code",
 		"mcp": "MCP 服务器",
@@ -878,6 +881,51 @@
 	"labels": {
 		"customArn": "自定义 ARN",
 		"useCustomArn": "使用自定义 ARN..."
+	},
+	"teams": {
+		"title": "团队管理",
+		"description": "管理开发团队和成员配置，支持多团队协作开发",
+		"enable": {
+			"label": "启用团队管理",
+			"description": "启用后可以创建和管理自定义开发团队"
+		},
+		"disabled": {
+			"warning": "团队管理功能已禁用。启用后可以创建和管理自定义开发团队。"
+		},
+		"status": {
+			"title": "当前状态",
+			"currentTeam": "当前团队",
+			"customTeams": "自定义团队",
+			"customModes": "自定义模式"
+		},
+		"management": {
+			"title": "管理操作",
+			"teamManagement": "团队管理",
+			"importConfig": "导入配置",
+			"exportConfig": "导出配置",
+			"resetDefaults": "重置默认",
+			"importTooltip": "导入团队配置文件",
+			"exportTooltip": "导出所有团队配置",
+			"resetTooltip": "重置为默认团队配置",
+			"resetConfirm": "确定要重置为默认团队配置吗？这将删除所有自定义团队。"
+		},
+		"usage": {
+			"title": "使用说明",
+			"features": "团队管理功能：",
+			"feature1": "创建自定义开发团队，配置不同的成员角色",
+			"feature2": "从模板库中选择合适的成员加入团队",
+			"feature3": "创建专业化的模式来满足特定开发需求",
+			"feature4": "导入导出团队配置，便于团队间共享",
+			"feature5": "支持团队工作流程和任务分配策略配置"
+		},
+		"quickStart": {
+			"title": "快速开始：",
+			"step1": "点击\"团队管理\"按钮进入管理界面",
+			"step2": "创建新团队或编辑现有团队",
+			"step3": "从模板库中添加合适的成员",
+			"step4": "配置团队协作流程和分配策略",
+			"step5": "在聊天界面中选择团队开始协作开发"
+		}
 	},
 	"display": {
 		"taskTimeline": {

@@ -4,7 +4,7 @@ import { TeamConfig, ExtendedTeamConfig, ModeConfig } from "@roo-code/types"
 import { Button, StandardTooltip } from "@/components/ui"
 // import { cn } from "@/lib/utils"
 import { vscode } from "@/utils/vscode"
-// import { useAppTranslation } from "@/i18n/TranslationContext" // 暂时未使用翻译功能
+import { useAppTranslation } from "@/i18n/TranslationContext"
 import { DEFAULT_TEAMS, DEFAULT_MODES } from "@roo-code/types"
 
 import { TeamEditor } from "./TeamEditor"
@@ -27,7 +27,7 @@ export const TeamManagementView: React.FC<TeamManagementViewProps> = ({
 	customModes = [],
 	_onTeamChange,
 }) => {
-	// const { t } = useAppTranslation() // 暂时未使用翻译功能
+	const { t: _t } = useAppTranslation()
 
 	// 合并内置团队和自定义团队
 	const allTeams = useMemo((): ExtendedTeamConfig[] => {
