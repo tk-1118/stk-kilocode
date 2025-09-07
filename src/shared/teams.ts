@@ -11,6 +11,8 @@ import {
 } from "@roo-code/types"
 
 import { getAllModes, getModeBySlug } from "./modes"
+import { MODE_DISPLAY_NAMES, TASK_MODE_MAPPING, BASE_MODE_LIST } from "./constants/modes"
+import { DEFAULT_TEAM_SLUG, TEAM_STATE, CONFIDENCE_THRESHOLDS } from "./constants/teams"
 
 export type Team = string
 
@@ -18,31 +20,7 @@ export type Team = string
  * 获取模式的显示名称（团队成员名称）
  */
 function getModeDisplayName(modeSlug: string): string {
-	const displayNames: Record<string, string> = {
-		architect: "架构师",
-		code: "开发工程师",
-		ask: "技术顾问",
-		debug: "调试专家",
-		orchestrator: "协调员",
-		"product-project-coder-agent": "产品项目结构开发同学",
-		"northbound-app-event-publisher-coder-agent": "应用事件发布开发同学",
-		"northbound-cqrs-application-service-coder-agent": "CQRS应用服务开发同学",
-		"northbound-api-controller-coder-agent": "API控制器开发同学",
-		"northbound-app-event-subscriber-coder-agent": "应用事件订阅开发同学",
-		"orthbound-client-provider-coder-agent": "客户端提供开发同学",
-		"value-object-and-java-primitive-data-types-mapping-coder-agent": "值对象映射开发同学",
-		"domain-model-and-value-object-coder-agent": "领域模型开发同学",
-		"domain-service-coder-agent": "领域服务开发同学",
-		"domain-event-publisher-coder-agent": "领域事件发布开发同学",
-		"outhbound-data-model-coder-agent": "数据模型开发同学",
-		"outhbound-respository-coder-agent": "仓储开发同学",
-		"outhbound-resource-gateway-coder-agent": "资源网关开发同学",
-		"outhbound-event-publish-adapter-coder-agent": "事件发布适配开发同学",
-		"read-model-coder-agent": "读模型开发同学",
-		"client-coder-agent": "客户端开发同学",
-	}
-
-	return displayNames[modeSlug] || modeSlug
+	return MODE_DISPLAY_NAMES[modeSlug] || modeSlug
 }
 
 /**
@@ -386,63 +364,20 @@ export function recommendTeamMember(
 	const taskLower = task.toLowerCase()
 	const allTeamModes = [...team.baseModes, ...team.specialtyModes]
 
-	// 基于任务内容推荐成员
-	if (taskLower.includes("架构") || taskLower.includes("设计") || taskLower.includes("规划")) {
-		if (allTeamModes.includes("architect")) {
+	// 使用配置化的任务模式映射进行推荐
+	for (const mapping of TASK_MODE_MAPPING) {
+		const hasKeyword = mapping.keywords.some((keyword) => taskLower.includes(keyword))
+		if (hasKeyword && allTeamModes.includes(mapping.mode)) {
 			return {
-				mode: "architect",
-				member: getModeDisplayName("architect"),
-				reason: `任务涉及架构设计，推荐${getModeDisplayName("architect")}`,
-			}
-		}
-	}
-
-	if (taskLower.includes("开发") || taskLower.includes("实现") || taskLower.includes("编码")) {
-		if (allTeamModes.includes("code")) {
-			return {
-				mode: "code",
-				member: getModeDisplayName("code"),
-				reason: `任务涉及代码开发，推荐${getModeDisplayName("code")}`,
-			}
-		}
-	}
-
-	if (taskLower.includes("调试") || taskLower.includes("修复") || taskLower.includes("错误")) {
-		if (allTeamModes.includes("debug")) {
-			return {
-				mode: "debug",
-				member: getModeDisplayName("debug"),
-				reason: `任务涉及问题调试，推荐${getModeDisplayName("debug")}`,
-			}
-		}
-	}
-
-	// 检查专业模式
-	if (taskLower.includes("产品") || taskLower.includes("项目") || taskLower.includes("项目结构")) {
-		const productMode = "product-project-coder-agent"
-		if (allTeamModes.includes(productMode)) {
-			return {
-				mode: productMode,
-				member: getModeDisplayName(productMode),
-				reason: `任务涉及产品项目，推荐${getModeDisplayName(productMode)}`,
-			}
-		}
-	}
-
-	if (taskLower.includes("领域") || taskLower.includes("模型")) {
-		const domainMode = "domain-model-and-value-object-coder-agent"
-		if (allTeamModes.includes(domainMode)) {
-			return {
-				mode: domainMode,
-				member: getModeDisplayName(domainMode),
-				reason: `任务涉及领域建模，推荐${getModeDisplayName(domainMode)}`,
+				mode: mapping.mode,
+				member: getModeDisplayName(mapping.mode),
+				reason: `${mapping.reason}，推荐${getModeDisplayName(mapping.mode)}`,
 			}
 		}
 	}
 
 	// 默认推荐团队中的第一个基础模式
-	const defaultMode =
-		allTeamModes.find((mode) => ["architect", "code", "ask", "debug"].includes(mode)) || allTeamModes[0]
+	const defaultMode = allTeamModes.find((mode) => BASE_MODE_LIST.includes(mode as any)) || allTeamModes[0]
 	if (defaultMode) {
 		return {
 			mode: defaultMode,
@@ -458,7 +393,7 @@ export function recommendTeamMember(
  * 获取团队工作状态
  */
 export async function getTeamWorkStatus(context: vscode.ExtensionContext): Promise<TeamWorkStatus | null> {
-	return context.globalState.get<TeamWorkStatus>("teamWorkStatus") || null
+	return context.globalState.get<TeamWorkStatus>(TEAM_STATE.STORAGE_KEYS.TEAM_WORK_STATUS) || null
 }
 
 /**
@@ -470,13 +405,13 @@ export async function updateTeamWorkStatus(
 ): Promise<void> {
 	const currentStatus = await getTeamWorkStatus(context)
 	const newStatus: TeamWorkStatus = {
-		currentTeam: currentStatus?.currentTeam || "backend-team",
+		currentTeam: currentStatus?.currentTeam || DEFAULT_TEAM_SLUG,
 		activeMembers: currentStatus?.activeMembers || [],
 		...currentStatus,
 		...status,
 		lastActivity: new Date().toISOString(),
 	}
-	await context.globalState.update("teamWorkStatus", newStatus)
+	await context.globalState.update(TEAM_STATE.STORAGE_KEYS.TEAM_WORK_STATUS, newStatus)
 }
 
 /**
@@ -492,15 +427,15 @@ export async function recordTeamSwitch(
 	}
 
 	// 获取历史记录
-	const history = context.globalState.get<TeamSwitchEvent[]>("teamSwitchHistory") || []
+	const history = context.globalState.get<TeamSwitchEvent[]>(TEAM_STATE.STORAGE_KEYS.TEAM_SWITCH_HISTORY) || []
 
-	// 添加新事件，保留最近50条记录
+	// 添加新事件，保留最近配置的条数记录
 	history.unshift(fullEvent)
-	if (history.length > 50) {
-		history.splice(50)
+	if (history.length > TEAM_STATE.MAX_SWITCH_HISTORY) {
+		history.splice(TEAM_STATE.MAX_SWITCH_HISTORY)
 	}
 
-	await context.globalState.update("teamSwitchHistory", history)
+	await context.globalState.update(TEAM_STATE.STORAGE_KEYS.TEAM_SWITCH_HISTORY, history)
 }
 
 /**
@@ -513,7 +448,7 @@ export async function autoSwitchTeam(
 ): Promise<{ switched: boolean; team?: string; reason?: string }> {
 	const detection = await detectProjectTeam(workspaceRoot, customTeams)
 
-	if (!detection.recommendedTeam || detection.confidence < 0.7) {
+	if (!detection.recommendedTeam || detection.confidence < CONFIDENCE_THRESHOLDS.AUTO_SWITCH_THRESHOLD) {
 		return { switched: false }
 	}
 
@@ -548,4 +483,4 @@ export async function autoSwitchTeam(
 }
 
 // 默认团队slug
-export const defaultTeamSlug = DEFAULT_TEAMS[0].slug
+export const defaultTeamSlug = DEFAULT_TEAM_SLUG

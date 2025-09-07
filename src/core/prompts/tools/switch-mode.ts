@@ -28,7 +28,7 @@ API开发任务：
 
 数据库任务：
 <switch_mode>
-<mode_slug>outhbound-respository-coder-agent</mode_slug>
+<mode_slug>southbound-repository-coder-agent</mode_slug>
 <reason>需要数据持久化专家来处理数据库操作和Repository模式</reason>
 </switch_mode>
 
