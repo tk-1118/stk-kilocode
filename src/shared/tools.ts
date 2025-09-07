@@ -47,6 +47,7 @@ export const toolParamNames = [
 	"result",
 	"diff",
 	"mode_slug",
+	"team_slug",
 	"reason",
 	"line",
 	"mode",
@@ -205,6 +206,7 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 	ask_followup_question: "ask questions",
 	attempt_completion: "complete tasks",
 	switch_mode: "switch modes",
+	switch_team: "switch teams",
 	new_task: "create new task",
 	insert_content: "insert content",
 	search_and_replace: "search and replace",
@@ -247,7 +249,7 @@ export const TOOL_GROUPS: Record<ToolGroup, ToolGroupConfig> = {
 		tools: ["use_mcp_tool", "access_mcp_resource"],
 	},
 	modes: {
-		tools: ["switch_mode", "new_task"],
+		tools: ["switch_mode", "switch_team", "new_task"],
 		alwaysAvailable: true,
 	},
 }
@@ -257,6 +259,7 @@ export const ALWAYS_AVAILABLE_TOOLS: ToolName[] = [
 	"ask_followup_question",
 	"attempt_completion",
 	"switch_mode",
+	"switch_team",
 	"new_task",
 	"report_bug",
 	"condense", // kilocode_Change

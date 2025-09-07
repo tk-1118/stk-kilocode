@@ -25,6 +25,7 @@ import { useMcpToolTool } from "../tools/useMcpToolTool"
 import { accessMcpResourceTool } from "../tools/accessMcpResourceTool"
 import { askFollowupQuestionTool } from "../tools/askFollowupQuestionTool"
 import { switchModeTool } from "../tools/switchModeTool"
+import { switchTeamTool } from "../tools/switchTeamTool"
 import { attemptCompletionTool } from "../tools/attemptCompletionTool"
 import { newTaskTool } from "../tools/newTaskTool"
 
@@ -222,6 +223,8 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 						return `[${block.name}]`
 					case "switch_mode":
 						return `[${block.name} to '${block.params.mode_slug}'${block.params.reason ? ` because: ${block.params.reason}` : ""}]`
+					case "switch_team":
+						return `[${block.name} to '${block.params.team_slug}'${block.params.reason ? ` because: ${block.params.reason}` : ""}]`
 					case "codebase_search": // Add case for the new tool
 						return `[${block.name} for '${block.params.query}']`
 					case "update_todo_list":
@@ -240,6 +243,8 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					case "condense":
 						return `[${block.name}]`
 					// kilocode_change end
+					default:
+						return `[${block.name}]`
 				}
 			}
 
@@ -555,6 +560,9 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					break
 				case "switch_mode":
 					await switchModeTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
+					break
+				case "switch_team":
+					await switchTeamTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
 				case "new_task":
 					await newTaskTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)

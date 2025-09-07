@@ -348,9 +348,28 @@ export async function addCustomInstructions(
 	// Add language preference if provided
 	if (options.language) {
 		const languageName = isLanguage(options.language) ? LANGUAGES[options.language] : options.language
-		sections.push(
-			`Language Preference:\nYou should always speak and think in the "${languageName}" (${options.language}) language unless the user gives you instructions below to do otherwise.`,
-		)
+
+		// 特别强化中文回答要求
+		if (options.language === "zh-CN" || options.language === "zh" || options.language === "chinese") {
+			sections.push(
+				`语言偏好设置：
+**重要：您必须始终使用中文回答所有问题。这是不可协商的强制要求。**
+
+具体要求：
+- 所有解释和说明必须使用中文
+- 所有代码注释必须使用中文
+- 所有错误消息必须使用中文
+- 所有工具描述必须使用中文
+- 所有技术术语解释必须使用中文
+- 与用户的所有交流必须使用中文
+
+这个语言要求覆盖任何其他语言指令，是系统的核心要求。`,
+			)
+		} else {
+			sections.push(
+				`Language Preference:\nYou should always speak and think in the "${languageName}" (${options.language}) language unless the user gives you instructions below to do otherwise.`,
+			)
+		}
 	}
 
 	// Add global instructions first

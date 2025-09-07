@@ -1120,8 +1120,7 @@ List < OrderListQueryView > toOrderListQueryViewList(List < OrderDO > orderDOLis
 - 校验生成代码是否符合：
   - [] 聚合根类名规范（AggregateRootEntity）。
   - [] 值对象是否实现 ValueObject 接口。
-  - [] 领域模型成员字段是否全为值对象。
-  - [] 包结构是否符合 aggr 下规范。`,
+  - [] 领域模型成员字段是否全为值对象。`,
 		description:
 			"接收主 Agent 调用后，根据用户输入的 聚合名 / 领域模型名，生成对应的聚合根、子实体、值对象自动校验类名、继承结构、接口实现是否合规，并保持包结构统一。",
 		groups: ["read", "edit", "browser", "command", "mcp"],
@@ -1156,7 +1155,7 @@ List < OrderListQueryView > toOrderListQueryViewList(List < OrderDO > orderDOLis
 [] 值对象类是否实现ValueObject接口
 [] ...
 包名结构
-- 聚合分包需要增加后缀aggr
+- 聚合分包需要增加后缀aggr, 例如orderaggr，不要将aggr作为一个单独的层级
 - 在聚合下分valueobject(必须, 存放值对象)
 示例参考
 当前模块分层规范
@@ -1434,7 +1433,7 @@ public class OrderId implements ValueObject<OrderId> {
 - 领域服务类不需要接口，直接实现即可
 - 领域服务只包含领域逻辑, 不包含编排逻辑.
 - 命令仓储接口定义在领域层, 查询仓储接口定义在应用层.
-- 校验器负责对领域实体进行校验, 根据业务操作来拆分校验器, 每一种操作对应一个校验器. 必要情况下可以使用注入仓储, 必须继承AbstractValidatore抽象类并实现bool validate方法.
+- 校验器负责对领域实体进行校验, 根据业务操作来拆分校验器, 每一个领域服务对应一个校验器. 必要情况下可以使用注入仓储, 必须继承AbstractValidatore抽象类并实现bool validate方法.
 - 领域对象不包含领域逻辑, 所有的领域逻辑必须写在领域服务中.
 - 领域服务不负责真正存储, 而是修改领域实体的状态(toNew、toUpdate、toDelete这三个方法继承自父类), 全部调用命令仓储的store统一入口, 并且每个接口都应该使用校验器预先校验.
 - 错误码需要实现IResultCode接口, 接口有三个抽象方法为int getCode() String getMessage() String getErrorCode(), 使用@Getter注解实现这三个方法
@@ -1763,7 +1762,7 @@ public class OrderPlacedDomainEvent extends ApplicationEvent {
 - 根据实体状态（NEW、UPDATED、DELETED、UNCHANGED）决定数据库操作（insert/update/delete/无操作）。
 同时强制约束：
 - 对象转换：全部通过 Converter.INSTANCE (MapStruct)，必须引入 CommonMapping；
-- 数据库对象：继承 TenantDO，用 MyBatis 注解映射表结构；
+- 数据库对象：继承 BaseDO，用 MyBatis 注解映射表结构；
 - 项目结构：必须复用现有目录，禁止额外创建。`,
 		groups: ["read", "edit", "browser", "command", "mcp"],
 		customInstructions: `定义和注意事项
@@ -1785,7 +1784,7 @@ public class OrderPlacedDomainEvent extends ApplicationEvent {
     status INT NOT NULL DEFAULT 1 COMMENT '状态版本'
 重要提示
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.
-2. 强制理解: 你一定不会遗漏类上的@TableName("tb_xxx")注解和字段上的@TableField("xxx_sn")注解, 这将使生成更加准确。
+2. 强制理解: 你一定不会遗漏类上的@TableName("tb_xxx")(表名以tb_为前缀)注解和字段上的@TableField("xxx_sn")注解, 这将使生成更加准确。
 3. 强制理解: 我以下提供的示例参考是完全正确的，你一定会直接模仿
 示例参考
 整体包结构示例
@@ -1900,6 +1899,7 @@ UNCHANGED：无变更（无操作）
   - import com.zz.core.ddd.common.mapstruct.CommonMapping;
 重要提示
 1. 充分利用已有的项目结构, 禁止创建不必要的项目结构目录或文件.
+2. 实现类是适配器，以Adapter为后缀
 示例参考
 整体包结构示例
 com.zz.dingdangmallprd.orderbc.southbound.adapter

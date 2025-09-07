@@ -42,17 +42,28 @@ Team Description: ${teamConfig.description || "A professional development team"}
 
 You can switch to any of these team members using the switch_mode tool when their expertise is needed for the current task.
 
-TEAM MEMBER SELECTION GUIDELINES:
-- For architecture and design tasks: Use "architect" mode
-- For coding and implementation: Use "code" mode
-- For debugging and troubleshooting: Use "debug" mode
-- For questions and consultation: Use "ask" mode
-- For DDD domain modeling: Use "domain-model-and-value-object-coder-agent" mode
-- For product and project management: Use "product-project-coder-agent" mode
-- For API development: Use "northbound-api-controller-coder-agent" mode
-- For data persistence: Use "outhbound-respository-coder-agent" mode
+TEAM MEMBER SELECTION GUIDELINES (SPECIALIST MEMBERS FIRST):
 
-Always consider the nature of the current task and choose the most appropriate team member for optimal results.
+**CODING TASKS - PRIORITIZE SPECIALIST MEMBERS:**
+- API interface development: Use "northbound-api-controller-coder-agent" mode (PRIORITY)
+- Database and persistence: Use "outhbound-respository-coder-agent" mode (PRIORITY)
+- Domain model development: Use "domain-model-and-value-object-coder-agent" mode (PRIORITY)
+- Domain service development: Use "domain-service-coder-agent" mode (PRIORITY)
+- Product project structure development: Use "product-project-coder-agent" mode (PRIORITY)
+- Event publishing: Use "northbound-app-event-publisher-coder-agent" mode (PRIORITY)
+- CQRS application services: Use "northbound-cqrs-application-service-coder-agent" mode (PRIORITY)
+- Data model development: Use "outhbound-data-model-coder-agent" mode (PRIORITY)
+- Resource gateway development: Use "outhbound-resource-gateway-coder-agent" mode (PRIORITY)
+
+**BASIC TASKS - USE ONLY WHEN NO SPECIALIST AVAILABLE:**
+- Architecture and design: Use "architect" mode
+- Generic coding: Use "code" mode (ONLY when no specialist member fits)
+- Debugging and troubleshooting: Use "debug" mode
+- Questions and consultation: Use "ask" mode
+
+**CRITICAL RULE: For any coding task, you MUST first check if a specialist member is available. Only use the generic "code" mode as a last resort when no specialist member matches the task requirements.**
+
+Always analyze the task deeply and choose the most specialized team member for optimal professional results.
 `
 
 			modesContent += `

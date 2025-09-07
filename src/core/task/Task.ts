@@ -586,6 +586,309 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	}
 
 	/**
+	 * 切换到指定团队
+	 *
+	 * @param teamSlug - 团队标识
+	 * @returns Promise<void>
+	 * @public
+	 */
+	public async switchToTeam(teamSlug: string): Promise<void> {
+		const provider = this.providerRef.deref()
+		if (!provider) {
+			throw new Error("Provider reference lost during team switch")
+		}
+
+		try {
+			const state = await provider.getState()
+
+			// 验证团队是否存在
+			const { getTeamBySlug } = require("../../shared/teams")
+			const targetTeam = getTeamBySlug(teamSlug, state?.customTeams)
+
+			if (!targetTeam) {
+				throw new Error(`Team "${teamSlug}" not found`)
+			}
+
+			// 更新当前任务的团队信息
+			this._currentTeam = teamSlug
+			this._teamMembers = this.getTeamMembers(teamSlug, state?.customTeams)
+
+			// 同步到 Provider 状态
+			await provider.contextProxy.setValue("currentTeam", teamSlug)
+
+			// 记录团队切换事件
+			const { recordTeamSwitch } = require("../../shared/teams")
+			await recordTeamSwitch(this.getContext(), {
+				fromTeam: state?.currentTeam,
+				toTeam: teamSlug,
+				reason: "manual-switch-via-task",
+				taskId: this.taskId,
+			})
+
+			provider.log(`[Task#${this.taskId}] Switched to team: ${targetTeam.name} (${teamSlug})`)
+		} catch (error) {
+			const errorMessage = `Failed to switch to team "${teamSlug}": ${error instanceof Error ? error.message : String(error)}`
+			provider.log(errorMessage)
+			throw new Error(errorMessage)
+		}
+	}
+
+	/**
+	 * 基于任务描述推荐最适合的团队成员（专业成员优先）
+	 *
+	 * @param taskDescription - 任务描述
+	 * @returns 推荐的团队成员模式标识
+	 * @public
+	 */
+	public recommendTeamMember(taskDescription: string): string {
+		if (!taskDescription) {
+			// 即使没有描述，也优先推荐专业成员
+			return "northbound-api-controller-coder-agent" // 默认推荐API开发专家
+		}
+
+		const task = taskDescription.toLowerCase()
+
+		// 架构和设计相关任务
+		if (
+			task.includes("架构") ||
+			task.includes("设计") ||
+			task.includes("architecture") ||
+			task.includes("design") ||
+			task.includes("系统设计") ||
+			task.includes("技术方案")
+		) {
+			return "architect"
+		}
+
+		// 调试和问题排查相关任务
+		if (
+			task.includes("调试") ||
+			task.includes("debug") ||
+			task.includes("bug") ||
+			task.includes("错误") ||
+			task.includes("问题排查") ||
+			task.includes("故障") ||
+			task.includes("troubleshoot")
+		) {
+			return "debug"
+		}
+
+		// 咨询和问答相关任务
+		if (
+			task.includes("问题") ||
+			task.includes("咨询") ||
+			task.includes("ask") ||
+			task.includes("帮助") ||
+			task.includes("解释") ||
+			task.includes("说明")
+		) {
+			return "ask"
+		}
+
+		// === 编码任务专业化分工（优先级从高到低） ===
+
+		// API接口开发（最高优先级）
+		if (
+			task.includes("api") ||
+			task.includes("接口") ||
+			task.includes("控制器") ||
+			task.includes("controller") ||
+			task.includes("路由") ||
+			task.includes("endpoint") ||
+			task.includes("restful") ||
+			task.includes("graphql") ||
+			task.includes("服务接口") ||
+			task.includes("web服务") ||
+			task.includes("http") ||
+			task.includes("请求") ||
+			task.includes("响应")
+		) {
+			return "northbound-api-controller-coder-agent"
+		}
+
+		// 数据持久化相关任务
+		if (
+			task.includes("数据库") ||
+			task.includes("持久化") ||
+			task.includes("repository") ||
+			task.includes("存储") ||
+			task.includes("dao") ||
+			task.includes("orm") ||
+			task.includes("mysql") ||
+			task.includes("postgresql") ||
+			task.includes("mongodb") ||
+			task.includes("redis") ||
+			task.includes("查询") ||
+			task.includes("sql") ||
+			task.includes("数据访问") ||
+			task.includes("数据操作")
+		) {
+			return "outhbound-respository-coder-agent"
+		}
+
+		// 领域建模相关任务
+		if (
+			task.includes("领域模型") ||
+			task.includes("domain") ||
+			task.includes("实体") ||
+			task.includes("值对象") ||
+			task.includes("聚合") ||
+			task.includes("ddd") ||
+			task.includes("业务模型") ||
+			task.includes("业务对象") ||
+			task.includes("模型设计") ||
+			task.includes("entity") ||
+			task.includes("value object") ||
+			task.includes("aggregate")
+		) {
+			return "domain-model-and-value-object-coder-agent"
+		}
+
+		// 领域服务相关任务
+		if (
+			task.includes("领域服务") ||
+			task.includes("业务服务") ||
+			task.includes("业务逻辑") ||
+			task.includes("domain service") ||
+			task.includes("business service") ||
+			task.includes("业务规则") ||
+			task.includes("业务流程")
+		) {
+			return "domain-service-coder-agent"
+		}
+
+		// 产品和项目管理相关任务
+		if (
+			task.includes("产品") ||
+			task.includes("项目管理") ||
+			task.includes("需求") ||
+			task.includes("product") ||
+			task.includes("project") ||
+			task.includes("管理") ||
+			task.includes("结构") ||
+			task.includes("骨架") ||
+			task.includes("框架") ||
+			task.includes("规划") ||
+			task.includes("计划") ||
+			task.includes("协调")
+		) {
+			return "product-project-coder-agent"
+		}
+
+		// 事件发布处理相关任务
+		if (
+			task.includes("事件") ||
+			task.includes("event") ||
+			task.includes("消息") ||
+			task.includes("发布") ||
+			task.includes("订阅") ||
+			task.includes("publish") ||
+			task.includes("subscribe") ||
+			task.includes("kafka") ||
+			task.includes("rabbitmq")
+		) {
+			return "northbound-app-event-publisher-coder-agent"
+		}
+
+		// CQRS应用服务相关任务
+		if (
+			task.includes("cqrs") ||
+			task.includes("command") ||
+			task.includes("query") ||
+			task.includes("应用服务") ||
+			task.includes("application service") ||
+			task.includes("命令") ||
+			task.includes("查询")
+		) {
+			return "northbound-cqrs-application-service-coder-agent"
+		}
+
+		// 数据模型开发相关任务
+		if (
+			task.includes("数据模型") ||
+			task.includes("data model") ||
+			task.includes("表结构") ||
+			task.includes("schema") ||
+			task.includes("数据结构") ||
+			task.includes("模型映射")
+		) {
+			return "outhbound-data-model-coder-agent"
+		}
+
+		// 资源网关开发相关任务
+		if (
+			task.includes("网关") ||
+			task.includes("gateway") ||
+			task.includes("代理") ||
+			task.includes("proxy") ||
+			task.includes("路由") ||
+			task.includes("负载均衡")
+		) {
+			return "outhbound-resource-gateway-coder-agent"
+		}
+
+		// 通用编码关键词检测（优先推荐专业成员）
+		if (
+			task.includes("开发") ||
+			task.includes("实现") ||
+			task.includes("编码") ||
+			task.includes("代码") ||
+			task.includes("功能") ||
+			task.includes("模块") ||
+			task.includes("组件") ||
+			task.includes("服务") ||
+			task.includes("类") ||
+			task.includes("方法") ||
+			task.includes("函数") ||
+			task.includes("develop") ||
+			task.includes("implement") ||
+			task.includes("code") ||
+			task.includes("function") ||
+			task.includes("method") ||
+			task.includes("class") ||
+			task.includes("service")
+		) {
+			// 对于通用编码任务，优先推荐API开发专家
+			return "northbound-api-controller-coder-agent"
+		}
+
+		// 最后的默认选择：仍然优先推荐专业成员而非通用code模式
+		return "northbound-api-controller-coder-agent"
+	}
+
+	/**
+	 * 检查当前任务是否需要切换团队成员
+	 *
+	 * @param taskDescription - 任务描述
+	 * @returns 是否需要切换以及推荐的成员
+	 * @public
+	 */
+	public async shouldSwitchTeamMember(taskDescription: string): Promise<{
+		shouldSwitch: boolean
+		recommendedMember: string
+		currentMember: string
+		reason?: string
+	}> {
+		const recommendedMember = this.recommendTeamMember(taskDescription)
+		const provider = this.providerRef.deref()
+		const currentMember = (await provider?.getState())?.mode || "code"
+
+		const shouldSwitch = currentMember !== recommendedMember && this.isModeInCurrentTeam(recommendedMember)
+
+		let reason: string | undefined
+		if (shouldSwitch) {
+			reason = `任务"${taskDescription}"更适合由${recommendedMember}模式处理，当前为${currentMember}模式`
+		}
+
+		return {
+			shouldSwitch,
+			recommendedMember,
+			currentMember,
+			reason,
+		}
+	}
+
+	/**
 	 * 获取当前团队的可用成员列表
 	 *
 	 * @returns 团队成员模式列表

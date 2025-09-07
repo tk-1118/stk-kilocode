@@ -24,7 +24,7 @@ function getModeDisplayName(modeSlug: string): string {
 		ask: "技术顾问",
 		debug: "调试专家",
 		orchestrator: "协调员",
-		"product-project-coder-agent": "产品项目开发同学",
+		"product-project-coder-agent": "产品项目结构开发同学",
 		"northbound-app-event-publisher-coder-agent": "应用事件发布开发同学",
 		"northbound-cqrs-application-service-coder-agent": "CQRS应用服务开发同学",
 		"northbound-api-controller-coder-agent": "API控制器开发同学",
@@ -418,7 +418,7 @@ export function recommendTeamMember(
 	}
 
 	// 检查专业模式
-	if (taskLower.includes("产品") || taskLower.includes("项目")) {
+	if (taskLower.includes("产品") || taskLower.includes("项目") || taskLower.includes("项目结构")) {
 		const productMode = "product-project-coder-agent"
 		if (allTeamModes.includes(productMode)) {
 			return {
