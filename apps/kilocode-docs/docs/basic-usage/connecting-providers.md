@@ -4,17 +4,19 @@ sidebar_label: Overview
 
 # API Providers Overview
 
-**Bottom line**: Kilo Code, like any agentic AI coding tool, needs AI model providers to function. You can use our [built-in provider](/providers/kilocode) (easiest) or connect your own API keys from **30+ providers**.
+**Bottom line**: HN Code, like any agentic AI coding tool, needs AI model providers to function. You can use our [built-in provider](/providers/kilocode) (easiest) or connect your own API keys from **30+ providers**.
 
-## Kilo Code Extension vs. API Provider
+## HN Code Extension vs. API Provider
 
 ### The Extension
+
 - VS Code tool you install from the marketplace
 - Handles UI, file operations, and workflow management
 - [Open source](https://github.com/Kilo-Org/kilocode)
 - Connects to any AI provider
 
-### Kilo Code API Provider
+### HN Code API Provider
+
 - **Built-in option** that comes with the extension
 - Google sign-in with free credits included
 - No API key management required
@@ -26,7 +28,9 @@ sidebar_label: Overview
 ## Getting Started: Two Paths
 
 ### Option 1: Built-in Provider (Recommended)
+
 ✅ **Fastest setup**
+
 - Sign in with Google at kilocode.ai
 - Free credits included
 - Zero API key management
@@ -35,10 +39,12 @@ sidebar_label: Overview
 → [Complete setup guide](/providers/kilocode)
 
 ### Option 2: Your Own Provider
+
 **More control, more setup**
+
 1. Choose from 30+ supported providers
 2. Get API key from your provider
-3. Configure in Kilo Code settings
+3. Configure in HN Code settings
 
 ## Why Use Multiple Providers?
 
@@ -51,14 +57,18 @@ sidebar_label: Overview
 ## What's in This Section
 
 ### [Connecting Your First AI Provider](/getting-started/connecting-api-provider)
+
 **For beginners**: Step-by-step setup including:
+
 - Recommended providers
 - How to get API keys
 - Initial VS Code configuration
 - Starting your first AI chat
 
 ### [API Configuration Profiles](/features/api-configuration-profiles)
+
 **For power users**: Advanced management including:
+
 - Multiple provider configurations
 - Model switching strategies
 - Secure API key management

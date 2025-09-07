@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "ตัวสร้างข้อความคอมมิต Kilo Code เปิดใช้งานแล้ว",
+		"activated": "ตัวสร้างข้อความคอมมิต HN Code เปิดใช้งานแล้ว",
 		"gitNotFound": "⚠️ ไม่พบที่เก็บ Git หรือ git ไม่พร้อมใช้งาน",
 		"gitInitError": "⚠️ ข้อผิดพลาดในการเริ่มต้น Git: {{error}}",
 		"generating": "Kilo: กำลังสร้างข้อความคอมมิต...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Kilo Inline Assist",
 			"warning": "$(warning) Kilo Inline Assist",
 			"tooltip": {
-				"basic": "Kilo Code Inline Assist",
-				"disabled": "Kilo Code Inline Assist (ปิดใช้งาน)",
+				"basic": "HN Code Inline Assist",
+				"disabled": "HN Code Inline Assist (ปิดใช้งาน)",
 				"tokenError": "ต้องตั้งค่าโทเค็นที่ถูกต้องเพื่อใช้ Inline Assist",
 				"lastCompletion": "คำแนะนำล่าสุด:",
 				"sessionTotal": "ค่าใช้จ่ายเซสชันทั้งหมด:",
@@ -79,30 +79,30 @@
 		},
 		"toggleMessage": "Kilo Inline Assist {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "HN Code",
 			"analyzing": "กำลังวิเคราะห์โค้ดของคุณ...",
 			"generating": "กำลังสร้างการแก้ไขที่แนะนำ...",
 			"processing": "กำลังประมวลผลการแก้ไขที่แนะนำ...",
 			"showing": "กำลังแสดงการแก้ไขที่แนะนำ..."
 		},
 		"input": {
-			"title": "Kilo Code: งานด่วน",
+			"title": "HN Code: งานด่วน",
 			"placeholder": "เช่น 'ปรับปรุงฟังก์ชันนี้ให้มีประสิทธิภาพมากขึ้น'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: สร้างการแก้ไขที่แนะนำ",
+			"generateSuggestions": "HN Code: สร้างการแก้ไขที่แนะนำ",
 			"displaySuggestions": "แสดงการแก้ไขที่แนะนำ",
 			"cancelSuggestions": "ยกเลิกการแก้ไขที่แนะนำ",
 			"applyCurrentSuggestion": "ใช้การแก้ไขที่แนะนำปัจจุบัน",
 			"applyAllSuggestions": "ใช้การแก้ไขที่แนะนำทั้งหมด",
 			"promptCodeSuggestion": "งานด่วน",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: การแก้ไขที่แนะนำ"
+			"title": "HN Code: การแก้ไขที่แนะนำ"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "HN Code Agent",
 			"name": "Agent",
 			"description": "ฉันสามารถช่วยคุณเกี่ยวกับงานด่วนและการแก้ไขที่แนะนำได้"
 		},
@@ -110,7 +110,7 @@
 			"provideCodeSuggestions": "กำลังให้คำแนะนำโค้ด..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code Inline Assist ถูกบล็อกโดยความขัดแย้งกับ GitHub Copilot หากต้องการแก้ไขปัญหานี้ คุณต้องปิดใช้งานคำแนะนำในบรรทัดของ Copilot",
+			"message": "HN Code Inline Assist ถูกบล็อกโดยความขัดแย้งกับ GitHub Copilot หากต้องการแก้ไขปัญหานี้ คุณต้องปิดใช้งานคำแนะนำในบรรทัดของ Copilot",
 			"disableCopilot": "ปิดใช้งาน Copilot",
 			"disableInlineAssist": "ปิดใช้งาน Inline Assist"
 		}

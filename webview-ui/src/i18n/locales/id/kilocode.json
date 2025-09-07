@@ -1,7 +1,7 @@
 {
 	"welcome": {
-		"greeting": "Selamat datang di Kilo Code!",
-		"introText1": "Kilo Code adalah agen coding AI gratis dan open source.",
+		"greeting": "Selamat datang di HN Code!",
+		"introText1": "HN Code adalah agen coding AI gratis dan open source.",
 		"introText2": "Bekerja dengan model AI terbaru seperti Claude 4 Sonnet, Gemini 2.5 Pro, GPT-4.1, dan lebih dari 450 model lainnya.",
 		"introText3": "Buat akun gratis dan dapatkan hingga $25 senilai token untuk digunakan dengan model AI apapun.",
 		"ctaButton": "Mulai",
@@ -11,15 +11,15 @@
 	},
 	"lowCreditWarning": {
 		"addCredit": "Tambah Kredit",
-		"lowBalance": "Saldo Kilo Code kamu rendah"
+		"lowBalance": "Saldo HN Code kamu rendah"
 	},
 	"pricing": {
 		"costUnknown": "biaya tidak diketahui",
 		"costUnknownDescription": "Penyedia API tidak memberikan data biaya atau permintaan dibatalkan.",
 		"freeModelsDescription": "Model gratis mungkin memiliki batas penggunaan. Gunakan tautan di bawah ini untuk mengoptimalkan penggunaan model gratis kamu!",
 		"freeModelsLink": "Temukan opsi model gratis dan hemat biaya",
-		"openRouterMarkup": "Penyedia Kilo Code mencakup semua model OpenRouter, tanpa markup dan dengan komisi 0%!",
-		"switchToKiloCode": "Beralih ke Kilo Code"
+		"openRouterMarkup": "Penyedia HN Code mencakup semua model OpenRouter, tanpa markup dan dengan komisi 0%!",
+		"switchToKiloCode": "Beralih ke HN Code"
 	},
 	"notifications": {
 		"toolRequest": "Permintaan tool menunggu persetujuan",
@@ -31,14 +31,14 @@
 			"mcp": "Server MCP"
 		},
 		"provider": {
-			"account": "Akun Kilo Code",
-			"apiKey": "API Key Kilo Code",
-			"login": "Masuk ke Kilo Code",
-			"logout": "Keluar dari Kilo Code",
-			"automaticFetch": "Model terbaru tersedia secara otomatis di Kilo Code. Jika Anda tidak yakin model mana yang harus dipilih, Kilo Code bekerja paling baik dengan model yang direkomendasikan yang tercantum di bagian atas dengan <strong>huruf tebal</strong>.",
+			"account": "Akun HN Code",
+			"apiKey": "API Key HN Code",
+			"login": "Masuk ke HN Code",
+			"logout": "Keluar dari HN Code",
+			"automaticFetch": "Model terbaru tersedia secara otomatis di HN Code. Jika Anda tidak yakin model mana yang harus dipilih, HN Code bekerja paling baik dengan model yang direkomendasikan yang tercantum di bagian atas dengan <strong>huruf tebal</strong>.",
 			"providerRouting": {
-				"title": "Kilo Code - Perutean Penyedia OpenRouter",
-				"description": "Kilo Code merutekan permintaan ke penyedia terbaik yang tersedia untuk model Anda. Secara default, permintaan diseimbangkan bebannya di seluruh penyedia teratas untuk memaksimalkan waktu aktif. Namun, Anda dapat memilih penyedia tertentu untuk digunakan untuk model ini.",
+				"title": "HN Code - Perutean Penyedia OpenRouter",
+				"description": "HN Code merutekan permintaan ke penyedia terbaik yang tersedia untuk model Anda. Secara default, permintaan diseimbangkan bebannya di seluruh penyedia teratas untuk memaksimalkan waktu aktif. Namun, Anda dapat memilih penyedia tertentu untuk digunakan untuk model ini.",
 				"sorting": {
 					"default": "Pengurutan penyedia default",
 					"price": "Utamakan penyedia dengan harga lebih rendah",
@@ -55,7 +55,7 @@
 		"modelInfo": {
 			"contextWindow": "Jendela konteks",
 			"providerBreakdown": "Rincian Harga dan Kemampuan Penyedia",
-			"averageKiloCodeCost": "Ini adalah rata-rata biaya aktual yang dihabiskan Kilo Code menggunakan model ini selama seminggu terakhir. Biaya ini mungkin lebih rendah dari harga yang tercantum karena pemanfaatan cache prompt.",
+			"averageKiloCodeCost": "Ini adalah rata-rata biaya aktual yang dihabiskan HN Code menggunakan model ini selama seminggu terakhir. Biaya ini mungkin lebih rendah dari harga yang tercantum karena pemanfaatan cache prompt.",
 			"table": {
 				"provider": "Penyedia",
 				"context": "Endpoint dapat memproses jumlah token ini (input + output).",
@@ -68,15 +68,15 @@
 		"contextManagement": {
 			"allowVeryLargeReads": {
 				"label": "Izinkan pembacaan file yang sangat besar",
-				"description": "Saat diaktifkan, Kilo Code akan melakukan pembacaan file atau output MCP yang sangat besar meskipun ada kemungkinan tinggi meluapnya jendela konteks (ukuran konten >80% dari jendela konteks)."
+				"description": "Saat diaktifkan, HN Code akan melakukan pembacaan file atau output MCP yang sangat besar meskipun ada kemungkinan tinggi meluapnya jendela konteks (ukuran konten >80% dari jendela konteks)."
 			}
 		},
 		"systemNotifications": {
 			"label": "Aktifkan Notifikasi Sistem",
-			"description": "Saat diaktifkan, Kilo Code akan mengirim notifikasi sistem untuk kejadian penting seperti penyelesaian tugas atau kesalahan.",
+			"description": "Saat diaktifkan, HN Code akan mengirim notifikasi sistem untuk kejadian penting seperti penyelesaian tugas atau kesalahan.",
 			"testButton": "Uji Notifikasi",
-			"testTitle": "Kilo Code",
-			"testMessage": "Ini adalah notifikasi uji dari Kilo Code."
+			"testTitle": "HN Code",
+			"testMessage": "Ini adalah notifikasi uji dari HN Code."
 		},
 		"terminal": {
 			"commandGenerator": {
@@ -91,7 +91,7 @@
 	},
 	"chat": {
 		"condense": {
-			"wantsToCondense": "Kilo Code ingin mengondensasi percakapan kamu",
+			"wantsToCondense": "HN Code ingin mengondensasi percakapan kamu",
 			"condenseConversation": "Kondensasi Percakapan"
 		},
 		"seeNewChanges": "Tampilkan Perubahan Baru"
@@ -117,15 +117,15 @@
 	},
 	"docs": "Dokumentasi",
 	"rules": {
-		"tooltip": "Kelola Aturan & Alur Kerja Kilo Code",
-		"ariaLabel": "Aturan Kilo Code",
+		"tooltip": "Kelola Aturan & Alur Kerja HN Code",
+		"ariaLabel": "Aturan HN Code",
 		"tabs": {
 			"rules": "Aturan",
 			"workflows": "Alur Kerja"
 		},
 		"description": {
-			"rules": "Aturan memungkinkan kamu memberikan instruksi kepada Kilo Code yang harus diikuti di semua mode dan untuk semua prompt. Mereka adalah cara persisten untuk menyertakan konteks dan preferensi untuk semua percakapan di workspace kamu atau secara global.",
-			"workflows": "Alur kerja adalah template yang disiapkan untuk percakapan. Alur kerja memungkinkan kamu menentukan prompt yang sering kamu gunakan, dan dapat mencakup serangkaian langkah untuk memandu Kilo Code melalui tugas-tugas berulang, seperti menerapkan layanan atau mengirim PR. Untuk memanggil alur kerja, ketik",
+			"rules": "Aturan memungkinkan kamu memberikan instruksi kepada HN Code yang harus diikuti di semua mode dan untuk semua prompt. Mereka adalah cara persisten untuk menyertakan konteks dan preferensi untuk semua percakapan di workspace kamu atau secara global.",
+			"workflows": "Alur kerja adalah template yang disiapkan untuk percakapan. Alur kerja memungkinkan kamu menentukan prompt yang sering kamu gunakan, dan dapat mencakup serangkaian langkah untuk memandu HN Code melalui tugas-tugas berulang, seperti menerapkan layanan atau mengirim PR. Untuk memanggil alur kerja, ketik",
 			"workflowsInChat": "di chat."
 		},
 		"sections": {
@@ -202,11 +202,11 @@
 			},
 			"enableAutoTrigger": {
 				"label": "Aktifkan Pemicu Otomatis",
-				"description": "Saat diaktifkan, Kilo Code akan secara otomatis memicu Bantuan Inline ketika kamu berhenti mengetik. Ini bisa berguna untuk perbaikan dan saran cepat."
+				"description": "Saat diaktifkan, HN Code akan secara otomatis memicu Bantuan Inline ketika kamu berhenti mengetik. Ini bisa berguna untuk perbaikan dan saran cepat."
 			},
 			"autoTriggerDelay": {
 				"label": "Penundaan Pemicu Otomatis",
-				"description": "Penundaan dalam detik sebelum Kilo Code memicu Bantuan Inline setelah kamu berhenti mengetik. Penundaan yang lebih singkat berarti saran lebih cepat, tetapi mungkin lebih intensif sumber daya."
+				"description": "Penundaan dalam detik sebelum HN Code memicu Bantuan Inline setelah kamu berhenti mengetik. Penundaan yang lebih singkat berarti saran lebih cepat, tetapi mungkin lebih intensif sumber daya."
 			},
 			"enableSmartInlineTaskKeybinding": {
 				"label": "Tugas Inline Pintar",

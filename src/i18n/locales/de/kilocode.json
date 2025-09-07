@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Kilo Code Commit-Nachrichten-Generator aktiviert",
+		"activated": "HN Code Commit-Nachrichten-Generator aktiviert",
 		"gitNotFound": "⚠️ Git-Repository nicht gefunden oder Git nicht verfügbar",
 		"gitInitError": "⚠️ Git-Initialisierungsfehler: {{error}}",
 		"generating": "Kilo: Generiere Commit-Nachricht...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Kilo Inline Assist",
 			"warning": "$(warning) Kilo Inline Assist",
 			"tooltip": {
-				"basic": "Kilo Code Inline-Unterstützung",
-				"disabled": "Kilo Code Inline-Hilfe (deaktiviert)",
+				"basic": "HN Code Inline-Unterstützung",
+				"disabled": "HN Code Inline-Hilfe (deaktiviert)",
 				"tokenError": "Ein gültiges Token muss festgelegt werden, um Inline-Unterstützung zu nutzen",
 				"lastCompletion": "Letzter Vorschlag:",
 				"sessionTotal": "Gesamtkosten der Sitzung:",
@@ -79,38 +79,38 @@
 		},
 		"toggleMessage": "Kilo Inline Assist {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "HN Code",
 			"analyzing": "Analysiere deinen Code...",
 			"generating": "Generiere vorgeschlagene Änderungen...",
 			"processing": "Verarbeitung von Änderungsvorschlägen...",
 			"showing": "Zeige Bearbeitungsvorschläge an..."
 		},
 		"input": {
-			"title": "Kilo Code: Schnellaufgabe",
+			"title": "HN Code: Schnellaufgabe",
 			"placeholder": "z.B. 'diese Funktion umgestalten, um effizienter zu sein'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Vorgeschlagene Änderungen generieren",
+			"generateSuggestions": "HN Code: Vorgeschlagene Änderungen generieren",
 			"displaySuggestions": "Vorgeschlagene Änderungen anzeigen",
 			"cancelSuggestions": "Vorgeschlagene Änderungen abbrechen",
 			"applyAllSuggestions": "Alle vorgeschlagenen Änderungen übernehmen",
 			"promptCodeSuggestion": "Schnellaufgabe erstellen",
 			"applyCurrentSuggestion": "Aktuelle Vorgeschlagene Änderung Übernehmen",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"chatParticipant": {
 			"name": "Agent",
-			"fullName": "Kilo Code Agent",
+			"fullName": "HN Code Agent",
 			"description": "Ich kann dir mit schnellen Aufgaben und vorgeschlagenen Änderungen helfen."
 		},
 		"codeAction": {
-			"title": "Kilo Code: Vorgeschlagene Änderungen"
+			"title": "HN Code: Vorgeschlagene Änderungen"
 		},
 		"messages": {
 			"provideCodeSuggestions": "Code-Vorschläge werden bereitgestellt..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Die Kilo Code Inline Assist wird durch einen Konflikt mit GitHub Copilot blockiert. Um dies zu beheben, musst du die Inline-Vorschläge von Copilot deaktivieren.",
+			"message": "Die HN Code Inline Assist wird durch einen Konflikt mit GitHub Copilot blockiert. Um dies zu beheben, musst du die Inline-Vorschläge von Copilot deaktivieren.",
 			"disableCopilot": "Copilot deaktivieren",
 			"disableInlineAssist": "Inline Assist deaktivieren"
 		}

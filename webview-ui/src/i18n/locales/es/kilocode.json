@@ -1,7 +1,7 @@
 {
 	"welcome": {
-		"greeting": "¡Bienvenido a Kilo Code!",
-		"introText1": "Kilo Code es un agente de codificación de IA gratuito y de código abierto.",
+		"greeting": "¡Bienvenido a HN Code!",
+		"introText1": "HN Code es un agente de codificación de IA gratuito y de código abierto.",
 		"introText2": "Funciona con los modelos de IA más recientes como Claude 4 Sonnet, Gemini 2.5 Pro, GPT-4.1, y más de 450 modelos adicionales.",
 		"introText3": "Crea una cuenta gratuita y obtén hasta $25 en tokens para usar con cualquier modelo de IA.",
 		"ctaButton": "Empezar",
@@ -11,15 +11,15 @@
 	},
 	"lowCreditWarning": {
 		"addCredit": "Añadir Crédito",
-		"lowBalance": "Tu saldo de Kilo Code es bajo"
+		"lowBalance": "Tu saldo de HN Code es bajo"
 	},
 	"pricing": {
 		"costUnknown": "costo desconocido",
 		"costUnknownDescription": "El proveedor de API no proporcionó datos de costo o la solicitud fue cancelada.",
 		"freeModelsDescription": "Los modelos gratuitos pueden tener límites de velocidad. ¡Usa el enlace a continuación para optimizar tu uso de modelos gratuitos!",
 		"freeModelsLink": "Descubre opciones de modelos gratuitos y económicos",
-		"openRouterMarkup": "¡El proveedor de Kilo Code incluye todos los modelos de OpenRouter, sin recargo y con 0% de comisión!",
-		"switchToKiloCode": "Cambiar a Kilo Code"
+		"openRouterMarkup": "¡El proveedor de HN Code incluye todos los modelos de OpenRouter, sin recargo y con 0% de comisión!",
+		"switchToKiloCode": "Cambiar a HN Code"
 	},
 	"notifications": {
 		"toolRequest": "Solicitud de herramienta pendiente de aprobación",
@@ -31,14 +31,14 @@
 			"mcp": "Servidores MCP"
 		},
 		"provider": {
-			"account": "Cuenta de Kilo Code",
-			"apiKey": "Clave API de Kilo Code",
-			"login": "Iniciar sesión en Kilo Code",
-			"logout": "Cerrar sesión de Kilo Code",
-			"automaticFetch": "Los modelos más recientes están disponibles automáticamente en Kilo Code. Si no estás seguro de qué modelo elegir, Kilo Code funciona mejor con los modelos recomendados que aparecen en la parte superior en <strong>negrita</strong>.",
+			"account": "Cuenta de HN Code",
+			"apiKey": "Clave API de HN Code",
+			"login": "Iniciar sesión en HN Code",
+			"logout": "Cerrar sesión de HN Code",
+			"automaticFetch": "Los modelos más recientes están disponibles automáticamente en HN Code. Si no estás seguro de qué modelo elegir, HN Code funciona mejor con los modelos recomendados que aparecen en la parte superior en <strong>negrita</strong>.",
 			"providerRouting": {
-				"title": "Kilo Code - Enrutamiento de proveedores de OpenRouter",
-				"description": "Kilo Code enruta las solicitudes a los mejores proveedores disponibles para su modelo. De forma predeterminada, las solicitudes se equilibran en carga entre los principales proveedores para maximizar el tiempo de actividad. Sin embargo, puede elegir un proveedor específico para usar para este modelo.",
+				"title": "HN Code - Enrutamiento de proveedores de OpenRouter",
+				"description": "HN Code enruta las solicitudes a los mejores proveedores disponibles para su modelo. De forma predeterminada, las solicitudes se equilibran en carga entre los principales proveedores para maximizar el tiempo de actividad. Sin embargo, puede elegir un proveedor específico para usar para este modelo.",
 				"sorting": {
 					"default": "Ordenación de proveedor predeterminada",
 					"price": "Preferir proveedores con precio más bajo",
@@ -55,7 +55,7 @@
 		"modelInfo": {
 			"contextWindow": "Ventana de contexto",
 			"providerBreakdown": "Desglose de precios y capacidades del proveedor",
-			"averageKiloCodeCost": "Este es el gasto real promedio de Kilo Code usando este modelo durante la última semana. Puede ser menor que el precio listado debido al uso del caché de prompts.",
+			"averageKiloCodeCost": "Este es el gasto real promedio de HN Code usando este modelo durante la última semana. Puede ser menor que el precio listado debido al uso del caché de prompts.",
 			"table": {
 				"provider": "Proveedor",
 				"context": "El endpoint puede procesar este número de tokens (entrada + salida).",
@@ -68,15 +68,15 @@
 		"contextManagement": {
 			"allowVeryLargeReads": {
 				"label": "Permitir lecturas de archivos muy grandes",
-				"description": "Cuando está activado, Kilo Code realizará lecturas de archivos o salidas MCP muy grandes aunque exista una alta probabilidad de desbordar la ventana de contexto (tamaño del contenido >80% de la ventana de contexto)."
+				"description": "Cuando está activado, HN Code realizará lecturas de archivos o salidas MCP muy grandes aunque exista una alta probabilidad de desbordar la ventana de contexto (tamaño del contenido >80% de la ventana de contexto)."
 			}
 		},
 		"systemNotifications": {
 			"label": "Activar notificaciones del sistema",
-			"description": "Cuando está activado, Kilo Code enviará notificaciones del sistema para eventos importantes como la finalización de tareas o errores.",
+			"description": "Cuando está activado, HN Code enviará notificaciones del sistema para eventos importantes como la finalización de tareas o errores.",
 			"testButton": "Probar notificación",
-			"testTitle": "Kilo Code",
-			"testMessage": "Esta es una notificación de prueba de Kilo Code."
+			"testTitle": "HN Code",
+			"testMessage": "Esta es una notificación de prueba de HN Code."
 		},
 		"terminal": {
 			"commandGenerator": {
@@ -91,7 +91,7 @@
 	},
 	"chat": {
 		"condense": {
-			"wantsToCondense": "Kilo Code quiere condensar tu conversación",
+			"wantsToCondense": "HN Code quiere condensar tu conversación",
 			"condenseConversation": "Condensar Conversación"
 		},
 		"seeNewChanges": "Mostrar Nuevos Cambios"
@@ -117,15 +117,15 @@
 	},
 	"docs": "Documentos",
 	"rules": {
-		"tooltip": "Gestionar Reglas y Flujos de Trabajo de Kilo Code",
-		"ariaLabel": "Reglas de Kilo Code",
+		"tooltip": "Gestionar Reglas y Flujos de Trabajo de HN Code",
+		"ariaLabel": "Reglas de HN Code",
 		"tabs": {
 			"rules": "Reglas",
 			"workflows": "Flujos de Trabajo"
 		},
 		"description": {
-			"rules": "Las reglas te permiten proporcionar a Kilo Code instrucciones que debe seguir en todos los modos y para todos los prompts. Son una forma persistente de incluir contexto y preferencias para todas las conversaciones en tu espacio de trabajo o globalmente.",
-			"workflows": "Los flujos de trabajo son una plantilla preparada para una conversación. Los flujos de trabajo te permiten definir prompts que usas frecuentemente, y pueden incluir una serie de pasos para guiar a Kilo Code a través de tareas repetitivas, como desplegar un servicio o enviar una PR. Para invocar un flujo de trabajo, escribe",
+			"rules": "Las reglas te permiten proporcionar a HN Code instrucciones que debe seguir en todos los modos y para todos los prompts. Son una forma persistente de incluir contexto y preferencias para todas las conversaciones en tu espacio de trabajo o globalmente.",
+			"workflows": "Los flujos de trabajo son una plantilla preparada para una conversación. Los flujos de trabajo te permiten definir prompts que usas frecuentemente, y pueden incluir una serie de pasos para guiar a HN Code a través de tareas repetitivas, como desplegar un servicio o enviar una PR. Para invocar un flujo de trabajo, escribe",
 			"workflowsInChat": "en el chat."
 		},
 		"sections": {
@@ -202,11 +202,11 @@
 			},
 			"enableAutoTrigger": {
 				"label": "Activar la activación automática",
-				"description": "Cuando está activado, Kilo Code activará automáticamente la Asistencia en línea cuando dejes de escribir. Esto puede ser útil para correcciones y sugerencias rápidas."
+				"description": "Cuando está activado, HN Code activará automáticamente la Asistencia en línea cuando dejes de escribir. Esto puede ser útil para correcciones y sugerencias rápidas."
 			},
 			"autoTriggerDelay": {
 				"label": "Retraso de activación automática",
-				"description": "El retraso en segundos antes de que Kilo Code active la Asistencia en línea después de que dejes de escribir. Un retraso más corto significa sugerencias más rápidas, pero puede consumir más recursos."
+				"description": "El retraso en segundos antes de que HN Code active la Asistencia en línea después de que dejes de escribir. Un retraso más corto significa sugerencias más rápidas, pero puede consumir más recursos."
 			},
 			"enableSmartInlineTaskKeybinding": {
 				"label": "Tarea Inteligente en Línea",

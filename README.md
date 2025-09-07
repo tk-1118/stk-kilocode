@@ -6,7 +6,7 @@
   <a href="https://www.reddit.com/r/kilocode/"><img src="https://img.shields.io/reddit/subreddit-subscribers/kilocode?style=flat&logo=reddit&logoColor=white" alt="Reddit"></a>
 </p>
 
-# 🚀 Kilo Code
+# 🚀 HN Code
 
 > Open-source VS Code AI agent. We frequently merge features from open-source projects, such as [Roo Code](https://github.com/RooVetGit/Roo-Code) and [Cline](https://github.com/cline/cline), while building our own vision.
 
@@ -33,22 +33,24 @@
 - **MCP Server Marketplace**: Easily find, and use MCP servers to extend the agent capabilities.
 - **Multi Mode**: Plan with Architect, Code with Coder, and Debug with Debugger, and make your own custom modes.
 
-## How to get started with Kilo Code
+## How to get started with HN Code
 
-1.  Install the Kilo Code extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=kilocode.Kilo-Code).
+1.  Install the HN Code extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=kilocode.Kilo-Code).
 2.  Sign up to get $5 in free credits which can be used with 400+ models like Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
 3.  Start using the extension. Here's a video to help you get started (just click on the image below and you'll be redirected to YouTube):
 
 [![Watch the video](https://img.youtube.com/vi/pqGfYXgrhig/maxresdefault.jpg)](https://youtu.be/pqGfYXgrhig)
 
-## Difference between Kilo Code, Roo Code and Cline
-Kilo Code started as a fork of Roo Code, which itself is a fork of Cline. We frequently merge features from these open-source projects and contribute improvements back. Built on these foundations, Kilo Code is independently developed with our own vision for AI coding agents.
+## Difference between HN Code, Roo Code and Cline
 
-- No need to fiddle with API keys, Kilo Code ships with the latest AI models plugged in, including Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
+HN Code started as a fork of Roo Code, which itself is a fork of Cline. We frequently merge features from these open-source projects and contribute improvements back. Built on these foundations, HN Code is independently developed with our own vision for AI coding agents.
+
+- No need to fiddle with API keys, HN Code ships with the latest AI models plugged in, including Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
 - MCP Server Marketplace: Easily find, and use MCP servers to extend the agent capabilities.
 - Inline Assist (experimental)
 
-Kilo Code is a direct fork from Roo Code, and also includes the following features from Cline (and our own features):
+HN Code is a direct fork from Roo Code, and also includes the following features from Cline (and our own features):
+
 - System notifications: Get notified when the agent is done with a task.
 - Easy model connection: with bigger free tier.
 - Editing previous messages

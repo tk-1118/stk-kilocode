@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Generator wiadomości commit Kilo Code aktywowany",
+		"activated": "Generator wiadomości commit HN Code aktywowany",
 		"gitNotFound": "⚠️ Nie znaleziono repozytorium Git lub git jest niedostępny",
 		"gitInitError": "⚠️ Błąd inicjalizacji Git: {{error}}",
 		"generating": "Kilo: Generowanie wiadomości commit...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Asystent Inline Kilo",
 			"warning": "$(warning) Asystent Inline Kilo",
 			"tooltip": {
-				"basic": "Asystent Inline Kilo Code",
-				"disabled": "Asystent Inline Kilo Code (wyłączony)",
+				"basic": "Asystent Inline HN Code",
+				"disabled": "Asystent Inline HN Code (wyłączony)",
 				"tokenError": "Musisz ustawić prawidłowy token, aby korzystać z Asystenta Inline",
 				"lastCompletion": "Ostatnia sugestia:",
 				"sessionTotal": "Całkowity koszt sesji:",
@@ -79,30 +79,30 @@
 		},
 		"toggleMessage": "Asystent Inline Kilo {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "HN Code",
 			"analyzing": "Analizowanie Twojego kodu...",
 			"generating": "Generowanie sugerowanych edycji...",
 			"processing": "Przetwarzanie sugerowanych edycji...",
 			"showing": "Wyświetlanie sugerowanych edycji..."
 		},
 		"input": {
-			"title": "Kilo Code: Szybkie Zadanie",
+			"title": "HN Code: Szybkie Zadanie",
 			"placeholder": "np. 'refaktoryzuj tę funkcję, aby była bardziej wydajna'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Generuj Sugerowane Edycje",
+			"generateSuggestions": "HN Code: Generuj Sugerowane Edycje",
 			"displaySuggestions": "Wyświetl Sugerowane Edycje",
 			"cancelSuggestions": "Anuluj Sugerowane Edycje",
 			"applyCurrentSuggestion": "Zastosuj Bieżącą Sugerowaną Edycję",
 			"applyAllSuggestions": "Zastosuj Wszystkie Sugerowane Edycje",
 			"promptCodeSuggestion": "Szybkie Zadanie",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Sugerowane Edycje"
+			"title": "HN Code: Sugerowane Edycje"
 		},
 		"chatParticipant": {
-			"fullName": "Agent Kilo Code",
+			"fullName": "Agent HN Code",
 			"name": "Agent",
 			"description": "Mogę pomóc w szybkich zadaniach i sugerowanych edycjach."
 		},
@@ -110,7 +110,7 @@
 			"provideCodeSuggestions": "Dostarczanie sugestii kodu..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Asystent Kilo Code Inline jest blokowany przez konflikt z GitHub Copilot. Aby to naprawić, musisz wyłączyć sugestie inline Copilota.",
+			"message": "Asystent HN Code Inline jest blokowany przez konflikt z GitHub Copilot. Aby to naprawić, musisz wyłączyć sugestie inline Copilota.",
 			"disableCopilot": "Wyłącz Copilota",
 			"disableInlineAssist": "Wyłącz Asystenta Inline"
 		}

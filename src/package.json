@@ -20,7 +20,7 @@
 		"contribSecondarySideBar"
 	],
 	"author": {
-		"name": "Kilo Code"
+		"name": "HN Code"
 	},
 	"repository": {
 		"type": "git",
@@ -48,7 +48,7 @@
 		"sonnet",
 		"ai",
 		"llama",
-		"Kilo Code",
+		"HN Code",
 		"kilocode",
 		"roo code",
 		"roocode"
@@ -63,13 +63,13 @@
 		"walkthroughs": [
 			{
 				"id": "kiloCodeWalkthrough",
-				"title": "5 ways Kilo Code helps you code",
+				"title": "5 ways HN Code helps you code",
 				"description": "You now have a personal AI coding assistant.",
 				"steps": [
 					{
 						"id": "welcome",
 						"title": "Write code for you",
-						"description": "Describe what you want to build. Kilo Code will write it from scratch, generate the files, and run them for you.",
+						"description": "Describe what you want to build. HN Code will write it from scratch, generate the files, and run them for you.",
 						"media": {
 							"markdown": "./dist/walkthrough/step1.md"
 						}
@@ -77,7 +77,7 @@
 					{
 						"id": "getting-started",
 						"title": "Understand your codebase",
-						"description": "Need clarity on how something works? Ask Kilo Code about any part of your files and get a clear explanation.",
+						"description": "Need clarity on how something works? Ask HN Code about any part of your files and get a clear explanation.",
 						"media": {
 							"markdown": "./dist/walkthrough/step2.md"
 						},
@@ -88,7 +88,7 @@
 					{
 						"id": "modes",
 						"title": "Get things working again",
-						"description": "Stuck on an error? Kilo Code can find the issue, fix it, and get your code running.",
+						"description": "Stuck on an error? HN Code can find the issue, fix it, and get your code running.",
 						"media": {
 							"markdown": "./dist/walkthrough/step3.md"
 						}
@@ -134,7 +134,7 @@
 		"commands": [
 			{
 				"command": "kilo-code.focusAux",
-				"title": "Open Kilo Code (Right Sidebar)",
+				"title": "Open HN Code (Right Sidebar)",
 				"category": "%configuration.title%"
 			},
 			{

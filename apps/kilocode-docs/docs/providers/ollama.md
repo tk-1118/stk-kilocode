@@ -2,9 +2,9 @@
 sidebar_label: Ollama
 ---
 
-# Using Ollama With Kilo Code
+# Using Ollama With HN Code
 
-Kilo Code supports running models locally using Ollama. This provides privacy, offline access, and potentially lower costs, but requires more setup and a powerful computer.
+HN Code supports running models locally using Ollama. This provides privacy, offline access, and potentially lower costs, but requires more setup and a powerful computer.
 
 **Website:** [https://ollama.com/](https://ollama.com/)
 
@@ -33,13 +33,13 @@ You can find a list of available models on the [Ollama website](https://ollama.c
 Selecting a model that suits your use case, runs on your hardware configuration and achieves the desired speed requires some trial and error.
 The following rules and heuristics can be used to find a model:
 
-- Must have at least a 32k context window (this is a requirement for Kilo Code).
+- Must have at least a 32k context window (this is a requirement for HN Code).
 - Listed as supporting tools.
 - Number of parameters in the 7b to 24b range.
 - Prefer popular models.
 - Prefer newer models.
 
-### Recommendations for Kilo Code
+### Recommendations for HN Code
 
 We tested a few models with the following prompt:
 
@@ -98,7 +98,7 @@ The result produced by devstral:24b is included below:
 </html>
 ```
 
-The following models look like reasonable choices, but were found to **not** work properly with Kilo Code in its default configuration:
+The following models look like reasonable choices, but were found to **not** work properly with HN Code in its default configuration:
 
 | Model name     | Fail reason                    |
 | -------------- | ------------------------------ |
@@ -121,7 +121,7 @@ If you decide to use the `OLLAMA_CONTEXT_LENGTH` environment variable, it needs 
     ollama serve
     ```
 
-2.  **Download a Model:** Once you've downloaded a model, you can use Kilo Code offline with that model. To download a model, open your terminal and run:
+2.  **Download a Model:** Once you've downloaded a model, you can use HN Code offline with that model. To download a model, open your terminal and run:
 
     ```bash
     ollama pull <model_name>
@@ -133,8 +133,8 @@ If you decide to use the `OLLAMA_CONTEXT_LENGTH` environment variable, it needs 
     ollama pull devstral:24b
     ```
 
-3.  **Configure Kilo Code:**
-    - Open the Kilo Code sidebar (<img src="/docs/img/kilo-v1.svg" width="12" /> icon).
+3.  **Configure HN Code:**
+    - Open the HN Code sidebar (<img src="/docs/img/kilo-v1.svg" width="12" /> icon).
     - Click the settings gear icon (<Codicon name="gear" />).
     - Select "ollama" as the API Provider.
     - Enter the Model name.

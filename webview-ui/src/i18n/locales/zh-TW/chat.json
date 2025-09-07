@@ -1,5 +1,5 @@
 {
-	"greeting": "歡迎使用 Kilo Code！",
+	"greeting": "歡迎使用 HN Code！",
 	"task": {
 		"title": "工作",
 		"expand": "展開工作",
@@ -21,7 +21,7 @@
 		"sharePublicly": "公開分享",
 		"sharePubliclyDescription": "任何擁有連結的人都可存取",
 		"connectToCloud": "連線至雲端",
-		"connectToCloudDescription": "登入 Kilo Code Cloud 以分享工作",
+		"connectToCloudDescription": "登入 HN Code Cloud 以分享工作",
 		"sharingDisabledByOrganization": "組織已停用分享功能",
 		"shareSuccessOrganization": "組織連結已複製到剪貼簿",
 		"shareSuccessPublic": "公開連結已複製到剪貼簿"
@@ -128,7 +128,7 @@
 		"title": "模式",
 		"marketplace": "模式市集",
 		"settings": "模式設定",
-		"description": "專門量身打造 Kilo Code 行為的角色。",
+		"description": "專門量身打造 HN Code 行為的角色。",
 		"searchPlaceholder": "搜尋模式...",
 		"noResults": "沒有找到結果"
 	},
@@ -177,46 +177,46 @@
 		"tokens": "Token"
 	},
 	"instructions": {
-		"wantsToFetch": "Kilo Code 想要取得詳細指示以協助目前工作"
+		"wantsToFetch": "HN Code 想要取得詳細指示以協助目前工作"
 	},
 	"fileOperations": {
-		"wantsToRead": "Kilo Code 想要讀取此檔案：",
-		"wantsToReadMultiple": "Kilo Code 想要讀取多個檔案：",
-		"wantsToReadAndXMore": "Kilo Code 想要讀取此檔案以及另外 {{count}} 個檔案：",
-		"wantsToReadOutsideWorkspace": "Kilo Code 想要讀取此工作區外的檔案：",
-		"didRead": "Kilo Code 已讀取此檔案：",
-		"wantsToEdit": "Kilo Code 想要編輯此檔案：",
-		"wantsToEditOutsideWorkspace": "Kilo Code 想要編輯此工作區外的檔案：",
-		"wantsToEditProtected": "Kilo Code 想要編輯受保護的設定檔案：",
-		"wantsToApplyBatchChanges": "Kilo Code 想要對多個檔案套用變更：",
-		"wantsToCreate": "Kilo Code 想要建立新檔案：",
-		"wantsToSearchReplace": "Kilo Code 想要在此檔案中搜尋和取代：",
-		"didSearchReplace": "Kilo Code 已在此檔案執行搜尋和取代：",
-		"wantsToInsert": "Kilo Code 想要在此檔案中插入內容：",
-		"wantsToInsertWithLineNumber": "Kilo Code 想要在此檔案第 {{lineNumber}} 行插入內容：",
-		"wantsToInsertAtEnd": "Kilo Code 想要在此檔案尾端新增內容："
+		"wantsToRead": "HN Code 想要讀取此檔案：",
+		"wantsToReadMultiple": "HN Code 想要讀取多個檔案：",
+		"wantsToReadAndXMore": "HN Code 想要讀取此檔案以及另外 {{count}} 個檔案：",
+		"wantsToReadOutsideWorkspace": "HN Code 想要讀取此工作區外的檔案：",
+		"didRead": "HN Code 已讀取此檔案：",
+		"wantsToEdit": "HN Code 想要編輯此檔案：",
+		"wantsToEditOutsideWorkspace": "HN Code 想要編輯此工作區外的檔案：",
+		"wantsToEditProtected": "HN Code 想要編輯受保護的設定檔案：",
+		"wantsToApplyBatchChanges": "HN Code 想要對多個檔案套用變更：",
+		"wantsToCreate": "HN Code 想要建立新檔案：",
+		"wantsToSearchReplace": "HN Code 想要在此檔案中搜尋和取代：",
+		"didSearchReplace": "HN Code 已在此檔案執行搜尋和取代：",
+		"wantsToInsert": "HN Code 想要在此檔案中插入內容：",
+		"wantsToInsertWithLineNumber": "HN Code 想要在此檔案第 {{lineNumber}} 行插入內容：",
+		"wantsToInsertAtEnd": "HN Code 想要在此檔案尾端新增內容："
 	},
 	"directoryOperations": {
-		"wantsToViewTopLevel": "Kilo Code 想要檢視此目錄中最上層的檔案：",
-		"didViewTopLevel": "Kilo Code 已檢視此目錄中最上層的檔案：",
-		"wantsToViewTopLevelOutsideWorkspace": "Kilo Code 想要檢視此目錄（工作區外）中最上層的檔案：",
-		"didViewTopLevelOutsideWorkspace": "Kilo Code 已檢視此目錄（工作區外）中最上層的檔案：",
-		"wantsToViewRecursive": "Kilo Code 想要遞迴檢視此目錄中的所有檔案：",
-		"didViewRecursive": "Kilo Code 已遞迴檢視此目錄中的所有檔案：",
-		"wantsToViewRecursiveOutsideWorkspace": "Kilo Code 想要遞迴檢視此目錄（工作區外）中的所有檔案：",
-		"didViewRecursiveOutsideWorkspace": "Kilo Code 已遞迴檢視此目錄（工作區外）中的所有檔案：",
-		"wantsToViewDefinitions": "Kilo Code 想要檢視此目錄中使用的原始碼定義名稱：",
-		"didViewDefinitions": "Kilo Code 已檢視此目錄中使用的原始碼定義名稱：",
-		"wantsToViewDefinitionsOutsideWorkspace": "Kilo Code 想要檢視此目錄（工作區外）中使用的原始碼定義名稱：",
-		"didViewDefinitionsOutsideWorkspace": "Kilo Code 已檢視此目錄（工作區外）中使用的原始碼定義名稱：",
-		"wantsToSearch": "Kilo Code 想要在此目錄中搜尋 <code>{{regex}}</code>：",
-		"didSearch": "Kilo Code 已在此目錄中搜尋 <code>{{regex}}</code>：",
-		"wantsToSearchOutsideWorkspace": "Kilo Code 想要在此目錄（工作區外）中搜尋 <code>{{regex}}</code>：",
-		"didSearchOutsideWorkspace": "Kilo Code 已在此目錄（工作區外）中搜尋 <code>{{regex}}</code>："
+		"wantsToViewTopLevel": "HN Code 想要檢視此目錄中最上層的檔案：",
+		"didViewTopLevel": "HN Code 已檢視此目錄中最上層的檔案：",
+		"wantsToViewTopLevelOutsideWorkspace": "HN Code 想要檢視此目錄（工作區外）中最上層的檔案：",
+		"didViewTopLevelOutsideWorkspace": "HN Code 已檢視此目錄（工作區外）中最上層的檔案：",
+		"wantsToViewRecursive": "HN Code 想要遞迴檢視此目錄中的所有檔案：",
+		"didViewRecursive": "HN Code 已遞迴檢視此目錄中的所有檔案：",
+		"wantsToViewRecursiveOutsideWorkspace": "HN Code 想要遞迴檢視此目錄（工作區外）中的所有檔案：",
+		"didViewRecursiveOutsideWorkspace": "HN Code 已遞迴檢視此目錄（工作區外）中的所有檔案：",
+		"wantsToViewDefinitions": "HN Code 想要檢視此目錄中使用的原始碼定義名稱：",
+		"didViewDefinitions": "HN Code 已檢視此目錄中使用的原始碼定義名稱：",
+		"wantsToViewDefinitionsOutsideWorkspace": "HN Code 想要檢視此目錄（工作區外）中使用的原始碼定義名稱：",
+		"didViewDefinitionsOutsideWorkspace": "HN Code 已檢視此目錄（工作區外）中使用的原始碼定義名稱：",
+		"wantsToSearch": "HN Code 想要在此目錄中搜尋 <code>{{regex}}</code>：",
+		"didSearch": "HN Code 已在此目錄中搜尋 <code>{{regex}}</code>：",
+		"wantsToSearchOutsideWorkspace": "HN Code 想要在此目錄（工作區外）中搜尋 <code>{{regex}}</code>：",
+		"didSearchOutsideWorkspace": "HN Code 已在此目錄（工作區外）中搜尋 <code>{{regex}}</code>："
 	},
 	"codebaseSearch": {
-		"wantsToSearch": "Kilo Code 想要在程式碼庫中搜尋：<code>{{query}}</code>",
-		"wantsToSearchWithPath": "Kilo Code 想要在 <code>{{path}}</code> 中搜尋程式碼庫：<code>{{query}}</code>",
+		"wantsToSearch": "HN Code 想要在程式碼庫中搜尋：<code>{{query}}</code>",
+		"wantsToSearchWithPath": "HN Code 想要在 <code>{{path}}</code> 中搜尋程式碼庫：<code>{{query}}</code>",
 		"didSearch_one": "找到 1 個結果",
 		"didSearch_other": "找到 {{count}} 個結果",
 		"resultTooltip": "相似度評分：{{score}} (點選開啟檔案)"
@@ -241,18 +241,18 @@
 	"response": "回應",
 	"arguments": "參數",
 	"mcp": {
-		"wantsToUseTool": "Kilo Code 想要在 {{serverName}} MCP 伺服器上使用工具：",
-		"wantsToAccessResource": "Kilo Code 想要存取 {{serverName}} MCP 伺服器上的資源："
+		"wantsToUseTool": "HN Code 想要在 {{serverName}} MCP 伺服器上使用工具：",
+		"wantsToAccessResource": "HN Code 想要存取 {{serverName}} MCP 伺服器上的資源："
 	},
 	"modes": {
-		"wantsToSwitch": "Kilo Code 想要切換至 {{mode}} 模式",
-		"wantsToSwitchWithReason": "Kilo Code 想要切換至 {{mode}} 模式，原因：{{reason}}",
-		"didSwitch": "Kilo Code 已切換至 {{mode}} 模式",
-		"didSwitchWithReason": "Kilo Code 已切換至 {{mode}} 模式，原因：{{reason}}"
+		"wantsToSwitch": "HN Code 想要切換至 {{mode}} 模式",
+		"wantsToSwitchWithReason": "HN Code 想要切換至 {{mode}} 模式，原因：{{reason}}",
+		"didSwitch": "HN Code 已切換至 {{mode}} 模式",
+		"didSwitchWithReason": "HN Code 已切換至 {{mode}} 模式，原因：{{reason}}"
 	},
 	"subtasks": {
-		"wantsToCreate": "Kilo Code 想要在 {{mode}} 模式下建立新的子工作：",
-		"wantsToFinish": "Kilo Code 想要完成此子工作",
+		"wantsToCreate": "HN Code 想要在 {{mode}} 模式下建立新的子工作：",
+		"wantsToFinish": "HN Code 想要完成此子工作",
 		"newTaskContent": "子工作指示",
 		"completionContent": "子工作已完成",
 		"resultContent": "子工作結果",
@@ -260,21 +260,21 @@
 		"completionInstructions": "子工作已完成！您可以檢閱結果並提出修正或後續步驟。如果一切順利，請確認以將結果回傳給主任務。"
 	},
 	"questions": {
-		"hasQuestion": "Kilo Code 有一個問題："
+		"hasQuestion": "HN Code 有一個問題："
 	},
 	"taskCompleted": "工作完成",
 	"error": "錯誤",
 	"diffError": {
 		"title": "編輯失敗"
 	},
-	"troubleMessage": "Kilo Code 遇到問題...",
+	"troubleMessage": "HN Code 遇到問題...",
 	"powershell": {
 		"issues": "您似乎遇到了 Windows PowerShell 的問題，請參閱此說明文件"
 	},
 	"autoApprove": {
 		"title": "自動核准：",
 		"none": "無",
-		"description": "自動核准讓 Kilo Code 可以在無需徵求您同意的情況下執行操作。請僅對您完全信任的動作啟用此功能。您可以在<settingsLink>設定</settingsLink>中進行更詳細的調整。",
+		"description": "自動核准讓 HN Code 可以在無需徵求您同意的情況下執行操作。請僅對您完全信任的動作啟用此功能。您可以在<settingsLink>設定</settingsLink>中進行更詳細的調整。",
 		"selectOptionsFirst": "請至少選擇以下一個選項以啟用自動核准",
 		"toggleAriaLabel": "切換自動核准",
 		"disabledAriaLabel": "自動核准已停用 - 請先選取選項"
@@ -289,7 +289,7 @@
 		},
 		"description": "Roo Code {{version}} 帶來強大的新功能和重大改進，提升您的開發工作流程。",
 		"whatsNew": "新功能",
-		"feature1": "<bold>訊息佇列</bold>：在 Kilo Code 工作時將多個訊息排入佇列，讓您可以不間斷地繼續規劃工作流程。",
+		"feature1": "<bold>訊息佇列</bold>：在 HN Code 工作時將多個訊息排入佇列，讓您可以不間斷地繼續規劃工作流程。",
 		"feature2": "<bold>自訂斜線命令</bold>：建立個人化斜線命令，快速存取常用提示詞和工作流程，具備完整的 UI 管理功能。",
 		"feature3": "<bold>增強的 Gemini 工具</bold>：新的 URL 內容和 Google 搜尋基礎功能為 Gemini 模型提供即時網路資訊和增強的研究能力。",
 		"hideButton": "隱藏公告",
@@ -305,7 +305,7 @@
 		"countdownDisplay": "{{count}} 秒"
 	},
 	"browser": {
-		"rooWantsToUse": "Kilo Code 想要使用瀏覽器：",
+		"rooWantsToUse": "HN Code 想要使用瀏覽器：",
 		"consoleLogs": "主控台記錄",
 		"noNewLogs": "（沒有新記錄）",
 		"screenshot": "瀏覽器螢幕擷圖",
@@ -339,18 +339,18 @@
 	"profileViolationWarning": "目前設定檔與您的組織設定不相容",
 	"shellIntegration": {
 		"title": "命令執行警告",
-		"description": "您的命令正在沒有 VSCode 終端機 Shell 整合的情況下執行。若要隱藏此警告，您可以在 <settingsLink>Kilo Code 設定</settingsLink> 的<strong>終端機</strong>區塊中停用 Shell 整合，或使用下方的連結來排解 VSCode 終端機整合問題。",
+		"description": "您的命令正在沒有 VSCode 終端機 Shell 整合的情況下執行。若要隱藏此警告，您可以在 <settingsLink>HN Code 設定</settingsLink> 的<strong>終端機</strong>區塊中停用 Shell 整合，或使用下方的連結來排解 VSCode 終端機整合問題。",
 		"troubleshooting": "點選此處查看 Shell 整合文件。"
 	},
 	"ask": {
 		"autoApprovedRequestLimitReached": {
 			"title": "已達自動核准請求上限",
-			"description": "Kilo Code 已達到 {{count}} 次 API 請求的自動核准上限。您想重設計數並繼續工作嗎？",
+			"description": "HN Code 已達到 {{count}} 次 API 請求的自動核准上限。您想重設計數並繼續工作嗎？",
 			"button": "重設並繼續"
 		},
 		"autoApprovedCostLimitReached": {
 			"title": "已達自動核准費用上限",
-			"description": "Kilo Code 已達到 ${{count}} 的自動核准費用上限。您想重設費用並繼續工作嗎？",
+			"description": "HN Code 已達到 ${{count}} 的自動核准費用上限。您想重設費用並繼續工作嗎？",
 			"button": "重設並繼續"
 		}
 	},

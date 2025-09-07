@@ -1,4 +1,4 @@
-# Kilo Code Community Code of Conduct
+# HN Code Community Code of Conduct
 
 ## Our Pledge
 

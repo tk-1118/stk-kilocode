@@ -31,11 +31,11 @@
 		"prompts": "Prompts",
 		"experimental": "Experimenteel",
 		"language": "Taal",
-		"about": "Over Kilo Code",
+		"about": "Over HN Code",
 		"display": "Weergeven"
 	},
 	"prompts": {
-		"description": "Configureer ondersteuningsprompts die worden gebruikt voor snelle acties zoals het verbeteren van prompts, het uitleggen van code en het oplossen van problemen. Deze prompts helpen Kilo Code om betere ondersteuning te bieden voor veelvoorkomende ontwikkelingstaken."
+		"description": "Configureer ondersteuningsprompts die worden gebruikt voor snelle acties zoals het verbeteren van prompts, het uitleggen van code en het oplossen van problemen. Deze prompts helpen HN Code om betere ondersteuning te bieden voor veelvoorkomende ontwikkelingstaken."
 	},
 	"codeIndex": {
 		"title": "Codebase indexering",
@@ -127,16 +127,16 @@
 		"resetToDefault": "Reset naar standaard"
 	},
 	"autoApprove": {
-		"description": "Sta Kilo Code toe om automatisch handelingen uit te voeren zonder goedkeuring. Schakel deze instellingen alleen in als je de AI volledig vertrouwt en de bijbehorende beveiligingsrisico's begrijpt.",
+		"description": "Sta HN Code toe om automatisch handelingen uit te voeren zonder goedkeuring. Schakel deze instellingen alleen in als je de AI volledig vertrouwt en de bijbehorende beveiligingsrisico's begrijpt.",
 		"enabled": "Auto-goedkeuren ingeschakeld",
 		"toggleAriaLabel": "Automatisch goedkeuren in-/uitschakelen",
 		"disabledAriaLabel": "Automatisch goedkeuren uitgeschakeld - selecteer eerst opties",
 		"readOnly": {
 			"label": "Lezen",
-			"description": "Indien ingeschakeld, bekijkt Kilo Code automatisch de inhoud van mappen en leest bestanden zonder dat je op de Goedkeuren-knop hoeft te klikken.",
+			"description": "Indien ingeschakeld, bekijkt HN Code automatisch de inhoud van mappen en leest bestanden zonder dat je op de Goedkeuren-knop hoeft te klikken.",
 			"outsideWorkspace": {
 				"label": "Inclusief bestanden buiten werkruimte",
-				"description": "Sta Kilo Code toe om bestanden buiten de huidige werkruimte te lezen zonder goedkeuring."
+				"description": "Sta HN Code toe om bestanden buiten de huidige werkruimte te lezen zonder goedkeuring."
 			}
 		},
 		"write": {
@@ -145,11 +145,11 @@
 			"delayLabel": "Vertraging na schrijven om diagnostiek de kans te geven mogelijke problemen te detecteren",
 			"outsideWorkspace": {
 				"label": "Inclusief bestanden buiten werkruimte",
-				"description": "Sta Kilo Code toe om bestanden buiten de huidige werkruimte aan te maken en te bewerken zonder goedkeuring."
+				"description": "Sta HN Code toe om bestanden buiten de huidige werkruimte aan te maken en te bewerken zonder goedkeuring."
 			},
 			"protected": {
 				"label": "Inclusief beschermde bestanden",
-				"description": "Sta Kilo Code toe om beschermde bestanden (zoals .kilocodeignore en .kilocode/ configuratiebestanden) aan te maken en te bewerken zonder goedkeuring."
+				"description": "Sta HN Code toe om beschermde bestanden (zoals .kilocodeignore en .kilocode/ configuratiebestanden) aan te maken en te bewerken zonder goedkeuring."
 			}
 		},
 		"browser": {
@@ -368,7 +368,7 @@
 			"draftModelDesc": "Draft-model moet uit dezelfde modelfamilie komen voor correcte speculatieve decodering.",
 			"selectDraftModel": "Selecteer draft-model",
 			"noModelsFound": "Geen draft-modellen gevonden. Zorg dat LM Studio draait met Server Mode ingeschakeld.",
-			"description": "LM Studio laat je modellen lokaal op je computer draaien. Zie hun <a>quickstart-gids</a> voor instructies. Je moet ook de <b>lokale server</b>-functie van LM Studio starten om het met deze extensie te gebruiken. <span>Let op:</span> Kilo Code gebruikt complexe prompts en werkt het beste met Claude-modellen. Minder krachtige modellen werken mogelijk niet zoals verwacht."
+			"description": "LM Studio laat je modellen lokaal op je computer draaien. Zie hun <a>quickstart-gids</a> voor instructies. Je moet ook de <b>lokale server</b>-functie van LM Studio starten om het met deze extensie te gebruiken. <span>Let op:</span> HN Code gebruikt complexe prompts en werkt het beste met Claude-modellen. Minder krachtige modellen werken mogelijk niet zoals verwacht."
 		},
 		"ollama": {
 			"baseUrl": "Basis-URL (optioneel)",
@@ -377,7 +377,7 @@
 			"apiKeyPlaceholder": "Voer je API-sleutel in",
 			"apiKeyInfo": "API-sleutel wordt verzonden als Authorization-header",
 			"description": "Ollama laat je modellen lokaal op je computer draaien. Zie hun quickstart-gids voor instructies.",
-			"warning": "Let op: Kilo Code gebruikt complexe prompts en werkt het beste met Claude-modellen. Minder krachtige modellen werken mogelijk niet zoals verwacht."
+			"warning": "Let op: HN Code gebruikt complexe prompts en werkt het beste met Claude-modellen. Minder krachtige modellen werken mogelijk niet zoals verwacht."
 		},
 		"unboundApiKey": "Unbound API-sleutel",
 		"getUnboundApiKey": "Unbound API-sleutel ophalen",
@@ -399,7 +399,7 @@
 			}
 		},
 		"customModel": {
-			"capabilities": "Stel de mogelijkheden en prijzen in voor je aangepaste OpenAI-compatibele model. Wees voorzichtig met het opgeven van de modelmogelijkheden, want deze kunnen de prestaties van Kilo Code beïnvloeden.",
+			"capabilities": "Stel de mogelijkheden en prijzen in voor je aangepaste OpenAI-compatibele model. Wees voorzichtig met het opgeven van de modelmogelijkheden, want deze kunnen de prestaties van HN Code beïnvloeden.",
 			"maxTokens": {
 				"label": "Maximaal aantal outputtokens",
 				"description": "Maximaal aantal tokens dat het model in een antwoord kan genereren. (Geef -1 op om de server het maximum te laten bepalen.)"
@@ -446,7 +446,7 @@
 		},
 		"consecutiveMistakeLimit": {
 			"label": "Fout- & Herhalingslimiet",
-			"description": "Aantal opeenvolgende fouten of herhaalde acties voordat het dialoogvenster 'Kilo Code ondervindt problemen' wordt weergegeven",
+			"description": "Aantal opeenvolgende fouten of herhaalde acties voordat het dialoogvenster 'HN Code ondervindt problemen' wordt weergegeven",
 			"unlimitedDescription": "Onbeperkt aantal nieuwe pogingen ingeschakeld (automatisch doorgaan). Het dialoogvenster zal nooit verschijnen.",
 			"warning": "⚠️ Instellen op 0 staat onbeperkte nieuwe pogingen toe, wat aanzienlijk API-gebruik kan verbruiken"
 		},
@@ -498,7 +498,7 @@
 	"browser": {
 		"enable": {
 			"label": "Browserhulpmiddel inschakelen",
-			"description": "Indien ingeschakeld, kan Kilo Code een browser gebruiken om te interageren met websites wanneer modellen computergebruik ondersteunen. <0>Meer informatie</0>"
+			"description": "Indien ingeschakeld, kan HN Code een browser gebruiken om te interageren met websites wanneer modellen computergebruik ondersteunen. <0>Meer informatie</0>"
 		},
 		"viewport": {
 			"label": "Viewport-grootte",
@@ -526,18 +526,18 @@
 	"checkpoints": {
 		"enable": {
 			"label": "Automatische checkpoints inschakelen",
-			"description": "Indien ingeschakeld, maakt Kilo Code automatisch checkpoints tijdens het uitvoeren van taken, zodat je eenvoudig wijzigingen kunt bekijken of terugzetten. <0>Meer informatie</0>"
+			"description": "Indien ingeschakeld, maakt HN Code automatisch checkpoints tijdens het uitvoeren van taken, zodat je eenvoudig wijzigingen kunt bekijken of terugzetten. <0>Meer informatie</0>"
 		}
 	},
 	"notifications": {
 		"sound": {
 			"label": "Geluidseffecten inschakelen",
-			"description": "Indien ingeschakeld, speelt Kilo Code geluidseffecten af voor meldingen en gebeurtenissen.",
+			"description": "Indien ingeschakeld, speelt HN Code geluidseffecten af voor meldingen en gebeurtenissen.",
 			"volumeLabel": "Volume"
 		},
 		"tts": {
 			"label": "Tekst-naar-spraak inschakelen",
-			"description": "Indien ingeschakeld, leest Kilo Code zijn antwoorden hardop voor via tekst-naar-spraak.",
+			"description": "Indien ingeschakeld, leest HN Code zijn antwoorden hardop voor via tekst-naar-spraak.",
 			"speedLabel": "Snelheid"
 		}
 	},
@@ -545,7 +545,7 @@
 		"description": "Bepaal welke informatie wordt opgenomen in het contextvenster van de AI, wat invloed heeft op tokengebruik en antwoordkwaliteit",
 		"autoCondenseContextPercent": {
 			"label": "Drempelwaarde om intelligente contextcompressie te activeren",
-			"description": "Wanneer het contextvenster deze drempelwaarde bereikt, zal Kilo Code het automatisch comprimeren."
+			"description": "Wanneer het contextvenster deze drempelwaarde bereikt, zal HN Code het automatisch comprimeren."
 		},
 		"condensingApiConfiguration": {
 			"label": "API-configuratie voor contextcondensatie",
@@ -561,7 +561,7 @@
 		},
 		"autoCondenseContext": {
 			"name": "Automatisch intelligente contextcompressie activeren",
-			"description": "Wanneer ingeschakeld, zal Kilo Code automatisch de context comprimeren wanneer de drempel wordt bereikt. Wanneer uitgeschakeld, kun je nog steeds handmatig contextcompressie activeren."
+			"description": "Wanneer ingeschakeld, zal HN Code automatisch de context comprimeren wanneer de drempel wordt bereikt. Wanneer uitgeschakeld, kun je nog steeds handmatig contextcompressie activeren."
 		},
 		"openTabs": {
 			"label": "Limiet geopende tabbladen in context",
@@ -577,7 +577,7 @@
 		},
 		"maxReadFile": {
 			"label": "Automatisch afkappen bij bestandslezen",
-			"description": "Kilo Code leest dit aantal regels wanneer het model geen begin/eindwaarden opgeeft. Als dit aantal lager is dan het totaal, genereert Kilo Code een index van codelijnen. Speciale gevallen: -1 laat Kilo Code het hele bestand lezen (zonder indexering), 0 leest geen regels en geeft alleen een minimale index. Lagere waarden minimaliseren het initiële contextgebruik en maken precieze vervolg-leesopdrachten mogelijk. Expliciete begin/eind-aanvragen worden niet door deze instelling beperkt.",
+			"description": "HN Code leest dit aantal regels wanneer het model geen begin/eindwaarden opgeeft. Als dit aantal lager is dan het totaal, genereert HN Code een index van codelijnen. Speciale gevallen: -1 laat HN Code het hele bestand lezen (zonder indexering), 0 leest geen regels en geeft alleen een minimale index. Lagere waarden minimaliseren het initiële contextgebruik en maken precieze vervolg-leesopdrachten mogelijk. Expliciete begin/eind-aanvragen worden niet door deze instelling beperkt.",
 			"lines": "regels",
 			"always_full_read": "Altijd volledig bestand lezen"
 		},
@@ -653,27 +653,27 @@
 		},
 		"compressProgressBar": {
 			"label": "Voortgangsbalk-uitvoer comprimeren",
-			"description": "Indien ingeschakeld, verwerkt Kilo Code terminaluitvoer met carriage returns (\r) om te simuleren hoe een echte terminal inhoud weergeeft. Dit verwijdert tussenliggende voortgangsbalken en behoudt alleen de eindstatus, waardoor er meer contextruimte overblijft. <0>Meer informatie</0>"
+			"description": "Indien ingeschakeld, verwerkt HN Code terminaluitvoer met carriage returns (\r) om te simuleren hoe een echte terminal inhoud weergeeft. Dit verwijdert tussenliggende voortgangsbalken en behoudt alleen de eindstatus, waardoor er meer contextruimte overblijft. <0>Meer informatie</0>"
 		},
 		"powershellCounter": {
 			"label": "PowerShell-teller workaround inschakelen",
-			"description": "Indien ingeschakeld, voegt Kilo Code een teller toe aan PowerShell-commando's om correcte uitvoering te garanderen. Dit helpt bij PowerShell-terminals die problemen hebben met het vastleggen van uitvoer. <0>Meer informatie</0>"
+			"description": "Indien ingeschakeld, voegt HN Code een teller toe aan PowerShell-commando's om correcte uitvoering te garanderen. Dit helpt bij PowerShell-terminals die problemen hebben met het vastleggen van uitvoer. <0>Meer informatie</0>"
 		},
 		"zshClearEolMark": {
 			"label": "ZSH EOL-markering wissen",
-			"description": "Indien ingeschakeld, wist Kilo Code de ZSH end-of-line markering door PROMPT_EOL_MARK='' te zetten. Dit voorkomt problemen met de interpretatie van uitvoer die eindigt met speciale tekens zoals '%'. <0>Meer informatie</0>"
+			"description": "Indien ingeschakeld, wist HN Code de ZSH end-of-line markering door PROMPT_EOL_MARK='' te zetten. Dit voorkomt problemen met de interpretatie van uitvoer die eindigt met speciale tekens zoals '%'. <0>Meer informatie</0>"
 		},
 		"zshOhMy": {
 			"label": "Oh My Zsh-integratie inschakelen",
-			"description": "Indien ingeschakeld, zet Kilo Code ITERM_SHELL_INTEGRATION_INSTALLED=Yes om Oh My Zsh shell-integratiefuncties te activeren. Het toepassen van deze instelling kan een herstart van de IDE vereisen. <0>Meer informatie</0>"
+			"description": "Indien ingeschakeld, zet HN Code ITERM_SHELL_INTEGRATION_INSTALLED=Yes om Oh My Zsh shell-integratiefuncties te activeren. Het toepassen van deze instelling kan een herstart van de IDE vereisen. <0>Meer informatie</0>"
 		},
 		"zshP10k": {
 			"label": "Powerlevel10k-integratie inschakelen",
-			"description": "Indien ingeschakeld, zet Kilo Code POWERLEVEL9K_TERM_SHELL_INTEGRATION=true om Powerlevel10k shell-integratiefuncties te activeren. <0>Meer informatie</0>"
+			"description": "Indien ingeschakeld, zet HN Code POWERLEVEL9K_TERM_SHELL_INTEGRATION=true om Powerlevel10k shell-integratiefuncties te activeren. <0>Meer informatie</0>"
 		},
 		"zdotdir": {
 			"label": "ZDOTDIR-afhandeling inschakelen",
-			"description": "Indien ingeschakeld, maakt Kilo Code een tijdelijke map aan voor ZDOTDIR om zsh shell-integratie correct af te handelen. Dit zorgt ervoor dat VSCode shell-integratie goed werkt met zsh en je zsh-configuratie behouden blijft. <0>Meer informatie</0>"
+			"description": "Indien ingeschakeld, maakt HN Code een tijdelijke map aan voor ZDOTDIR om zsh shell-integratie correct af te handelen. Dit zorgt ervoor dat VSCode shell-integratie goed werkt met zsh en je zsh-configuratie behouden blijft. <0>Meer informatie</0>"
 		},
 		"inheritEnv": {
 			"label": "Omgevingsvariabelen overnemen",
@@ -686,7 +686,7 @@
 	"advanced": {
 		"diff": {
 			"label": "Bewerken via diffs inschakelen",
-			"description": "Indien ingeschakeld kan Kilo Code sneller bestanden bewerken en worden afgekorte volledige-bestandswijzigingen automatisch geweigerd. Werkt het beste met het nieuwste Claude 4 Sonnet-model.",
+			"description": "Indien ingeschakeld kan HN Code sneller bestanden bewerken en worden afgekorte volledige-bestandswijzigingen automatisch geweigerd. Werkt het beste met het nieuwste Claude 4 Sonnet-model.",
 			"strategy": {
 				"label": "Diff-strategie",
 				"options": {
@@ -707,7 +707,7 @@
 		},
 		"todoList": {
 			"label": "Takenlijst-tool inschakelen",
-			"description": "Wanneer ingeschakeld, kan Kilo Code takenlijsten maken en beheren om de voortgang van taken bij te houden. Dit helpt complexe taken te organiseren in beheersbare stappen."
+			"description": "Wanneer ingeschakeld, kan HN Code takenlijsten maken en beheren om de voortgang van taken bij te houden. Dit helpt complexe taken te organiseren in beheersbare stappen."
 		}
 	},
 	"experimental": {
@@ -717,23 +717,23 @@
 		},
 		"SEARCH_AND_REPLACE": {
 			"name": "Experimentele zoek-en-vervang-tool gebruiken",
-			"description": "Schakel de experimentele zoek-en-vervang-tool in, waarmee Kilo Code meerdere instanties van een zoekterm in één verzoek kan vervangen."
+			"description": "Schakel de experimentele zoek-en-vervang-tool in, waarmee HN Code meerdere instanties van een zoekterm in één verzoek kan vervangen."
 		},
 		"INSERT_BLOCK": {
 			"name": "Experimentele inhoud-invoeg-tool gebruiken",
-			"description": "Schakel de experimentele inhoud-invoeg-tool in, waarmee Kilo Code inhoud op specifieke regelnummers kan invoegen zonder een diff te maken."
+			"description": "Schakel de experimentele inhoud-invoeg-tool in, waarmee HN Code inhoud op specifieke regelnummers kan invoegen zonder een diff te maken."
 		},
 		"POWER_STEERING": {
 			"name": "Experimentele 'power steering'-modus gebruiken",
-			"description": "Indien ingeschakeld, herinnert Kilo Code het model vaker aan de details van de huidige modusdefinitie. Dit leidt tot sterkere naleving van roldefinities en aangepaste instructies, maar gebruikt meer tokens per bericht."
+			"description": "Indien ingeschakeld, herinnert HN Code het model vaker aan de details van de huidige modusdefinitie. Dit leidt tot sterkere naleving van roldefinities en aangepaste instructies, maar gebruikt meer tokens per bericht."
 		},
 		"MULTI_SEARCH_AND_REPLACE": {
 			"name": "Experimentele multi-block diff-tool gebruiken",
-			"description": "Indien ingeschakeld, gebruikt Kilo Code de multi-block diff-tool. Hiermee wordt geprobeerd meerdere codeblokken in het bestand in één verzoek bij te werken."
+			"description": "Indien ingeschakeld, gebruikt HN Code de multi-block diff-tool. Hiermee wordt geprobeerd meerdere codeblokken in het bestand in één verzoek bij te werken."
 		},
 		"CONCURRENT_FILE_READS": {
 			"name": "Gelijktijdig lezen van bestanden inschakelen",
-			"description": "Wanneer ingeschakeld, kan Kilo Code meerdere bestanden in één verzoek lezen. Wanneer uitgeschakeld, moet Kilo Code bestanden één voor één lezen. Uitschakelen kan helpen bij het werken met minder capabele modellen of wanneer u meer controle over bestandstoegang wilt."
+			"description": "Wanneer ingeschakeld, kan HN Code meerdere bestanden in één verzoek lezen. Wanneer uitgeschakeld, moet HN Code bestanden één voor één lezen. Uitschakelen kan helpen bij het werken met minder capabele modellen of wanneer u meer controle over bestandstoegang wilt."
 		},
 		"MARKETPLACE": {
 			"name": "Marketplace inschakelen",
@@ -741,11 +741,11 @@
 		},
 		"MULTI_FILE_APPLY_DIFF": {
 			"name": "Gelijktijdige bestandsbewerkingen inschakelen",
-			"description": "Wanneer ingeschakeld, kan Kilo Code meerdere bestanden in één verzoek bewerken. Wanneer uitgeschakeld, moet Kilo Code bestanden één voor één bewerken. Het uitschakelen hiervan kan helpen wanneer je werkt met minder capabele modellen of wanneer je meer controle wilt over bestandswijzigingen."
+			"description": "Wanneer ingeschakeld, kan HN Code meerdere bestanden in één verzoek bewerken. Wanneer uitgeschakeld, moet HN Code bestanden één voor één bewerken. Het uitschakelen hiervan kan helpen wanneer je werkt met minder capabele modellen of wanneer je meer controle wilt over bestandswijzigingen."
 		},
 		"MORPH_FAST_APPLY": {
 			"name": "Morph Fast Apply inschakelen",
-			"description": "Wanneer ingeschakeld, kan Kilo Code bestanden bewerken met Morph Fast Apply. Vereist de Kilo Code API Provider, OpenRouter of een Morph API-sleutel.",
+			"description": "Wanneer ingeschakeld, kan HN Code bestanden bewerken met Morph Fast Apply. Vereist de HN Code API Provider, OpenRouter of een Morph API-sleutel.",
 			"apiKey": "Morph API-sleutel (optioneel)",
 			"placeholder": "Voer je Morph API-sleutel in (optioneel)"
 		},
@@ -755,7 +755,7 @@
 		},
 		"PREVENT_FOCUS_DISRUPTION": {
 			"name": "Achtergrondbewerking",
-			"description": "Voorkomt editor focus verstoring wanneer ingeschakeld. Bestandsbewerkingen gebeuren op de achtergrond zonder diff-weergaven te openen of focus te stelen. Je kunt ononderbroken doorwerken terwijl Kilo Code wijzigingen aanbrengt. Bestanden kunnen zonder focus worden geopend om diagnostiek vast te leggen of volledig gesloten blijven."
+			"description": "Voorkomt editor focus verstoring wanneer ingeschakeld. Bestandsbewerkingen gebeuren op de achtergrond zonder diff-weergaven te openen of focus te stelen. Je kunt ononderbroken doorwerken terwijl HN Code wijzigingen aanbrengt. Bestanden kunnen zonder focus worden geopend om diagnostiek vast te leggen of volledig gesloten blijven."
 		},
 		"ASSISTANT_MESSAGE_PARSER": {
 			"name": "Nieuwe berichtparser gebruiken",
@@ -768,7 +768,7 @@
 	},
 	"promptCaching": {
 		"label": "Prompt caching inschakelen",
-		"description": "Indien ingeschakeld, gebruikt Kilo Code dit model met prompt caching om kosten te verlagen."
+		"description": "Indien ingeschakeld, gebruikt HN Code dit model met prompt caching om kosten te verlagen."
 	},
 	"temperature": {
 		"useCustom": "Aangepaste temperatuur gebruiken",
@@ -800,7 +800,7 @@
 		}
 	},
 	"modelPicker": {
-		"automaticFetch": "De extensie haalt automatisch de nieuwste lijst met modellen op van <serviceLink>{{serviceName}}</serviceLink>. Weet je niet welk model je moet kiezen? Kilo Code werkt het beste met <defaultModelLink>{{defaultModelId}}</defaultModelLink>.",
+		"automaticFetch": "De extensie haalt automatisch de nieuwste lijst met modellen op van <serviceLink>{{serviceName}}</serviceLink>. Weet je niet welk model je moet kiezen? HN Code werkt het beste met <defaultModelLink>{{defaultModelId}}</defaultModelLink>.",
 		"label": "Model",
 		"searchPlaceholder": "Zoeken",
 		"noMatchFound": "Geen overeenkomsten gevonden",
@@ -811,7 +811,7 @@
 		"support": "Voor financiële vragen kunt u contact opnemen met de klantenservice via <supportLink>https://kilocode.ai/support</supportLink>",
 		"telemetry": {
 			"label": "Fout- en gebruiksrapportage toestaan",
-			"description": "Help Kilo Code te verbeteren door gebruiksgegevens en foutmeldingen te verzenden. Er worden nooit code, prompts of persoonlijke gegevens verzonden. Zie ons privacybeleid voor meer informatie."
+			"description": "Help HN Code te verbeteren door gebruiksgegevens en foutmeldingen te verzenden. Er worden nooit code, prompts of persoonlijke gegevens verzonden. Zie ons privacybeleid voor meer informatie."
 		},
 		"settings": {
 			"import": "Importeren",

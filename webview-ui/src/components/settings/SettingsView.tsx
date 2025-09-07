@@ -104,7 +104,7 @@ const sectionNames = [
 	"experimental",
 	"language",
 	"mcp",
-	// "about", // 隐藏关于 Kilo Code 标签
+	// "about", // 隐藏关于 HN Code 标签
 ] as const
 
 type SectionName = (typeof sectionNames)[number] // kilocode_change
@@ -520,7 +520,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			{ id: "experimental", icon: FlaskConical },
 			{ id: "language", icon: Globe },
 			{ id: "mcp", icon: Server },
-			// { id: "about", icon: Info }, // 隐藏关于 Kilo Code 标签
+			// { id: "about", icon: Info }, // 隐藏关于 HN Code 标签
 		],
 		[extensionState.experiments?.inlineAssist], // kilocode_change
 	)

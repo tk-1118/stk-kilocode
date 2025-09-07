@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Trình tạo thông báo commit Kilo Code đã được kích hoạt",
+		"activated": "Trình tạo thông báo commit HN Code đã được kích hoạt",
 		"gitNotFound": "⚠️ Không tìm thấy kho lưu trữ Git hoặc git không khả dụng",
 		"gitInitError": "⚠️ Lỗi khởi tạo Git: {{error}}",
 		"generating": "Kilo: Đang tạo thông báo commit...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Kilo Inline Assist",
 			"warning": "$(warning) Kilo Inline Assist",
 			"tooltip": {
-				"basic": "Kilo Code Inline Assist",
-				"disabled": "Kilo Code Inline Assist (đã tắt)",
+				"basic": "HN Code Inline Assist",
+				"disabled": "HN Code Inline Assist (đã tắt)",
 				"tokenError": "Phải đặt một token hợp lệ để sử dụng Inline Assist",
 				"lastCompletion": "Đề xuất cuối cùng:",
 				"sessionTotal": "Tổng chi phí phiên:",
@@ -79,30 +79,30 @@
 		},
 		"toggleMessage": "Kilo Inline Assist {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "HN Code",
 			"analyzing": "Đang phân tích mã của bạn...",
 			"generating": "Đang tạo các chỉnh sửa được đề xuất...",
 			"processing": "Đang xử lý các chỉnh sửa được đề xuất...",
 			"showing": "Đang hiển thị các chỉnh sửa được đề xuất..."
 		},
 		"input": {
-			"title": "Kilo Code: Nhiệm vụ Nhanh",
+			"title": "HN Code: Nhiệm vụ Nhanh",
 			"placeholder": "ví dụ: 'tái cấu trúc hàm này để hiệu quả hơn'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Tạo các chỉnh sửa được đề xuất",
+			"generateSuggestions": "HN Code: Tạo các chỉnh sửa được đề xuất",
 			"displaySuggestions": "Hiển thị các chỉnh sửa được đề xuất",
 			"cancelSuggestions": "Hủy các chỉnh sửa được đề xuất",
 			"applyCurrentSuggestion": "Áp dụng chỉnh sửa được đề xuất hiện tại",
 			"applyAllSuggestions": "Áp dụng tất cả các chỉnh sửa được đề xuất",
 			"promptCodeSuggestion": "Nhiệm vụ Nhanh",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Chỉnh sửa được đề xuất"
+			"title": "HN Code: Chỉnh sửa được đề xuất"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "HN Code Agent",
 			"name": "Agent",
 			"description": "Tôi có thể giúp bạn với các nhiệm vụ nhanh chóng và các chỉnh sửa được đề xuất."
 		},
@@ -110,7 +110,7 @@
 			"provideCodeSuggestions": "Đang cung cấp các đề xuất mã..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code Inline Assist bị chặn bởi xung đột với GitHub Copilot. Để khắc phục điều này, bạn phải tắt các đề xuất nội dòng của Copilot.",
+			"message": "HN Code Inline Assist bị chặn bởi xung đột với GitHub Copilot. Để khắc phục điều này, bạn phải tắt các đề xuất nội dòng của Copilot.",
 			"disableCopilot": "Tắt Copilot",
 			"disableInlineAssist": "Tắt Trợ lý Nội dòng"
 		}

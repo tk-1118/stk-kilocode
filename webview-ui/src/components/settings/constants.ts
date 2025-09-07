@@ -94,4 +94,4 @@ export const PROVIDERS = [
 	// kilocode_change end
 ].sort((a, b) => a.label.localeCompare(b.label))
 
-PROVIDERS.unshift({ value: "kilocode", label: "Kilo Code" }) // kilocode_change
+PROVIDERS.unshift({ value: "kilocode", label: "HN Code" }) // kilocode_change

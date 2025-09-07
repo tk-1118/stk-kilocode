@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Генератор повідомлень коммітів Kilo Code активовано",
+		"activated": "Генератор повідомлень коммітів HN Code активовано",
 		"gitNotFound": "⚠️ Репозиторій Git не знайдено або git недоступний",
 		"gitInitError": "⚠️ Помилка ініціалізації Git: {{error}}",
 		"generating": "Kilo: Генерування повідомлення комміту...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Вбудована допомога Kilo",
 			"warning": "$(warning) Вбудована допомога Kilo",
 			"tooltip": {
-				"basic": "Вбудована допомога Kilo Code",
-				"disabled": "Вбудована допомога Kilo Code (вимкнено)",
+				"basic": "Вбудована допомога HN Code",
+				"disabled": "Вбудована допомога HN Code (вимкнено)",
 				"tokenError": "Для використання вбудованої допомоги необхідно встановити дійсний токен",
 				"lastCompletion": "Остання пропозиція:",
 				"sessionTotal": "Загальна вартість сесії:",
@@ -79,30 +79,30 @@
 		},
 		"toggleMessage": "Вбудована допомога Kilo {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "HN Code",
 			"analyzing": "Аналіз вашого коду...",
 			"generating": "Генерація запропонованих правок...",
 			"processing": "Обробка запропонованих правок...",
 			"showing": "Відображення запропонованих правок..."
 		},
 		"input": {
-			"title": "Kilo Code: Швидке завдання",
+			"title": "HN Code: Швидке завдання",
 			"placeholder": "наприклад, 'рефакторити цю функцію, щоб зробити її ефективнішою'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Згенерувати запропоновані правки",
+			"generateSuggestions": "HN Code: Згенерувати запропоновані правки",
 			"displaySuggestions": "Показати запропоновані правки",
 			"cancelSuggestions": "Скасувати запропоновані правки",
 			"applyCurrentSuggestion": "Застосувати поточну запропоновану правку",
 			"applyAllSuggestions": "Застосувати всі запропоновані правки",
 			"promptCodeSuggestion": "Швидке завдання",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Запропоновані правки"
+			"title": "HN Code: Запропоновані правки"
 		},
 		"chatParticipant": {
-			"fullName": "Агент Kilo Code",
+			"fullName": "Агент HN Code",
 			"name": "Агент",
 			"description": "Я можу допомогти вам зі швидкими завданнями та запропонованими правками."
 		},
@@ -110,7 +110,7 @@
 			"provideCodeSuggestions": "Надання пропозицій коду..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Вбудована допомога Kilo Code блокується конфліктом із GitHub Copilot. Щоб вирішити цю проблему, вам потрібно вимкнути вбудовані пропозиції Copilot.",
+			"message": "Вбудована допомога HN Code блокується конфліктом із GitHub Copilot. Щоб вирішити цю проблему, вам потрібно вимкнути вбудовані пропозиції Copilot.",
 			"disableCopilot": "Вимкнути Copilot",
 			"disableInlineAssist": "Вимкнути вбудовану допомогу"
 		}

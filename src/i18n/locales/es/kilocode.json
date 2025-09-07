@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Generador de mensajes de commit de Kilo Code activado",
+		"activated": "Generador de mensajes de commit de HN Code activado",
 		"gitNotFound": "⚠️ Repositorio Git no encontrado o git no disponible",
 		"gitInitError": "⚠️ Error de inicialización de Git: {{error}}",
 		"generating": "Kilo: Generando mensaje de confirmación...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Asistencia en línea Kilo",
 			"warning": "$(warning) Asistencia Integrada Kilo",
 			"tooltip": {
-				"basic": "Asistencia Integrada Kilo Code",
-				"disabled": "Asistente Integrado Kilo Code (desactivado)",
+				"basic": "Asistencia Integrada HN Code",
+				"disabled": "Asistente Integrado HN Code (desactivado)",
 				"tokenError": "Se debe establecer un token válido para usar Inline Assist",
 				"lastCompletion": "Última sugerencia:",
 				"sessionTotal": "Costo total de la sesión:",
@@ -83,26 +83,26 @@
 			"generating": "Generando sugerencias de edición...",
 			"processing": "Procesando ediciones sugeridas...",
 			"showing": "Mostrando ediciones sugeridas...",
-			"title": "Kilo Code"
+			"title": "HN Code"
 		},
 		"input": {
-			"title": "Kilo Code: Tarea Rápida",
+			"title": "HN Code: Tarea Rápida",
 			"placeholder": "p. ej., 'refactorizar esta función para que sea más eficiente'"
 		},
 		"commands": {
 			"displaySuggestions": "Mostrar Ediciones Sugeridas",
 			"cancelSuggestions": "Cancelar Ediciones Sugeridas",
-			"generateSuggestions": "Kilo Code: Generar Ediciones Sugeridas",
+			"generateSuggestions": "HN Code: Generar Ediciones Sugeridas",
 			"applyCurrentSuggestion": "Aplicar edición sugerida actual",
 			"applyAllSuggestions": "Aplicar todas las ediciones sugeridas",
 			"promptCodeSuggestion": "Tarea Rápida de Prompt",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Ediciones sugeridas"
+			"title": "HN Code: Ediciones sugeridas"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agente",
+			"fullName": "HN Code Agente",
 			"description": "Puedo ayudarte con tareas rápidas y ediciones sugeridas.",
 			"name": "Agente"
 		},
@@ -110,7 +110,7 @@
 			"provideCodeSuggestions": "Proporcionando sugerencias de código..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "La Asistencia Integrada de Kilo Code está siendo bloqueada por un conflicto con GitHub Copilot. Para solucionar esto, debes deshabilitar las sugerencias integradas de Copilot.",
+			"message": "La Asistencia Integrada de HN Code está siendo bloqueada por un conflicto con GitHub Copilot. Para solucionar esto, debes deshabilitar las sugerencias integradas de Copilot.",
 			"disableCopilot": "Deshabilitar Copilot",
 			"disableInlineAssist": "Deshabilitar Asistencia Integrada"
 		}

@@ -1,5 +1,5 @@
 {
-	"greeting": "Kilo Code sizin için ne yapabilir?",
+	"greeting": "HN Code sizin için ne yapabilir?",
 	"task": {
 		"title": "Görev",
 		"expand": "Görevi genişlet",
@@ -21,7 +21,7 @@
 		"sharePublicly": "Herkese açık paylaş",
 		"sharePubliclyDescription": "Bağlantıya sahip herkes erişebilir",
 		"connectToCloud": "Buluta bağlan",
-		"connectToCloudDescription": "Görevleri paylaşmak için Kilo Code Cloud'a giriş yap",
+		"connectToCloudDescription": "Görevleri paylaşmak için HN Code Cloud'a giriş yap",
 		"sharingDisabledByOrganization": "Paylaşım kuruluş tarafından devre dışı bırakıldı",
 		"shareSuccessOrganization": "Organizasyon bağlantısı panoya kopyalandı",
 		"shareSuccessPublic": "Genel bağlantı panoya kopyalandı"
@@ -90,7 +90,7 @@
 	},
 	"scrollToBottom": "Sohbetin altına kaydır",
 	"about": "AI yardımıyla kod oluşturun, yeniden düzenleyin ve hatalarını ayıklayın. Daha fazla bilgi edinmek için <DocsLink>belgelerimize</DocsLink> göz atın.",
-	"onboarding": "<strong>Bu çalışma alanındaki görev listeniz boş.</strong> Aşağıya bir görev yazarak başlayın. Nasıl başlayacağınızdan emin değil misiniz? Kilo Code'nun sizin için neler yapabileceği hakkında daha fazla bilgiyi <DocsLink>belgelerde</DocsLink> okuyun.",
+	"onboarding": "<strong>Bu çalışma alanındaki görev listeniz boş.</strong> Aşağıya bir görev yazarak başlayın. Nasıl başlayacağınızdan emin değil misiniz? HN Code'nun sizin için neler yapabileceği hakkında daha fazla bilgiyi <DocsLink>belgelerde</DocsLink> okuyun.",
 	"rooTips": {
 		"boomerangTasks": {
 			"title": "Görev Orkestrasyonu",
@@ -126,7 +126,7 @@
 		"title": "Modlar",
 		"marketplace": "Mod Pazaryeri",
 		"settings": "Mod Ayarları",
-		"description": "Kilo Code'nun davranışını özelleştiren uzmanlaşmış kişilikler.",
+		"description": "HN Code'nun davranışını özelleştiren uzmanlaşmış kişilikler.",
 		"searchPlaceholder": "Modları ara...",
 		"noResults": "Sonuç bulunamadı"
 	},
@@ -140,7 +140,7 @@
 	"diffError": {
 		"title": "Düzenleme Başarısız"
 	},
-	"troubleMessage": "Kilo Code sorun yaşıyor...",
+	"troubleMessage": "HN Code sorun yaşıyor...",
 	"apiRequest": {
 		"title": "API İsteği",
 		"failed": "API İsteği Başarısız",
@@ -165,42 +165,42 @@
 		"current": "Mevcut"
 	},
 	"instructions": {
-		"wantsToFetch": "Kilo Code mevcut göreve yardımcı olmak için ayrıntılı talimatlar almak istiyor"
+		"wantsToFetch": "HN Code mevcut göreve yardımcı olmak için ayrıntılı talimatlar almak istiyor"
 	},
 	"fileOperations": {
-		"wantsToRead": "Kilo Code bu dosyayı okumak istiyor:",
-		"wantsToReadOutsideWorkspace": "Kilo Code çalışma alanı dışındaki bu dosyayı okumak istiyor:",
-		"didRead": "Kilo Code bu dosyayı okudu:",
-		"wantsToEdit": "Kilo Code bu dosyayı düzenlemek istiyor:",
-		"wantsToEditOutsideWorkspace": "Kilo Code çalışma alanı dışındaki bu dosyayı düzenlemek istiyor:",
-		"wantsToEditProtected": "Kilo Code korumalı bir yapılandırma dosyasını düzenlemek istiyor:",
-		"wantsToCreate": "Kilo Code yeni bir dosya oluşturmak istiyor:",
-		"wantsToSearchReplace": "Kilo Code bu dosyada arama ve değiştirme yapmak istiyor:",
-		"didSearchReplace": "Kilo Code bu dosyada arama ve değiştirme yaptı:",
-		"wantsToInsert": "Kilo Code bu dosyaya içerik eklemek istiyor:",
-		"wantsToInsertWithLineNumber": "Kilo Code bu dosyanın {{lineNumber}}. satırına içerik eklemek istiyor:",
-		"wantsToInsertAtEnd": "Kilo Code bu dosyanın sonuna içerik eklemek istiyor:",
-		"wantsToReadAndXMore": "Kilo Code bu dosyayı ve {{count}} tane daha okumak istiyor:",
-		"wantsToReadMultiple": "Kilo Code birden fazla dosya okumak istiyor:",
-		"wantsToApplyBatchChanges": "Kilo Code birden fazla dosyaya değişiklik uygulamak istiyor:"
+		"wantsToRead": "HN Code bu dosyayı okumak istiyor:",
+		"wantsToReadOutsideWorkspace": "HN Code çalışma alanı dışındaki bu dosyayı okumak istiyor:",
+		"didRead": "HN Code bu dosyayı okudu:",
+		"wantsToEdit": "HN Code bu dosyayı düzenlemek istiyor:",
+		"wantsToEditOutsideWorkspace": "HN Code çalışma alanı dışındaki bu dosyayı düzenlemek istiyor:",
+		"wantsToEditProtected": "HN Code korumalı bir yapılandırma dosyasını düzenlemek istiyor:",
+		"wantsToCreate": "HN Code yeni bir dosya oluşturmak istiyor:",
+		"wantsToSearchReplace": "HN Code bu dosyada arama ve değiştirme yapmak istiyor:",
+		"didSearchReplace": "HN Code bu dosyada arama ve değiştirme yaptı:",
+		"wantsToInsert": "HN Code bu dosyaya içerik eklemek istiyor:",
+		"wantsToInsertWithLineNumber": "HN Code bu dosyanın {{lineNumber}}. satırına içerik eklemek istiyor:",
+		"wantsToInsertAtEnd": "HN Code bu dosyanın sonuna içerik eklemek istiyor:",
+		"wantsToReadAndXMore": "HN Code bu dosyayı ve {{count}} tane daha okumak istiyor:",
+		"wantsToReadMultiple": "HN Code birden fazla dosya okumak istiyor:",
+		"wantsToApplyBatchChanges": "HN Code birden fazla dosyaya değişiklik uygulamak istiyor:"
 	},
 	"directoryOperations": {
-		"wantsToViewTopLevel": "Kilo Code bu dizindeki üst düzey dosyaları görüntülemek istiyor:",
-		"didViewTopLevel": "Kilo Code bu dizindeki üst düzey dosyaları görüntüledi:",
-		"wantsToViewRecursive": "Kilo Code bu dizindeki tüm dosyaları özyinelemeli olarak görüntülemek istiyor:",
-		"didViewRecursive": "Kilo Code bu dizindeki tüm dosyaları özyinelemeli olarak görüntüledi:",
-		"wantsToViewDefinitions": "Kilo Code bu dizinde kullanılan kaynak kod tanımlama isimlerini görüntülemek istiyor:",
-		"didViewDefinitions": "Kilo Code bu dizinde kullanılan kaynak kod tanımlama isimlerini görüntüledi:",
-		"wantsToSearch": "Kilo Code bu dizinde <code>{{regex}}</code> için arama yapmak istiyor:",
-		"didSearch": "Kilo Code bu dizinde <code>{{regex}}</code> için arama yaptı:",
-		"wantsToSearchOutsideWorkspace": "Kilo Code bu dizinde (çalışma alanı dışında) <code>{{regex}}</code> için arama yapmak istiyor:",
-		"didSearchOutsideWorkspace": "Kilo Code bu dizinde (çalışma alanı dışında) <code>{{regex}}</code> için arama yaptı:",
-		"wantsToViewTopLevelOutsideWorkspace": "Kilo Code bu dizindeki (çalışma alanı dışında) üst düzey dosyaları görüntülemek istiyor:",
-		"didViewTopLevelOutsideWorkspace": "Kilo Code bu dizindeki (çalışma alanı dışında) üst düzey dosyaları görüntüledi:",
-		"wantsToViewRecursiveOutsideWorkspace": "Kilo Code bu dizindeki (çalışma alanı dışında) tüm dosyaları özyinelemeli olarak görüntülemek istiyor:",
-		"didViewRecursiveOutsideWorkspace": "Kilo Code bu dizindeki (çalışma alanı dışında) tüm dosyaları özyinelemeli olarak görüntüledi:",
-		"wantsToViewDefinitionsOutsideWorkspace": "Kilo Code bu dizinde (çalışma alanı dışında) kullanılan kaynak kod tanımlama isimlerini görüntülemek istiyor:",
-		"didViewDefinitionsOutsideWorkspace": "Kilo Code bu dizinde (çalışma alanı dışında) kullanılan kaynak kod tanımlama isimlerini görüntüledi:"
+		"wantsToViewTopLevel": "HN Code bu dizindeki üst düzey dosyaları görüntülemek istiyor:",
+		"didViewTopLevel": "HN Code bu dizindeki üst düzey dosyaları görüntüledi:",
+		"wantsToViewRecursive": "HN Code bu dizindeki tüm dosyaları özyinelemeli olarak görüntülemek istiyor:",
+		"didViewRecursive": "HN Code bu dizindeki tüm dosyaları özyinelemeli olarak görüntüledi:",
+		"wantsToViewDefinitions": "HN Code bu dizinde kullanılan kaynak kod tanımlama isimlerini görüntülemek istiyor:",
+		"didViewDefinitions": "HN Code bu dizinde kullanılan kaynak kod tanımlama isimlerini görüntüledi:",
+		"wantsToSearch": "HN Code bu dizinde <code>{{regex}}</code> için arama yapmak istiyor:",
+		"didSearch": "HN Code bu dizinde <code>{{regex}}</code> için arama yaptı:",
+		"wantsToSearchOutsideWorkspace": "HN Code bu dizinde (çalışma alanı dışında) <code>{{regex}}</code> için arama yapmak istiyor:",
+		"didSearchOutsideWorkspace": "HN Code bu dizinde (çalışma alanı dışında) <code>{{regex}}</code> için arama yaptı:",
+		"wantsToViewTopLevelOutsideWorkspace": "HN Code bu dizindeki (çalışma alanı dışında) üst düzey dosyaları görüntülemek istiyor:",
+		"didViewTopLevelOutsideWorkspace": "HN Code bu dizindeki (çalışma alanı dışında) üst düzey dosyaları görüntüledi:",
+		"wantsToViewRecursiveOutsideWorkspace": "HN Code bu dizindeki (çalışma alanı dışında) tüm dosyaları özyinelemeli olarak görüntülemek istiyor:",
+		"didViewRecursiveOutsideWorkspace": "HN Code bu dizindeki (çalışma alanı dışında) tüm dosyaları özyinelemeli olarak görüntüledi:",
+		"wantsToViewDefinitionsOutsideWorkspace": "HN Code bu dizinde (çalışma alanı dışında) kullanılan kaynak kod tanımlama isimlerini görüntülemek istiyor:",
+		"didViewDefinitionsOutsideWorkspace": "HN Code bu dizinde (çalışma alanı dışında) kullanılan kaynak kod tanımlama isimlerini görüntüledi:"
 	},
 	"commandOutput": "Komut Çıktısı",
 	"commandExecution": {
@@ -222,18 +222,18 @@
 	"response": "Yanıt",
 	"arguments": "Argümanlar",
 	"mcp": {
-		"wantsToUseTool": "Kilo Code {{serverName}} MCP sunucusunda bir araç kullanmak istiyor:",
-		"wantsToAccessResource": "Kilo Code {{serverName}} MCP sunucusundaki bir kaynağa erişmek istiyor:"
+		"wantsToUseTool": "HN Code {{serverName}} MCP sunucusunda bir araç kullanmak istiyor:",
+		"wantsToAccessResource": "HN Code {{serverName}} MCP sunucusundaki bir kaynağa erişmek istiyor:"
 	},
 	"modes": {
-		"wantsToSwitch": "Kilo Code <code>{{mode}}</code> moduna geçmek istiyor",
-		"wantsToSwitchWithReason": "Kilo Code <code>{{mode}}</code> moduna geçmek istiyor çünkü: {{reason}}",
-		"didSwitch": "Kilo Code <code>{{mode}}</code> moduna geçti",
-		"didSwitchWithReason": "Kilo Code <code>{{mode}}</code> moduna geçti çünkü: {{reason}}"
+		"wantsToSwitch": "HN Code <code>{{mode}}</code> moduna geçmek istiyor",
+		"wantsToSwitchWithReason": "HN Code <code>{{mode}}</code> moduna geçmek istiyor çünkü: {{reason}}",
+		"didSwitch": "HN Code <code>{{mode}}</code> moduna geçti",
+		"didSwitchWithReason": "HN Code <code>{{mode}}</code> moduna geçti çünkü: {{reason}}"
 	},
 	"subtasks": {
-		"wantsToCreate": "Kilo Code <code>{{mode}}</code> modunda yeni bir alt görev oluşturmak istiyor:",
-		"wantsToFinish": "Kilo Code bu alt görevi bitirmek istiyor",
+		"wantsToCreate": "HN Code <code>{{mode}}</code> modunda yeni bir alt görev oluşturmak istiyor:",
+		"wantsToFinish": "HN Code bu alt görevi bitirmek istiyor",
 		"newTaskContent": "Alt Görev Talimatları",
 		"completionContent": "Alt Görev Tamamlandı",
 		"resultContent": "Alt Görev Sonuçları",
@@ -241,7 +241,7 @@
 		"completionInstructions": "Alt görev tamamlandı! Sonuçları inceleyebilir ve düzeltmeler veya sonraki adımlar önerebilirsiniz. Her şey iyi görünüyorsa, sonucu üst göreve döndürmek için onaylayın."
 	},
 	"questions": {
-		"hasQuestion": "Kilo Code'nun bir sorusu var:"
+		"hasQuestion": "HN Code'nun bir sorusu var:"
 	},
 	"taskCompleted": "Görev Tamamlandı",
 	"powershell": {
@@ -250,7 +250,7 @@
 	"autoApprove": {
 		"title": "Otomatik-onay:",
 		"none": "Hiçbiri",
-		"description": "Otomatik onay, Kilo Code'un izin istemeden işlemler gerçekleştirmesine olanak tanır. Yalnızca tamamen güvendiğiniz eylemler için etkinleştirin. Daha detaylı yapılandırma <settingsLink>Ayarlar</settingsLink>'da mevcuttur.",
+		"description": "Otomatik onay, HN Code'un izin istemeden işlemler gerçekleştirmesine olanak tanır. Yalnızca tamamen güvendiğiniz eylemler için etkinleştirin. Daha detaylı yapılandırma <settingsLink>Ayarlar</settingsLink>'da mevcuttur.",
 		"selectOptionsFirst": "Otomatik onayı etkinleştirmek için aşağıdan en az bir seçenek belirleyin",
 		"toggleAriaLabel": "Otomatik onayı değiştir",
 		"disabledAriaLabel": "Otomatik onay devre dışı - önce seçenekleri belirleyin"
@@ -287,7 +287,7 @@
 		"detailsDiscussLinks": "<discordLink>Discord</discordLink> ve <redditLink>Reddit</redditLink>'te daha fazla ayrıntı alın ve tartışmalara katılın 🚀"
 	},
 	"browser": {
-		"rooWantsToUse": "Kilo Code tarayıcıyı kullanmak istiyor:",
+		"rooWantsToUse": "HN Code tarayıcıyı kullanmak istiyor:",
 		"consoleLogs": "Konsol Kayıtları",
 		"noNewLogs": "(Yeni kayıt yok)",
 		"screenshot": "Tarayıcı ekran görüntüsü",
@@ -321,24 +321,24 @@
 	"profileViolationWarning": "Geçerli profil kuruluşunuzun ayarlarıyla uyumlu değil",
 	"shellIntegration": {
 		"title": "Komut Çalıştırma Uyarısı",
-		"description": "Komutunuz VSCode terminal kabuk entegrasyonu olmadan çalıştırılıyor. Bu uyarıyı gizlemek için <settingsLink>Kilo Code ayarları</settingsLink>'nın <strong>Terminal</strong> bölümünden kabuk entegrasyonunu devre dışı bırakabilir veya aşağıdaki bağlantıyı kullanarak VSCode terminal entegrasyonu sorunlarını giderebilirsiniz.",
+		"description": "Komutunuz VSCode terminal kabuk entegrasyonu olmadan çalıştırılıyor. Bu uyarıyı gizlemek için <settingsLink>HN Code ayarları</settingsLink>'nın <strong>Terminal</strong> bölümünden kabuk entegrasyonunu devre dışı bırakabilir veya aşağıdaki bağlantıyı kullanarak VSCode terminal entegrasyonu sorunlarını giderebilirsiniz.",
 		"troubleshooting": "Kabuk entegrasyonu belgelerini görmek için buraya tıklayın."
 	},
 	"ask": {
 		"autoApprovedRequestLimitReached": {
 			"title": "Otomatik Onaylanan İstek Limiti Aşıldı",
-			"description": "Kilo Code, {{count}} API isteği/istekleri için otomatik onaylanan limite ulaştı. Sayacı sıfırlamak ve göreve devam etmek istiyor musunuz?",
+			"description": "HN Code, {{count}} API isteği/istekleri için otomatik onaylanan limite ulaştı. Sayacı sıfırlamak ve göreve devam etmek istiyor musunuz?",
 			"button": "Sıfırla ve Devam Et"
 		},
 		"autoApprovedCostLimitReached": {
 			"title": "Otomatik Onaylanan Maliyet Sınırına Ulaşıldı",
-			"description": "Kilo Code otomatik olarak onaylanmış ${{count}} maliyet sınırına ulaştı. Maliyeti sıfırlamak ve göreve devam etmek ister misiniz?",
+			"description": "HN Code otomatik olarak onaylanmış ${{count}} maliyet sınırına ulaştı. Maliyeti sıfırlamak ve göreve devam etmek ister misiniz?",
 			"button": "Sıfırla ve Devam Et"
 		}
 	},
 	"codebaseSearch": {
-		"wantsToSearch": "Kilo Code kod tabanında <code>{{query}}</code> aramak istiyor:",
-		"wantsToSearchWithPath": "Kilo Code <code>{{path}}</code> içinde kod tabanında <code>{{query}}</code> aramak istiyor:",
+		"wantsToSearch": "HN Code kod tabanında <code>{{query}}</code> aramak istiyor:",
+		"wantsToSearchWithPath": "HN Code <code>{{path}}</code> içinde kod tabanında <code>{{query}}</code> aramak istiyor:",
 		"didSearch_one": "1 sonuç bulundu",
 		"didSearch_other": "{{count}} sonuç bulundu",
 		"resultTooltip": "Benzerlik puanı: {{score}} (dosyayı açmak için tıklayın)"

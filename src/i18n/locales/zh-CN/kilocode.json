@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Kilo Code: 提交信息生成器已启动",
+		"activated": "HN Code: 提交信息生成器已启动",
 		"gitNotFound": "⚠️ Git 仓库未找到或 git 不可用",
 		"gitInitError": "⚠️ Git 初始化错误：{{error}}",
 		"generating": "Kilo: 正在生成提交信息...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Kilo 内联辅助",
 			"warning": "$(warning) Kilo 内联辅助",
 			"tooltip": {
-				"basic": "Kilo Code 内联辅助",
-				"disabled": "Kilo Code 内联辅助",
+				"basic": "HN Code 内联辅助",
+				"disabled": "HN Code 内联辅助",
 				"lastCompletion": "最后建议：",
 				"tokenError": "必须设置有效令牌才能使用行内助手",
 				"sessionTotal": "会话总费用：",
@@ -83,7 +83,7 @@
 			"generating": "正在生成建议修改...",
 			"processing": "正在处理建议的编辑...",
 			"showing": "显示建议的编辑...",
-			"title": "Kilo Code"
+			"title": "HN Code"
 		},
 		"input": {
 			"title": "Kilo：快速任务",
@@ -96,13 +96,13 @@
 			"cancelSuggestions": "取消建议的编辑",
 			"applyAllSuggestions": "应用所有建议的编辑",
 			"promptCodeSuggestion": "快速任务提示",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code：建议编辑"
+			"title": "HN Code：建议编辑"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code 代理",
+			"fullName": "HN Code 代理",
 			"description": "我可以帮助你完成快速任务和提供建议的编辑。",
 			"name": "代理"
 		},
@@ -110,7 +110,7 @@
 			"provideCodeSuggestions": "正在提供代码建议..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code 内联辅助 被 GitHub Copilot 的冲突阻止了。要解决此问题，你需要禁用 Copilot 的内联辅助。",
+			"message": "HN Code 内联辅助 被 GitHub Copilot 的冲突阻止了。要解决此问题，你需要禁用 Copilot 的内联辅助。",
 			"disableCopilot": "禁用 Copilot",
 			"disableInlineAssist": "禁用 内联辅助"
 		}
@@ -134,6 +134,6 @@
 			"okButton": "我明白",
 			"cancelButton": "取消"
 		},
-		"tipMessage": "Kilo Code: 按下 {{shortcut}} 生成终端命令"
+		"tipMessage": "HN Code: 按下 {{shortcut}} 生成终端命令"
 	}
 }

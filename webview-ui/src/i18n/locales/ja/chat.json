@@ -1,5 +1,5 @@
 {
-	"greeting": "Kilo Code は何をお手伝いできますか？",
+	"greeting": "HN Code は何をお手伝いできますか？",
 	"task": {
 		"title": "タスク",
 		"expand": "タスクを展開",
@@ -21,7 +21,7 @@
 		"sharePublicly": "公開で共有",
 		"sharePubliclyDescription": "リンクを持つ誰でもアクセスできます",
 		"connectToCloud": "クラウドに接続",
-		"connectToCloudDescription": "タスクを共有するためにKilo Code Cloudにサインイン",
+		"connectToCloudDescription": "タスクを共有するためにHN Code Cloudにサインイン",
 		"sharingDisabledByOrganization": "組織により共有が無効化されています",
 		"shareSuccessOrganization": "組織リンクをクリップボードにコピーしました",
 		"shareSuccessPublic": "公開リンクをクリップボードにコピーしました"
@@ -126,7 +126,7 @@
 		"title": "モード",
 		"marketplace": "モードマーケットプレイス",
 		"settings": "モード設定",
-		"description": "Kilo Codeの動作をカスタマイズする専門的なペルソナ。",
+		"description": "HN Codeの動作をカスタマイズする専門的なペルソナ。",
 		"searchPlaceholder": "モードを検索...",
 		"noResults": "結果が見つかりません"
 	},
@@ -140,7 +140,7 @@
 	"diffError": {
 		"title": "編集に失敗しました"
 	},
-	"troubleMessage": "Kilo Codeに問題が発生しています...",
+	"troubleMessage": "HN Codeに問題が発生しています...",
 	"apiRequest": {
 		"title": "APIリクエスト",
 		"failed": "APIリクエスト失敗",
@@ -165,42 +165,42 @@
 		"current": "現在"
 	},
 	"instructions": {
-		"wantsToFetch": "Kilo Codeは現在のタスクを支援するための詳細な指示を取得したい"
+		"wantsToFetch": "HN Codeは現在のタスクを支援するための詳細な指示を取得したい"
 	},
 	"fileOperations": {
-		"wantsToRead": "Kilo Codeはこのファイルを読みたい:",
-		"wantsToReadOutsideWorkspace": "Kilo Codeはワークスペース外のこのファイルを読みたい:",
-		"didRead": "Kilo Codeはこのファイルを読みました:",
-		"wantsToEdit": "Kilo Codeはこのファイルを編集したい:",
-		"wantsToEditOutsideWorkspace": "Kilo Codeはワークスペース外のこのファイルを編集したい:",
-		"wantsToEditProtected": "Kilo Codeは保護された設定ファイルを編集したい:",
-		"wantsToCreate": "Kilo Codeは新しいファイルを作成したい:",
-		"wantsToSearchReplace": "Kilo Codeはこのファイルで検索と置換を行う:",
-		"didSearchReplace": "Kilo Codeはこのファイルで検索と置換を実行しました:",
-		"wantsToInsert": "Kilo Codeはこのファイルにコンテンツを挿入したい:",
-		"wantsToInsertWithLineNumber": "Kilo Codeはこのファイルの{{lineNumber}}行目にコンテンツを挿入したい:",
-		"wantsToInsertAtEnd": "Kilo Codeはこのファイルの末尾にコンテンツを追加したい:",
-		"wantsToReadAndXMore": "Kilo Code はこのファイルと他に {{count}} 個のファイルを読み込もうとしています:",
-		"wantsToReadMultiple": "Kilo Codeは複数のファイルを読み取ろうとしています：",
-		"wantsToApplyBatchChanges": "Kilo Codeは複数のファイルに変更を適用したい:"
+		"wantsToRead": "HN Codeはこのファイルを読みたい:",
+		"wantsToReadOutsideWorkspace": "HN Codeはワークスペース外のこのファイルを読みたい:",
+		"didRead": "HN Codeはこのファイルを読みました:",
+		"wantsToEdit": "HN Codeはこのファイルを編集したい:",
+		"wantsToEditOutsideWorkspace": "HN Codeはワークスペース外のこのファイルを編集したい:",
+		"wantsToEditProtected": "HN Codeは保護された設定ファイルを編集したい:",
+		"wantsToCreate": "HN Codeは新しいファイルを作成したい:",
+		"wantsToSearchReplace": "HN Codeはこのファイルで検索と置換を行う:",
+		"didSearchReplace": "HN Codeはこのファイルで検索と置換を実行しました:",
+		"wantsToInsert": "HN Codeはこのファイルにコンテンツを挿入したい:",
+		"wantsToInsertWithLineNumber": "HN Codeはこのファイルの{{lineNumber}}行目にコンテンツを挿入したい:",
+		"wantsToInsertAtEnd": "HN Codeはこのファイルの末尾にコンテンツを追加したい:",
+		"wantsToReadAndXMore": "HN Code はこのファイルと他に {{count}} 個のファイルを読み込もうとしています:",
+		"wantsToReadMultiple": "HN Codeは複数のファイルを読み取ろうとしています：",
+		"wantsToApplyBatchChanges": "HN Codeは複数のファイルに変更を適用したい:"
 	},
 	"directoryOperations": {
-		"wantsToViewTopLevel": "Kilo Codeはこのディレクトリのトップレベルファイルを表示したい:",
-		"didViewTopLevel": "Kilo Codeはこのディレクトリのトップレベルファイルを表示しました:",
-		"wantsToViewRecursive": "Kilo Codeはこのディレクトリのすべてのファイルを再帰的に表示したい:",
-		"didViewRecursive": "Kilo Codeはこのディレクトリのすべてのファイルを再帰的に表示しました:",
-		"wantsToViewDefinitions": "Kilo Codeはこのディレクトリで使用されているソースコード定義名を表示したい:",
-		"didViewDefinitions": "Kilo Codeはこのディレクトリで使用されているソースコード定義名を表示しました:",
-		"wantsToSearch": "Kilo Codeはこのディレクトリで <code>{{regex}}</code> を検索したい:",
-		"didSearch": "Kilo Codeはこのディレクトリで <code>{{regex}}</code> を検索しました:",
-		"wantsToSearchOutsideWorkspace": "Kilo Codeはこのディレクトリ（ワークスペース外）で <code>{{regex}}</code> を検索したい:",
-		"didSearchOutsideWorkspace": "Kilo Codeはこのディレクトリ（ワークスペース外）で <code>{{regex}}</code> を検索しました:",
-		"wantsToViewTopLevelOutsideWorkspace": "Kilo Codeはこのディレクトリ（ワークスペース外）のトップレベルファイルを表示したい:",
-		"didViewTopLevelOutsideWorkspace": "Kilo Codeはこのディレクトリ（ワークスペース外）のトップレベルファイルを表示しました:",
-		"wantsToViewRecursiveOutsideWorkspace": "Kilo Codeはこのディレクトリ（ワークスペース外）のすべてのファイルを再帰的に表示したい:",
-		"didViewRecursiveOutsideWorkspace": "Kilo Codeはこのディレクトリ（ワークスペース外）のすべてのファイルを再帰的に表示しました:",
-		"wantsToViewDefinitionsOutsideWorkspace": "Kilo Codeはこのディレクトリ（ワークスペース外）で使用されているソースコード定義名を表示したい:",
-		"didViewDefinitionsOutsideWorkspace": "Kilo Codeはこのディレクトリ（ワークスペース外）で使用されているソースコード定義名を表示しました:"
+		"wantsToViewTopLevel": "HN Codeはこのディレクトリのトップレベルファイルを表示したい:",
+		"didViewTopLevel": "HN Codeはこのディレクトリのトップレベルファイルを表示しました:",
+		"wantsToViewRecursive": "HN Codeはこのディレクトリのすべてのファイルを再帰的に表示したい:",
+		"didViewRecursive": "HN Codeはこのディレクトリのすべてのファイルを再帰的に表示しました:",
+		"wantsToViewDefinitions": "HN Codeはこのディレクトリで使用されているソースコード定義名を表示したい:",
+		"didViewDefinitions": "HN Codeはこのディレクトリで使用されているソースコード定義名を表示しました:",
+		"wantsToSearch": "HN Codeはこのディレクトリで <code>{{regex}}</code> を検索したい:",
+		"didSearch": "HN Codeはこのディレクトリで <code>{{regex}}</code> を検索しました:",
+		"wantsToSearchOutsideWorkspace": "HN Codeはこのディレクトリ（ワークスペース外）で <code>{{regex}}</code> を検索したい:",
+		"didSearchOutsideWorkspace": "HN Codeはこのディレクトリ（ワークスペース外）で <code>{{regex}}</code> を検索しました:",
+		"wantsToViewTopLevelOutsideWorkspace": "HN Codeはこのディレクトリ（ワークスペース外）のトップレベルファイルを表示したい:",
+		"didViewTopLevelOutsideWorkspace": "HN Codeはこのディレクトリ（ワークスペース外）のトップレベルファイルを表示しました:",
+		"wantsToViewRecursiveOutsideWorkspace": "HN Codeはこのディレクトリ（ワークスペース外）のすべてのファイルを再帰的に表示したい:",
+		"didViewRecursiveOutsideWorkspace": "HN Codeはこのディレクトリ（ワークスペース外）のすべてのファイルを再帰的に表示しました:",
+		"wantsToViewDefinitionsOutsideWorkspace": "HN Codeはこのディレクトリ（ワークスペース外）で使用されているソースコード定義名を表示したい:",
+		"didViewDefinitionsOutsideWorkspace": "HN Codeはこのディレクトリ（ワークスペース外）で使用されているソースコード定義名を表示しました:"
 	},
 	"commandOutput": "コマンド出力",
 	"commandExecution": {
@@ -222,18 +222,18 @@
 	"response": "応答",
 	"arguments": "引数",
 	"mcp": {
-		"wantsToUseTool": "Kilo CodeはMCPサーバー{{serverName}}でツールを使用したい:",
-		"wantsToAccessResource": "Kilo CodeはMCPサーバー{{serverName}}のリソースにアクセスしたい:"
+		"wantsToUseTool": "HN CodeはMCPサーバー{{serverName}}でツールを使用したい:",
+		"wantsToAccessResource": "HN CodeはMCPサーバー{{serverName}}のリソースにアクセスしたい:"
 	},
 	"modes": {
-		"wantsToSwitch": "Kilo Codeは<code>{{mode}}</code>モードに切り替えたい",
-		"wantsToSwitchWithReason": "Kilo Codeは次の理由で<code>{{mode}}</code>モードに切り替えたい: {{reason}}",
-		"didSwitch": "Kilo Codeは<code>{{mode}}</code>モードに切り替えました",
-		"didSwitchWithReason": "Kilo Codeは次の理由で<code>{{mode}}</code>モードに切り替えました: {{reason}}"
+		"wantsToSwitch": "HN Codeは<code>{{mode}}</code>モードに切り替えたい",
+		"wantsToSwitchWithReason": "HN Codeは次の理由で<code>{{mode}}</code>モードに切り替えたい: {{reason}}",
+		"didSwitch": "HN Codeは<code>{{mode}}</code>モードに切り替えました",
+		"didSwitchWithReason": "HN Codeは次の理由で<code>{{mode}}</code>モードに切り替えました: {{reason}}"
 	},
 	"subtasks": {
-		"wantsToCreate": "Kilo Code<code>{{mode}}</code>モードで新しいサブタスクを作成したい:",
-		"wantsToFinish": "Kilo Codeはこのサブタスクを終了したい",
+		"wantsToCreate": "HN Code<code>{{mode}}</code>モードで新しいサブタスクを作成したい:",
+		"wantsToFinish": "HN Codeはこのサブタスクを終了したい",
 		"newTaskContent": "サブタスク指示",
 		"completionContent": "サブタスク完了",
 		"resultContent": "サブタスク結果",
@@ -241,7 +241,7 @@
 		"completionInstructions": "サブタスク完了！結果を確認し、修正や次のステップを提案できます。問題なければ、親タスクに結果を返すために確認してください。"
 	},
 	"questions": {
-		"hasQuestion": "Kilo Codeは質問があります:"
+		"hasQuestion": "HN Codeは質問があります:"
 	},
 	"taskCompleted": "タスク完了",
 	"powershell": {
@@ -250,7 +250,7 @@
 	"autoApprove": {
 		"title": "自動承認:",
 		"none": "なし",
-		"description": "自動承認はKilo Codeに許可を求めずに操作を実行する権限を与えます。完全に信頼できる操作のみ有効にしてください。より詳細な設定は<settingsLink>設定</settingsLink>で利用できます。",
+		"description": "自動承認はHN Codeに許可を求めずに操作を実行する権限を与えます。完全に信頼できる操作のみ有効にしてください。より詳細な設定は<settingsLink>設定</settingsLink>で利用できます。",
 		"selectOptionsFirst": "自動承認を有効にするには、以下のオプションを少なくとも1つ選択してください",
 		"toggleAriaLabel": "自動承認の切り替え",
 		"disabledAriaLabel": "自動承認が無効です - 最初にオプションを選択してください"
@@ -287,7 +287,7 @@
 		"detailsDiscussLinks": "詳細は<discordLink>Discord</discordLink>と<redditLink>Reddit</redditLink>でご確認・ディスカッションください 🚀"
 	},
 	"browser": {
-		"rooWantsToUse": "Kilo Codeはブラウザを使用したい:",
+		"rooWantsToUse": "HN Codeはブラウザを使用したい:",
 		"consoleLogs": "コンソールログ",
 		"noNewLogs": "(新しいログはありません)",
 		"screenshot": "ブラウザのスクリーンショット",
@@ -321,24 +321,24 @@
 	"profileViolationWarning": "現在のプロファイルは組織の設定と互換性がありません",
 	"shellIntegration": {
 		"title": "コマンド実行警告",
-		"description": "コマンドはVSCodeターミナルシェル統合なしで実行されています。この警告を非表示にするには、<settingsLink>Kilo Code設定</settingsLink>の<strong>Terminal</strong>セクションでシェル統合を無効にするか、以下のリンクを使用してVSCodeターミナル統合のトラブルシューティングを行ってください。",
+		"description": "コマンドはVSCodeターミナルシェル統合なしで実行されています。この警告を非表示にするには、<settingsLink>HN Code設定</settingsLink>の<strong>Terminal</strong>セクションでシェル統合を無効にするか、以下のリンクを使用してVSCodeターミナル統合のトラブルシューティングを行ってください。",
 		"troubleshooting": "シェル統合のドキュメントはこちらをクリック"
 	},
 	"ask": {
 		"autoApprovedRequestLimitReached": {
 			"title": "自動承認リクエスト制限に達しました",
-			"description": "Kilo Codeは{{count}}件のAPI自動承認リクエスト制限に達しました。カウントをリセットしてタスクを続行しますか？",
+			"description": "HN Codeは{{count}}件のAPI自動承認リクエスト制限に達しました。カウントをリセットしてタスクを続行しますか？",
 			"button": "リセットして続行"
 		},
 		"autoApprovedCostLimitReached": {
 			"title": "自動承認コスト制限に達しました",
-			"description": "Kilo Codeは自動承認されたコスト制限の${{count}}に達しました。コストをリセットしてタスクを続行しますか？",
+			"description": "HN Codeは自動承認されたコスト制限の${{count}}に達しました。コストをリセットしてタスクを続行しますか？",
 			"button": "リセットして続ける"
 		}
 	},
 	"codebaseSearch": {
-		"wantsToSearch": "Kilo Codeはコードベースで <code>{{query}}</code> を検索したい:",
-		"wantsToSearchWithPath": "Kilo Codeは <code>{{path}}</code> 内のコードベースで <code>{{query}}</code> を検索したい:",
+		"wantsToSearch": "HN Codeはコードベースで <code>{{query}}</code> を検索したい:",
+		"wantsToSearchWithPath": "HN Codeは <code>{{path}}</code> 内のコードベースで <code>{{query}}</code> を検索したい:",
 		"didSearch_one": "1件の結果が見つかりました",
 		"didSearch_other": "{{count}}件の結果が見つかりました",
 		"resultTooltip": "類似度スコア: {{score}} (クリックしてファイルを開く)"

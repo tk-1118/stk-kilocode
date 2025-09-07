@@ -43,7 +43,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Генератор сообщений коммитов Kilo Code активирован",
+		"activated": "Генератор сообщений коммитов HN Code активирован",
 		"gitNotFound": "⚠️ Репозиторий Git не найден или git недоступен",
 		"gitInitError": "⚠️ Ошибка инициализации Git: {{error}}",
 		"generating": "Kilo: Генерация сообщения коммита...",
@@ -60,8 +60,8 @@
 			"disabled": "$(circle-slash) Встроенная помощь Kilo",
 			"warning": "$(warning) Встроенная помощь Kilo",
 			"tooltip": {
-				"basic": "Встроенная помощь Kilo Code",
-				"disabled": "Встроенная помощь Kilo Code (отключена)",
+				"basic": "Встроенная помощь HN Code",
+				"disabled": "Встроенная помощь HN Code (отключена)",
 				"tokenError": "Для использования встроенной помощи необходимо установить действительный токен",
 				"lastCompletion": "Последнее предложение:",
 				"sessionTotal": "Общая стоимость сессии:",
@@ -74,30 +74,30 @@
 		},
 		"toggleMessage": "Встроенная помощь Kilo {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "HN Code",
 			"analyzing": "Анализ вашего кода...",
 			"generating": "Генерация предлагаемых правок...",
 			"processing": "Обработка предлагаемых правок...",
 			"showing": "Отображение предлагаемых правок..."
 		},
 		"input": {
-			"title": "Kilo Code: Быстрая задача",
+			"title": "HN Code: Быстрая задача",
 			"placeholder": "например, 'рефакторить эту функцию, чтобы сделать ее более эффективной'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Сгенерировать предлагаемые правки",
+			"generateSuggestions": "HN Code: Сгенерировать предлагаемые правки",
 			"displaySuggestions": "Показать предлагаемые правки",
 			"cancelSuggestions": "Отменить предлагаемые правки",
 			"applyCurrentSuggestion": "Применить текущую предложенную правку",
 			"applyAllSuggestions": "Применить все предложенные правки",
 			"promptCodeSuggestion": "Быстрая задача",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Предлагаемые правки"
+			"title": "HN Code: Предлагаемые правки"
 		},
 		"chatParticipant": {
-			"fullName": "Агент Kilo Code",
+			"fullName": "Агент HN Code",
 			"name": "Агент",
 			"description": "Я могу помочь вам с быстрыми задачами и предлагаемыми правками."
 		},
@@ -105,7 +105,7 @@
 			"provideCodeSuggestions": "Предоставление предложений кода..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Встроенная помощь Kilo Code блокируется конфликтом с GitHub Copilot. Чтобы исправить это, вам необходимо отключить встроенные предложения Copilot.",
+			"message": "Встроенная помощь HN Code блокируется конфликтом с GitHub Copilot. Чтобы исправить это, вам необходимо отключить встроенные предложения Copilot.",
 			"disableCopilot": "Отключить Copilot",
 			"disableInlineAssist": "Отключить встроенную помощь"
 		}
@@ -129,7 +129,7 @@
 		"nestedGitRepos": "Контрольные точки недоступны для рабочих областей с вложенными Git-репозиториями.",
 		"protectedPaths": "Контрольные точки недоступны для защищенных путей рабочей области.",
 		"dismissWarning": "Закрыть"
-  },
+	},
 	"seeNewChanges": {
 		"title": "Отображение новых изменений",
 		"checkpointsUnavailable": "Невозможно показать новые изменения, контрольные точки недоступны.",

@@ -1,5 +1,5 @@
 {
-	"greeting": "O que o Kilo Code pode fazer por você?",
+	"greeting": "O que o HN Code pode fazer por você?",
 	"task": {
 		"title": "Tarefa",
 		"expand": "Expandir tarefa",
@@ -21,7 +21,7 @@
 		"sharePublicly": "Compartilhar publicamente",
 		"sharePubliclyDescription": "Qualquer pessoa com o link pode acessar",
 		"connectToCloud": "Conectar ao Cloud",
-		"connectToCloudDescription": "Entre no Kilo Code Cloud para compartilhar tarefas",
+		"connectToCloudDescription": "Entre no HN Code Cloud para compartilhar tarefas",
 		"sharingDisabledByOrganization": "Compartilhamento desabilitado pela organização",
 		"shareSuccessOrganization": "Link da organização copiado para a área de transferência",
 		"shareSuccessPublic": "Link público copiado para a área de transferência"
@@ -90,7 +90,7 @@
 	},
 	"scrollToBottom": "Rolar para o final do chat",
 	"about": "Gere, refatore e depure código com assistência de IA. Confira nossa <DocsLink>documentação</DocsLink> para saber mais.",
-	"onboarding": "<strong>Sua lista de tarefas neste espaço de trabalho está vazia.</strong> Comece digitando uma tarefa abaixo. Não sabe como começar? Leia mais sobre o que o Kilo Code pode fazer por você nos <DocsLink>documentos</DocsLink>.",
+	"onboarding": "<strong>Sua lista de tarefas neste espaço de trabalho está vazia.</strong> Comece digitando uma tarefa abaixo. Não sabe como começar? Leia mais sobre o que o HN Code pode fazer por você nos <DocsLink>documentos</DocsLink>.",
 	"rooTips": {
 		"boomerangTasks": {
 			"title": "Orquestração de Tarefas",
@@ -140,7 +140,7 @@
 	"diffError": {
 		"title": "Edição mal-sucedida"
 	},
-	"troubleMessage": "Kilo Code está tendo problemas...",
+	"troubleMessage": "HN Code está tendo problemas...",
 	"apiRequest": {
 		"title": "Requisição API",
 		"failed": "Requisição API falhou",
@@ -165,42 +165,42 @@
 		"current": "Atual"
 	},
 	"instructions": {
-		"wantsToFetch": "Kilo Code quer buscar instruções detalhadas para ajudar com a tarefa atual"
+		"wantsToFetch": "HN Code quer buscar instruções detalhadas para ajudar com a tarefa atual"
 	},
 	"fileOperations": {
-		"wantsToRead": "Kilo Code quer ler este arquivo:",
-		"wantsToReadOutsideWorkspace": "Kilo Code quer ler este arquivo fora do espaço de trabalho:",
-		"didRead": "Kilo Code leu este arquivo:",
-		"wantsToEdit": "Kilo Code quer editar este arquivo:",
-		"wantsToEditOutsideWorkspace": "Kilo Code quer editar este arquivo fora do espaço de trabalho:",
-		"wantsToEditProtected": "Kilo Code quer editar um arquivo de configuração protegido:",
-		"wantsToCreate": "Kilo Code quer criar um novo arquivo:",
-		"wantsToSearchReplace": "Kilo Code quer realizar busca e substituição neste arquivo:",
-		"didSearchReplace": "Kilo Code realizou busca e substituição neste arquivo:",
-		"wantsToInsert": "Kilo Code quer inserir conteúdo neste arquivo:",
-		"wantsToInsertWithLineNumber": "Kilo Code quer inserir conteúdo neste arquivo na linha {{lineNumber}}:",
-		"wantsToInsertAtEnd": "Kilo Code quer adicionar conteúdo ao final deste arquivo:",
-		"wantsToReadAndXMore": "Kilo Code quer ler este arquivo e mais {{count}}:",
-		"wantsToReadMultiple": "Kilo Code deseja ler múltiplos arquivos:",
-		"wantsToApplyBatchChanges": "Kilo Code quer aplicar alterações a múltiplos arquivos:"
+		"wantsToRead": "HN Code quer ler este arquivo:",
+		"wantsToReadOutsideWorkspace": "HN Code quer ler este arquivo fora do espaço de trabalho:",
+		"didRead": "HN Code leu este arquivo:",
+		"wantsToEdit": "HN Code quer editar este arquivo:",
+		"wantsToEditOutsideWorkspace": "HN Code quer editar este arquivo fora do espaço de trabalho:",
+		"wantsToEditProtected": "HN Code quer editar um arquivo de configuração protegido:",
+		"wantsToCreate": "HN Code quer criar um novo arquivo:",
+		"wantsToSearchReplace": "HN Code quer realizar busca e substituição neste arquivo:",
+		"didSearchReplace": "HN Code realizou busca e substituição neste arquivo:",
+		"wantsToInsert": "HN Code quer inserir conteúdo neste arquivo:",
+		"wantsToInsertWithLineNumber": "HN Code quer inserir conteúdo neste arquivo na linha {{lineNumber}}:",
+		"wantsToInsertAtEnd": "HN Code quer adicionar conteúdo ao final deste arquivo:",
+		"wantsToReadAndXMore": "HN Code quer ler este arquivo e mais {{count}}:",
+		"wantsToReadMultiple": "HN Code deseja ler múltiplos arquivos:",
+		"wantsToApplyBatchChanges": "HN Code quer aplicar alterações a múltiplos arquivos:"
 	},
 	"directoryOperations": {
-		"wantsToViewTopLevel": "Kilo Code quer visualizar os arquivos de nível superior neste diretório:",
-		"didViewTopLevel": "Kilo Code visualizou os arquivos de nível superior neste diretório:",
-		"wantsToViewRecursive": "Kilo Code quer visualizar recursivamente todos os arquivos neste diretório:",
-		"didViewRecursive": "Kilo Code visualizou recursivamente todos os arquivos neste diretório:",
-		"wantsToViewDefinitions": "Kilo Code quer visualizar nomes de definição de código-fonte usados neste diretório:",
-		"didViewDefinitions": "Kilo Code visualizou nomes de definição de código-fonte usados neste diretório:",
-		"wantsToSearch": "Kilo Code quer pesquisar neste diretório por <code>{{regex}}</code>:",
-		"didSearch": "Kilo Code pesquisou neste diretório por <code>{{regex}}</code>:",
-		"wantsToSearchOutsideWorkspace": "Kilo Code quer pesquisar neste diretório (fora do espaço de trabalho) por <code>{{regex}}</code>:",
-		"didSearchOutsideWorkspace": "Kilo Code pesquisou neste diretório (fora do espaço de trabalho) por <code>{{regex}}</code>:",
-		"wantsToViewTopLevelOutsideWorkspace": "Kilo Code quer visualizar os arquivos de nível superior neste diretório (fora do espaço de trabalho):",
-		"didViewTopLevelOutsideWorkspace": "Kilo Code visualizou os arquivos de nível superior neste diretório (fora do espaço de trabalho):",
-		"wantsToViewRecursiveOutsideWorkspace": "Kilo Code quer visualizar recursivamente todos os arquivos neste diretório (fora do espaço de trabalho):",
-		"didViewRecursiveOutsideWorkspace": "Kilo Code visualizou recursivamente todos os arquivos neste diretório (fora do espaço de trabalho):",
-		"wantsToViewDefinitionsOutsideWorkspace": "Kilo Code quer visualizar nomes de definição de código-fonte usados neste diretório (fora do espaço de trabalho):",
-		"didViewDefinitionsOutsideWorkspace": "Kilo Code visualizou nomes de definição de código-fonte usados neste diretório (fora do espaço de trabalho):"
+		"wantsToViewTopLevel": "HN Code quer visualizar os arquivos de nível superior neste diretório:",
+		"didViewTopLevel": "HN Code visualizou os arquivos de nível superior neste diretório:",
+		"wantsToViewRecursive": "HN Code quer visualizar recursivamente todos os arquivos neste diretório:",
+		"didViewRecursive": "HN Code visualizou recursivamente todos os arquivos neste diretório:",
+		"wantsToViewDefinitions": "HN Code quer visualizar nomes de definição de código-fonte usados neste diretório:",
+		"didViewDefinitions": "HN Code visualizou nomes de definição de código-fonte usados neste diretório:",
+		"wantsToSearch": "HN Code quer pesquisar neste diretório por <code>{{regex}}</code>:",
+		"didSearch": "HN Code pesquisou neste diretório por <code>{{regex}}</code>:",
+		"wantsToSearchOutsideWorkspace": "HN Code quer pesquisar neste diretório (fora do espaço de trabalho) por <code>{{regex}}</code>:",
+		"didSearchOutsideWorkspace": "HN Code pesquisou neste diretório (fora do espaço de trabalho) por <code>{{regex}}</code>:",
+		"wantsToViewTopLevelOutsideWorkspace": "HN Code quer visualizar os arquivos de nível superior neste diretório (fora do espaço de trabalho):",
+		"didViewTopLevelOutsideWorkspace": "HN Code visualizou os arquivos de nível superior neste diretório (fora do espaço de trabalho):",
+		"wantsToViewRecursiveOutsideWorkspace": "HN Code quer visualizar recursivamente todos os arquivos neste diretório (fora do espaço de trabalho):",
+		"didViewRecursiveOutsideWorkspace": "HN Code visualizou recursivamente todos os arquivos neste diretório (fora do espaço de trabalho):",
+		"wantsToViewDefinitionsOutsideWorkspace": "HN Code quer visualizar nomes de definição de código-fonte usados neste diretório (fora do espaço de trabalho):",
+		"didViewDefinitionsOutsideWorkspace": "HN Code visualizou nomes de definição de código-fonte usados neste diretório (fora do espaço de trabalho):"
 	},
 	"commandOutput": "Saída do comando",
 	"commandExecution": {
@@ -222,18 +222,18 @@
 	"response": "Resposta",
 	"arguments": "Argumentos",
 	"mcp": {
-		"wantsToUseTool": "Kilo Code quer usar uma ferramenta no servidor MCP {{serverName}}:",
-		"wantsToAccessResource": "Kilo Code quer acessar um recurso no servidor MCP {{serverName}}:"
+		"wantsToUseTool": "HN Code quer usar uma ferramenta no servidor MCP {{serverName}}:",
+		"wantsToAccessResource": "HN Code quer acessar um recurso no servidor MCP {{serverName}}:"
 	},
 	"modes": {
-		"wantsToSwitch": "Kilo Code quer mudar para o modo <code>{{mode}}</code>",
-		"wantsToSwitchWithReason": "Kilo Code quer mudar para o modo <code>{{mode}}</code> porque: {{reason}}",
-		"didSwitch": "Kilo Code mudou para o modo <code>{{mode}}</code>",
-		"didSwitchWithReason": "Kilo Code mudou para o modo <code>{{mode}}</code> porque: {{reason}}"
+		"wantsToSwitch": "HN Code quer mudar para o modo <code>{{mode}}</code>",
+		"wantsToSwitchWithReason": "HN Code quer mudar para o modo <code>{{mode}}</code> porque: {{reason}}",
+		"didSwitch": "HN Code mudou para o modo <code>{{mode}}</code>",
+		"didSwitchWithReason": "HN Code mudou para o modo <code>{{mode}}</code> porque: {{reason}}"
 	},
 	"subtasks": {
-		"wantsToCreate": "Kilo Code quer criar uma nova subtarefa no modo <code>{{mode}}</code>:",
-		"wantsToFinish": "Kilo Code quer finalizar esta subtarefa",
+		"wantsToCreate": "HN Code quer criar uma nova subtarefa no modo <code>{{mode}}</code>:",
+		"wantsToFinish": "HN Code quer finalizar esta subtarefa",
 		"newTaskContent": "Instruções da subtarefa",
 		"completionContent": "Subtarefa concluída",
 		"resultContent": "Resultados da subtarefa",
@@ -241,7 +241,7 @@
 		"completionInstructions": "Subtarefa concluída! Você pode revisar os resultados e sugerir correções ou próximos passos. Se tudo parecer bom, confirme para retornar o resultado à tarefa principal."
 	},
 	"questions": {
-		"hasQuestion": "Kilo Code tem uma pergunta:"
+		"hasQuestion": "HN Code tem uma pergunta:"
 	},
 	"taskCompleted": "Tarefa concluída",
 	"powershell": {
@@ -250,7 +250,7 @@
 	"autoApprove": {
 		"title": "Aprovação automática:",
 		"none": "Nenhuma",
-		"description": "A aprovação automática permite que o Kilo Code execute ações sem pedir permissão. Ative apenas para ações nas quais você confia totalmente. Configuração mais detalhada disponível nas <settingsLink>Configurações</settingsLink>.",
+		"description": "A aprovação automática permite que o HN Code execute ações sem pedir permissão. Ative apenas para ações nas quais você confia totalmente. Configuração mais detalhada disponível nas <settingsLink>Configurações</settingsLink>.",
 		"selectOptionsFirst": "Selecione pelo menos uma opção abaixo para ativar a aprovação automática",
 		"toggleAriaLabel": "Alternar aprovação automática",
 		"disabledAriaLabel": "Aprovação automática desativada - selecione as opções primeiro"
@@ -287,7 +287,7 @@
 		"detailsDiscussLinks": "Obtenha mais detalhes e participe da discussão no <discordLink>Discord</discordLink> e <redditLink>Reddit</redditLink> 🚀"
 	},
 	"browser": {
-		"rooWantsToUse": "Kilo Code quer usar o navegador:",
+		"rooWantsToUse": "HN Code quer usar o navegador:",
 		"consoleLogs": "Logs do console",
 		"noNewLogs": "(Sem novos logs)",
 		"screenshot": "Captura de tela do navegador",
@@ -321,24 +321,24 @@
 	"profileViolationWarning": "O perfil atual não é compatível com as configurações da sua organização",
 	"shellIntegration": {
 		"title": "Aviso de execução de comando",
-		"description": "Seu comando está sendo executado sem a integração de shell do terminal VSCode. Para suprimir este aviso, você pode desativar a integração de shell na seção <strong>Terminal</strong> das <settingsLink>configurações do Kilo Code</settingsLink> ou solucionar problemas de integração do terminal VSCode usando o link abaixo.",
+		"description": "Seu comando está sendo executado sem a integração de shell do terminal VSCode. Para suprimir este aviso, você pode desativar a integração de shell na seção <strong>Terminal</strong> das <settingsLink>configurações do HN Code</settingsLink> ou solucionar problemas de integração do terminal VSCode usando o link abaixo.",
 		"troubleshooting": "Clique aqui para a documentação de integração de shell."
 	},
 	"ask": {
 		"autoApprovedRequestLimitReached": {
 			"title": "Limite de Solicitações Auto-aprovadas Atingido",
-			"description": "Kilo Code atingiu o limite auto-aprovado de {{count}} solicitação(ões) de API. Deseja redefinir a contagem e prosseguir com a tarefa?",
+			"description": "HN Code atingiu o limite auto-aprovado de {{count}} solicitação(ões) de API. Deseja redefinir a contagem e prosseguir com a tarefa?",
 			"button": "Redefinir e Continuar"
 		},
 		"autoApprovedCostLimitReached": {
 			"title": "Limite de Custo com Aprovação Automática Atingido",
-			"description": "Kilo Code atingiu o limite de custo com aprovação automática de US${{count}}. Você gostaria de redefinir o custo e prosseguir com a tarefa?",
+			"description": "HN Code atingiu o limite de custo com aprovação automática de US${{count}}. Você gostaria de redefinir o custo e prosseguir com a tarefa?",
 			"button": "Redefinir e Continuar"
 		}
 	},
 	"codebaseSearch": {
-		"wantsToSearch": "Kilo Code quer pesquisar na base de código por <code>{{query}}</code>:",
-		"wantsToSearchWithPath": "Kilo Code quer pesquisar na base de código por <code>{{query}}</code> em <code>{{path}}</code>:",
+		"wantsToSearch": "HN Code quer pesquisar na base de código por <code>{{query}}</code>:",
+		"wantsToSearchWithPath": "HN Code quer pesquisar na base de código por <code>{{query}}</code> em <code>{{path}}</code>:",
 		"didSearch_one": "Encontrado 1 resultado",
 		"didSearch_other": "Encontrados {{count}} resultados",
 		"resultTooltip": "Pontuação de similaridade: {{score}} (clique para abrir o arquivo)"

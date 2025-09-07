@@ -131,7 +131,7 @@ export type TeamSwitchEvent = z.infer<typeof teamSwitchEventSchema>
 export const DEFAULT_TEAMS: readonly TeamConfig[] = [
 	{
 		slug: "frontend-team",
-		name: "前端开发团队",
+		name: "Vue3+TS虚拟前端开发团队",
 		description: "专注于用户界面和用户体验的开发团队",
 		iconName: "codicon-browser",
 		color: "#61DAFB", // React蓝色
@@ -150,7 +150,7 @@ export const DEFAULT_TEAMS: readonly TeamConfig[] = [
 	},
 	{
 		slug: "backend-team",
-		name: "后端开发团队",
+		name: "DDD虚拟后端开发团队",
 		description: "专注于服务端架构和业务逻辑的开发团队",
 		iconName: "codicon-server",
 		color: "#68217A", // Spring紫色
@@ -186,7 +186,7 @@ export const DEFAULT_TEAMS: readonly TeamConfig[] = [
 	},
 	{
 		slug: "fullstack-team",
-		name: "全栈开发团队",
+		name: "全栈虚拟开发团队",
 		description: "具备前后端全栈开发能力的综合团队",
 		iconName: "codicon-layers",
 		color: "#FF6B6B", // 珊瑚红

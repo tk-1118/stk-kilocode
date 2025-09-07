@@ -5,7 +5,7 @@
 使用新增的团队功能后端开发团队构建项目时，一直出现以下错误，无法进行：
 
 ```
-Kilo Code is having trouble...
+HN Code is having trouble...
 This may indicate a failure in the model's thought process or inability to use a tool properly, which can be mitigated with some user guidance (e.g. "Try breaking down the task into smaller steps").
 ```
 
@@ -129,7 +129,7 @@ await vscode.commands.executeCommand("kilo-code.createTaskWithContext", {
 
 ### 3. **性能测试**
 
-- 连续创建多个任务，观察是否还会出现 "Kilo Code is having trouble" 错误
+- 连续创建多个任务，观察是否还会出现 "HN Code is having trouble" 错误
 - 监控控制台输出，确认日志输出已显著减少
 - 测试团队切换和模式切换的响应速度
 
@@ -171,6 +171,6 @@ await vscode.commands.executeCommand("kilo-code.createTaskWithContext", {
 2. **状态同步**：频繁的状态更新可能造成竞争条件
 3. **资源消耗**：增加了系统的整体负载
 
-通过减少日志输出和确保默认值稳定性，应该能够解决大部分与团队功能相关的 "Kilo Code is having trouble" 错误。
+通过减少日志输出和确保默认值稳定性，应该能够解决大部分与团队功能相关的 "HN Code is having trouble" 错误。
 
 修复已完成并通过构建测试，可以进行实际使用测试。

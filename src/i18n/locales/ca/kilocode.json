@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Generador de missatges de commit de Kilo Code activat",
+		"activated": "Generador de missatges de commit de HN Code activat",
 		"gitNotFound": "⚠️ No s'ha trobat el repositori Git o git no està disponible",
 		"gitInitError": "⚠️ Error d'inicialització de Git: {{error}}",
 		"generating": "Kilo: Generant missatge de commit...",
@@ -65,27 +65,27 @@
 			"generating": "Generant suggeriments d'edició...",
 			"processing": "Processant les edicions suggerides...",
 			"showing": "Mostrant edicions suggerides...",
-			"title": "Kilo Code"
+			"title": "HN Code"
 		},
 		"input": {
-			"title": "Kilo Code: Tasca Ràpida",
+			"title": "HN Code: Tasca Ràpida",
 			"placeholder": "p. ex., 'refactora aquesta funció perquè sigui més eficient'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Genera suggeriments d'edició",
+			"generateSuggestions": "HN Code: Genera suggeriments d'edició",
 			"displaySuggestions": "Mostrar Suggeriments d'Edició",
 			"cancelSuggestions": "Cancel·la les edicions suggerides",
 			"applyAllSuggestions": "Aplica totes les edicions suggerides",
 			"applyCurrentSuggestion": "Aplica l'edició suggerida actual",
 			"promptCodeSuggestion": "Petició de Tasca Ràpida",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Edicions suggerides"
+			"title": "HN Code: Edicions suggerides"
 		},
 		"chatParticipant": {
 			"name": "Agent",
-			"fullName": "Kilo Code Agent",
+			"fullName": "HN Code Agent",
 			"description": "Et puc ajudar amb tasques ràpides i edicions suggerides."
 		},
 		"messages": {
@@ -96,8 +96,8 @@
 			"disabled": "$(circle-slash) Kilo Inline Assist",
 			"warning": "$(warning) Assistència de Kilo en línia",
 			"tooltip": {
-				"disabled": "Assistència en línia de Kilo Code (desactivat)",
-				"basic": "Assistència en línia Kilo Code",
+				"disabled": "Assistència en línia de HN Code (desactivat)",
+				"basic": "Assistència en línia HN Code",
 				"tokenError": "S'ha d'establir un token vàlid per utilitzar l'Assistència Integrada",
 				"lastCompletion": "Última suggerència:",
 				"sessionTotal": "Cost total de la sessió:",
@@ -110,7 +110,7 @@
 		},
 		"toggleMessage": "Assistència en línia Kilo {{status}}",
 		"incompatibilityExtensionPopup": {
-			"message": "L'Assistència en línia de Kilo Code està bloquejada per un conflicte amb GitHub Copilot. Per solucionar-ho, has de desactivar els suggeriments en línia de Copilot.",
+			"message": "L'Assistència en línia de HN Code està bloquejada per un conflicte amb GitHub Copilot. Per solucionar-ho, has de desactivar els suggeriments en línia de Copilot.",
 			"disableCopilot": "Desactivar Copilot",
 			"disableInlineAssist": "Desactivar Assistència en línia"
 		}

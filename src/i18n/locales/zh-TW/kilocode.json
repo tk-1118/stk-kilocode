@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Kilo Code Commit 訊息產生器已啟用",
+		"activated": "HN Code Commit 訊息產生器已啟用",
 		"gitNotFound": "⚠️找不到 Git 儲存庫或 Git 不可用",
 		"gitInitError": "⚠️ Git 初始化錯誤：{{error}}",
 		"generating": "Kilo：正在產生 Commit 訊息...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Kilo 行內輔助",
 			"warning": "$(warning) Kilo 行內輔助",
 			"tooltip": {
-				"basic": "Kilo Code 行內輔助",
-				"disabled": "Kilo Code 行內輔助 (已停用)",
+				"basic": "HN Code 行內輔助",
+				"disabled": "HN Code 行內輔助 (已停用)",
 				"tokenError": "必須設定有效的令牌才能使用行內輔助",
 				"lastCompletion": "最後建議：",
 				"sessionTotal": "工作階段總費用：",
@@ -79,30 +79,30 @@
 		},
 		"toggleMessage": "Kilo 行內輔助 {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "HN Code",
 			"analyzing": "正在分析您的程式碼...",
 			"generating": "正在產生建議的編輯...",
 			"processing": "正在處理建議的編輯...",
 			"showing": "正在顯示建議的編輯..."
 		},
 		"input": {
-			"title": "Kilo Code：快速任務",
+			"title": "HN Code：快速任務",
 			"placeholder": "例如：'重構此函數以提高效率'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code：產生建議的編輯",
+			"generateSuggestions": "HN Code：產生建議的編輯",
 			"displaySuggestions": "顯示建議的編輯",
 			"cancelSuggestions": "取消建議的編輯",
 			"applyCurrentSuggestion": "套用目前的建議編輯",
 			"applyAllSuggestions": "套用所有建議的編輯",
 			"promptCodeSuggestion": "快速任務",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code：建議的編輯"
+			"title": "HN Code：建議的編輯"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "HN Code Agent",
 			"name": "Agent",
 			"description": "我可以幫助您處理快速任務和建議的編輯。"
 		},
@@ -110,7 +110,7 @@
 			"provideCodeSuggestions": "正在提供程式碼建議..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code 行內輔助被 GitHub Copilot 的衝突所阻擋。為了解決此問題，您必須停用 Copilot 的內嵌建議。",
+			"message": "HN Code 行內輔助被 GitHub Copilot 的衝突所阻擋。為了解決此問題，您必須停用 Copilot 的內嵌建議。",
 			"disableCopilot": "停用 Copilot",
 			"disableInlineAssist": "停用行內輔助"
 		}

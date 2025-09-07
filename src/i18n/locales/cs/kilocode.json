@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Generátor zpráv pro commit Kilo Code aktivován",
+		"activated": "Generátor zpráv pro commit HN Code aktivován",
 		"gitNotFound": "⚠️ Git repozitář nebyl nalezen nebo git není dostupný",
 		"gitInitError": "⚠️ Chyba inicializace Gitu: {{error}}",
 		"generating": "Kilo: Generuji zprávu commitu...",
@@ -65,27 +65,27 @@
 			"analyzing": "Analyzuji váš kód...",
 			"processing": "Zpracování navržených úprav...",
 			"showing": "Zobrazuji navrhované úpravy...",
-			"title": "Kilo Code"
+			"title": "HN Code"
 		},
 		"input": {
-			"title": "Kilo Code: Rychlý úkol",
+			"title": "HN Code: Rychlý úkol",
 			"placeholder": "např. \"přepracovat tuto funkci, aby byla efektivnější\""
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Generování navrhovaných úprav",
+			"generateSuggestions": "HN Code: Generování navrhovaných úprav",
 			"applyCurrentSuggestion": "Použít aktuální navrhovanou úpravu",
 			"displaySuggestions": "Zobrazit navrhované úpravy",
 			"cancelSuggestions": "Zrušit navrhované úpravy",
 			"applyAllSuggestions": "Použít všechny navrhované úpravy",
 			"promptCodeSuggestion": "Rychlý úkol",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Navrhované úpravy"
+			"title": "HN Code: Navrhované úpravy"
 		},
 		"chatParticipant": {
 			"name": "Agent",
-			"fullName": "Kilo Code Agent",
+			"fullName": "HN Code Agent",
 			"description": "Mohu vám pomoci s rychlými úkoly a navrženými úpravami."
 		},
 		"messages": {
@@ -96,8 +96,8 @@
 			"enabled": "$(sparkle) Kilo Inline Asistent",
 			"warning": "$(warning) Inline asistence Kilo",
 			"tooltip": {
-				"disabled": "Kilo Code Inline Assist (deaktivováno)",
-				"basic": "Inline asistent Kilo Code",
+				"disabled": "HN Code Inline Assist (deaktivováno)",
+				"basic": "Inline asistent HN Code",
 				"tokenError": "Pro použití Inline Assist je nutné nastavit platný token",
 				"sessionTotal": "Celková cena sezení:",
 				"model": "Model:",
@@ -110,7 +110,7 @@
 		},
 		"toggleMessage": "Kilo Inline Assist {{status}}",
 		"incompatibilityExtensionPopup": {
-			"message": "Inline asistent Kilo Code je blokován kvůli konfliktu s GitHub Copilot. Pro vyřešení tohoto problému musíš deaktivovat inline návrhy Copilotu.",
+			"message": "Inline asistent HN Code je blokován kvůli konfliktu s GitHub Copilot. Pro vyřešení tohoto problému musíš deaktivovat inline návrhy Copilotu.",
 			"disableCopilot": "Deaktivovat Copilot",
 			"disableInlineAssist": "Deaktivovat Inline asistenta"
 		}

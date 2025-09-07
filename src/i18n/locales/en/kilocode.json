@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Kilo Code commit message generator activated",
+		"activated": "HN Code commit message generator activated",
 		"gitNotFound": "⚠️ Git repository not found or git not available",
 		"gitInitError": "⚠️ Git initialization error: {{error}}",
 		"generating": "Kilo: Generating commit message...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Kilo Inline Assist",
 			"warning": "$(warning) Kilo Inline Assist",
 			"tooltip": {
-				"basic": "Kilo Code Inline Assist",
-				"disabled": "Kilo Code Inline Assist (disabled)",
+				"basic": "HN Code Inline Assist",
+				"disabled": "HN Code Inline Assist (disabled)",
 				"tokenError": "A valid token must be set to use Inline Assist",
 				"lastCompletion": "Last suggestion:",
 				"sessionTotal": "Session total cost:",
@@ -79,35 +79,35 @@
 		},
 		"toggleMessage": "Kilo Inline Assist {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "HN Code",
 			"analyzing": "Analyzing your code...",
 			"generating": "Generating suggested edits...",
 			"processing": "Processing suggested edits...",
 			"showing": "Displaying suggested edits..."
 		},
 		"input": {
-			"title": "Kilo Code: Quick Task",
+			"title": "HN Code: Quick Task",
 			"placeholder": "e.g., 'refactor this function to be more efficient'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Generate Suggested Edits",
+			"generateSuggestions": "HN Code: Generate Suggested Edits",
 			"displaySuggestions": "Display Suggested Edits",
 			"cancelSuggestions": "Cancel Suggested Edits",
 			"applyCurrentSuggestion": "Apply Current Suggested Edit",
 			"applyAllSuggestions": "Apply All Suggested Edits",
 			"promptCodeSuggestion": "Quick Task",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Suggested Edits"
+			"title": "HN Code: Suggested Edits"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "HN Code Agent",
 			"name": "Agent",
 			"description": "I can help you with quick tasks and suggested edits."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "The Kilo Code Inline Assist is being blocked by a conflict with GitHub Copilot. To fix this, you must disable Copilot's inline suggestions.",
+			"message": "The HN Code Inline Assist is being blocked by a conflict with GitHub Copilot. To fix this, you must disable Copilot's inline suggestions.",
 			"disableCopilot": "Disable Copilot",
 			"disableInlineAssist": "Disable Inline Assist"
 		}

@@ -48,7 +48,7 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Kilo Code 커밋 메시지 생성기 활성화됨",
+		"activated": "HN Code 커밋 메시지 생성기 활성화됨",
 		"gitNotFound": "⚠️ Git 저장소를 찾을 수 없거나 git을 사용할 수 없습니다",
 		"gitInitError": "⚠️ Git 초기화 오류: {{error}}",
 		"generating": "Kilo: 커밋 메시지 생성 중...",
@@ -65,8 +65,8 @@
 			"disabled": "$(circle-slash) Kilo 인라인 지원",
 			"warning": "$(warning) Kilo 인라인 지원",
 			"tooltip": {
-				"basic": "Kilo Code 인라인 지원",
-				"disabled": "Kilo Code 인라인 지원 (비활성화됨)",
+				"basic": "HN Code 인라인 지원",
+				"disabled": "HN Code 인라인 지원 (비활성화됨)",
 				"tokenError": "인라인 지원을 사용하려면 유효한 토큰을 설정해야 합니다",
 				"lastCompletion": "마지막 제안:",
 				"sessionTotal": "세션 총 비용:",
@@ -79,30 +79,30 @@
 		},
 		"toggleMessage": "Kilo 인라인 지원 {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "HN Code",
 			"analyzing": "코드 분석 중...",
 			"generating": "제안된 편집 생성 중...",
 			"processing": "제안된 편집 처리 중...",
 			"showing": "제안된 편집 표시 중..."
 		},
 		"input": {
-			"title": "Kilo Code: 빠른 작업",
+			"title": "HN Code: 빠른 작업",
 			"placeholder": "예: '이 함수를 더 효율적으로 리팩토링'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: 제안된 편집 생성",
+			"generateSuggestions": "HN Code: 제안된 편집 생성",
 			"displaySuggestions": "제안된 편집 표시",
 			"cancelSuggestions": "제안된 편집 취소",
 			"applyCurrentSuggestion": "현재 제안된 편집 적용",
 			"applyAllSuggestions": "모든 제안된 편집 적용",
 			"promptCodeSuggestion": "빠른 작업",
-			"category": "Kilo Code"
+			"category": "HN Code"
 		},
 		"codeAction": {
-			"title": "Kilo Code: 제안된 편집"
+			"title": "HN Code: 제안된 편집"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code 에이전트",
+			"fullName": "HN Code 에이전트",
 			"name": "에이전트",
 			"description": "빠른 작업 및 제안된 편집에 도움을 드릴 수 있습니다."
 		},
@@ -110,7 +110,7 @@
 			"provideCodeSuggestions": "코드 제안 제공 중..."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code 인라인 지원은 GitHub Copilot과의 충돌로 인해 차단되었습니다. 이 문제를 해결하려면 Copilot의 인라인 제안을 비활성화해야 합니다.",
+			"message": "HN Code 인라인 지원은 GitHub Copilot과의 충돌로 인해 차단되었습니다. 이 문제를 해결하려면 Copilot의 인라인 제안을 비활성화해야 합니다.",
 			"disableCopilot": "Copilot 비활성화",
 			"disableInlineAssist": "인라인 지원 비활성화"
 		}
