@@ -5,10 +5,10 @@ import {
 	VSCodeRadioGroup,
 	VSCodeRadio,
 	VSCodeTextArea,
-	VSCodeLink,
+	// VSCodeLink, // kilocode_change: unused
 	VSCodeTextField,
 } from "@vscode/webview-ui-toolkit/react"
-import { Trans } from "react-i18next"
+// import { Trans } from "react-i18next" // kilocode_change: unused
 import { ChevronDown, X, Upload, Download } from "lucide-react"
 
 import { ModeConfig, GroupEntry, PromptComponent, ToolGroup, modeConfigSchema } from "@roo-code/types"
@@ -24,7 +24,7 @@ import {
 import { TOOL_GROUPS } from "@roo/tools"
 
 import { vscode } from "@src/utils/vscode"
-import { buildDocLink } from "@src/utils/docLinks"
+// import { buildDocLink } from "@src/utils/docLinks" // kilocode_change: unused
 import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { useExtensionState } from "@src/context/ExtensionStateContext"
 import { Tab, TabContent, TabHeader } from "@src/components/common/Tab"
@@ -598,16 +598,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 					</div>
 
 					<div className="text-sm text-vscode-descriptionForeground mb-3">
-						<Trans i18nKey="prompts:modes.createModeHelpText">
-							<VSCodeLink
-								href={buildDocLink("basic-usage/using-modes", "prompts_view_modes")}
-								style={{ display: "inline" }}
-								aria-label="Learn about using modes"></VSCodeLink>
-							<VSCodeLink
-								href={buildDocLink("features/custom-modes", "prompts_view_modes")}
-								style={{ display: "inline" }}
-								aria-label="Learn about customizing modes"></VSCodeLink>
-						</Trans>
+						{t("prompts:modes.createModeHelpText").replace(/<[^>]*>/g, "")}
 					</div>
 
 					<div className="flex items-center gap-1 mb-3">
@@ -1116,44 +1107,27 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 								data-testid={`${getCurrentMode()?.slug || "code"}-custom-instructions-textarea`}
 							/>
 							<div className="text-xs text-vscode-descriptionForeground mt-1.5">
-								<Trans
-									i18nKey="prompts:customInstructions.loadFromFile"
-									values={{
+								<span
+									className="text-vscode-textLink-foreground cursor-pointer underline"
+									onClick={() => {
+										const currentMode = getCurrentMode()
+										if (!currentMode) return
+
+										// Open or create an empty file
+										vscode.postMessage({
+											type: "openFile",
+											text: `./.kilocode/rules-${currentMode.slug}/rules.md`,
+											values: {
+												create: true,
+												content: "",
+											},
+										})
+									}}>
+									{t("prompts:customInstructions.loadFromFile", {
 										mode: getCurrentMode()?.name || "Code",
 										slug: getCurrentMode()?.slug || "code",
-									}}
-									components={{
-										span: (
-											<span
-												className="text-vscode-textLink-foreground cursor-pointer underline"
-												onClick={() => {
-													const currentMode = getCurrentMode()
-													if (!currentMode) return
-
-													// Open or create an empty file
-													vscode.postMessage({
-														type: "openFile",
-														text: `./.kilocode/rules-${currentMode.slug}/rules.md`,
-														values: {
-															create: true,
-															content: "",
-														},
-													})
-												}}
-											/>
-										),
-										"0": (
-											<VSCodeLink
-												href={buildDocLink(
-													"features/custom-instructions#global-rules-directory",
-													"prompts_mode_specific_global_rules",
-												)}
-												style={{ display: "inline" }}
-												aria-label="Learn about global custom instructions for modes"
-											/>
-										),
-									}}
-								/>
+									}).replace(/<[^>]*>/g, "")}
+								</span>
 							</div>
 						</div>
 					)}
@@ -1248,42 +1222,25 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 										Override System Prompt
 									</h4>
 									<div className="text-xs text-vscode-descriptionForeground">
-										<Trans
-											i18nKey="prompts:advancedSystemPrompt.description"
-											values={{
-												slug: getCurrentMode()?.slug || "code",
-											}}
-											components={{
-												span: (
-													<span
-														className="text-vscode-textLink-foreground cursor-pointer underline"
-														onClick={() => {
-															const currentMode = getCurrentMode()
-															if (!currentMode) return
+										<span
+											className="text-vscode-textLink-foreground cursor-pointer underline"
+											onClick={() => {
+												const currentMode = getCurrentMode()
+												if (!currentMode) return
 
-															vscode.postMessage({
-																type: "openFile",
-																text: `./.kilocode/system-prompt-${currentMode.slug}`, // kilocode_change
-																values: {
-																	create: true,
-																	content: "",
-																},
-															})
-														}}
-													/>
-												),
-												"1": (
-													<VSCodeLink
-														href={buildDocLink(
-															"features/footgun-prompting",
-															"prompts_advanced_system_prompt",
-														)}
-														style={{ display: "inline" }}
-														aria-label="Read important information about overriding system prompts"></VSCodeLink>
-												),
-												"2": <strong />,
-											}}
-										/>
+												vscode.postMessage({
+													type: "openFile",
+													text: `./.kilocode/system-prompt-${currentMode.slug}`, // kilocode_change
+													values: {
+														create: true,
+														content: "",
+													},
+												})
+											}}>
+											{t("prompts:advancedSystemPrompt.description", {
+												slug: getCurrentMode()?.slug || "code",
+											}).replace(/<[^>]*>/g, "")}
+										</span>
 									</div>
 								</div>
 							</div>
@@ -1295,15 +1252,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 					<h3 className="text-vscode-foreground mb-3">{t("prompts:globalCustomInstructions.title")}</h3>
 
 					<div className="text-sm text-vscode-descriptionForeground mb-2">
-						<Trans i18nKey="prompts:globalCustomInstructions.description">
-							<VSCodeLink
-								href={buildDocLink(
-									"features/custom-instructions#setting-up-global-rules",
-									"prompts_global_custom_instructions",
-								)}
-								style={{ display: "inline" }}
-								aria-label="Learn more about global custom instructions"></VSCodeLink>
-						</Trans>
+						{t("prompts:globalCustomInstructions.description").replace(/<[^>]*>/g, "")}
 					</div>
 					<VSCodeTextArea
 						resize="vertical"
@@ -1323,36 +1272,20 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 						data-testid="global-custom-instructions-textarea"
 					/>
 					<div className="text-xs text-vscode-descriptionForeground mt-1.5">
-						<Trans
-							i18nKey="prompts:globalCustomInstructions.loadFromFile"
-							components={{
-								span: (
-									<span
-										className="text-vscode-textLink-foreground cursor-pointer underline"
-										onClick={() =>
-											vscode.postMessage({
-												type: "openFile",
-												text: "./.kilocode/rules/rules.md",
-												values: {
-													create: true,
-													content: "",
-												},
-											})
-										}
-									/>
-								),
-								"0": (
-									<VSCodeLink
-										href={buildDocLink(
-											"features/custom-instructions#setting-up-global-rules",
-											"prompts_global_rules",
-										)}
-										style={{ display: "inline" }}
-										aria-label="Learn about setting up global custom instructions"
-									/>
-								),
-							}}
-						/>
+						<span
+							className="text-vscode-textLink-foreground cursor-pointer underline"
+							onClick={() =>
+								vscode.postMessage({
+									type: "openFile",
+									text: "./.kilocode/rules/rules.md",
+									values: {
+										create: true,
+										content: "",
+									},
+								})
+							}>
+							{t("prompts:globalCustomInstructions.loadFromFile").replace(/<[^>]*>/g, "")}
+						</span>
 					</div>
 				</div>
 			</TabContent>

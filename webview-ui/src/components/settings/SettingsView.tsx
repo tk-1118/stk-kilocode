@@ -20,7 +20,7 @@ import {
 	FlaskConical,
 	AlertTriangle,
 	Globe,
-	Info,
+	// Info, // kilocode_change: unused
 	Server, // kilocode_change
 	Bot, // kilocode_change
 	MessageSquare,
@@ -34,7 +34,7 @@ import { ensureBodyPointerEventsRestored } from "@/utils/fixPointerEvents"
 
 import type { ProviderSettings, ExperimentId } from "@roo-code/types"
 
-import { TelemetrySetting } from "@roo/TelemetrySetting"
+// import { TelemetrySetting } from "@roo/TelemetrySetting" // kilocode_change: unused
 
 import { vscode } from "@src/utils/vscode"
 import { useAppTranslation } from "@src/i18n/TranslationContext"
@@ -70,7 +70,7 @@ import { ContextManagementSettings } from "./ContextManagementSettings"
 import { TerminalSettings } from "./TerminalSettings"
 import { ExperimentalSettings } from "./ExperimentalSettings"
 import { LanguageSettings } from "./LanguageSettings"
-import { About } from "./About"
+// import { About } from "./About" // 已隐藏关于页面
 import { Section } from "./Section"
 import { TeamManagementSettings } from "./TeamManagementSettings"
 import PromptsSettings from "./PromptsSettings"
@@ -104,7 +104,7 @@ const sectionNames = [
 	"experimental",
 	"language",
 	"mcp",
-	"about",
+	// "about", // 隐藏关于 Kilo Code 标签
 ] as const
 
 type SectionName = (typeof sectionNames)[number] // kilocode_change
@@ -313,16 +313,16 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 		})
 	}, [])
 
-	const setTelemetrySetting = useCallback((setting: TelemetrySetting) => {
-		setCachedState((prevState) => {
-			if (prevState.telemetrySetting === setting) {
-				return prevState
-			}
-
-			setChangeDetected(true)
-			return { ...prevState, telemetrySetting: setting }
-		})
-	}, [])
+	// const setTelemetrySetting = useCallback((setting: TelemetrySetting) => { // kilocode_change: unused
+	//	setCachedState((prevState) => {
+	//		if (prevState.telemetrySetting === setting) {
+	//			return prevState
+	//		}
+	//
+	//		setChangeDetected(true)
+	//		return { ...prevState, telemetrySetting: setting }
+	//	})
+	// }, [])
 
 	const setCustomSupportPromptsField = useCallback((prompts: Record<string, string | undefined>) => {
 		setCachedState((prevState) => {
@@ -520,7 +520,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			{ id: "experimental", icon: FlaskConical },
 			{ id: "language", icon: Globe },
 			{ id: "mcp", icon: Server },
-			{ id: "about", icon: Info },
+			// { id: "about", icon: Info }, // 隐藏关于 Kilo Code 标签
 		],
 		[extensionState.experiments?.inlineAssist], // kilocode_change
 	)
@@ -871,10 +871,10 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 					{/* MCP Section */}
 					{activeTab === "mcp" && <McpView />}
 
-					{/* About Section */}
-					{activeTab === "about" && (
+					{/* About Section - 已隐藏 */}
+					{/* {activeTab === "about" && (
 						<About telemetrySetting={telemetrySetting} setTelemetrySetting={setTelemetrySetting} />
-					)}
+					)} */}
 				</TabContent>
 			</div>
 

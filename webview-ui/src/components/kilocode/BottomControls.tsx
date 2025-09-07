@@ -1,8 +1,8 @@
 import React from "react"
-import { vscode } from "../../utils/vscode"
-import { useAppTranslation } from "@/i18n/TranslationContext"
+// import { vscode } from "../../utils/vscode" // kilocode_change: unused
+// import { useAppTranslation } from "@/i18n/TranslationContext" // kilocode_change: unused
 import KiloRulesToggleModal from "./rules/KiloRulesToggleModal"
-import BottomButton from "./BottomButton"
+// import BottomButton from "./BottomButton" // kilocode_change: unused
 import { BottomApiConfig } from "./BottomApiConfig" // kilocode_change
 
 interface BottomControlsProps {
@@ -10,11 +10,11 @@ interface BottomControlsProps {
 }
 
 const BottomControls: React.FC<BottomControlsProps> = ({ showApiConfig = false }) => {
-	const { t } = useAppTranslation()
+	// const { t } = useAppTranslation() // kilocode_change: unused
 
-	const showFeedbackOptions = () => {
-		vscode.postMessage({ type: "showFeedbackOptions" })
-	}
+	// const showFeedbackOptions = () => { // kilocode_change: unused
+	//	vscode.postMessage({ type: "showFeedbackOptions" })
+	// }
 
 	return (
 		<div className="flex flex-row w-auto items-center justify-between h-[30px] mx-3.5 mt-2.5 mb-1 gap-1">
@@ -24,11 +24,12 @@ const BottomControls: React.FC<BottomControlsProps> = ({ showApiConfig = false }
 			<div className="flex flex-row justify-end w-auto">
 				<div className="flex items-center gap-1">
 					<KiloRulesToggleModal />
-					<BottomButton
+					{/* 隐藏反馈按钮 */}
+					{/* <BottomButton
 						iconClass="codicon-feedback"
 						title={t("common:feedback.title")}
 						onClick={showFeedbackOptions}
-					/>
+					/> */}
 				</div>
 			</div>
 		</div>

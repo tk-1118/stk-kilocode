@@ -447,11 +447,6 @@
 					"when": "view == kilo-code.SidebarProvider"
 				},
 				{
-					"command": "kilo-code.profileButtonClicked",
-					"group": "navigation@5",
-					"when": "view == kilo-code.SidebarProvider"
-				},
-				{
 					"command": "kilo-code.settingsButtonClicked",
 					"group": "navigation@6",
 					"when": "view == kilo-code.SidebarProvider"

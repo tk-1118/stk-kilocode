@@ -46,7 +46,7 @@ export const TeamStatusBar: React.FC<TeamStatusBarProps> = ({
 				{/* 分隔符 */}
 				<div className="w-px h-3 bg-[var(--vscode-statusBar-border)]" />
 
-				{/* 当前成员 */}
+				{/* 当前成员和状态 */}
 				<div className="flex items-center gap-1.5">
 					<div
 						className={cn(
@@ -55,33 +55,32 @@ export const TeamStatusBar: React.FC<TeamStatusBarProps> = ({
 						)}
 					/>
 					<span>{memberName}</span>
+					{/* 状态文字紧贴成员名 */}
+					<span className="text-[var(--vscode-statusBar-foreground)] opacity-75">
+						{isWorking ? "工作中" : "待命中"}
+					</span>
 				</div>
 			</div>
 
-			{/* 右侧：工作状态 */}
-			<div className="flex items-center gap-2 text-[var(--vscode-statusBar-foreground)] opacity-75">
-				{isWorking ? (
-					<>
-						<span>正在工作</span>
-						<div className="flex gap-0.5">
-							<div
-								className="w-1 h-1 bg-current rounded-full animate-bounce"
-								style={{ animationDelay: "0ms" }}
-							/>
-							<div
-								className="w-1 h-1 bg-current rounded-full animate-bounce"
-								style={{ animationDelay: "150ms" }}
-							/>
-							<div
-								className="w-1 h-1 bg-current rounded-full animate-bounce"
-								style={{ animationDelay: "300ms" }}
-							/>
-						</div>
-					</>
-				) : (
-					<span>待命中</span>
-				)}
-			</div>
+			{/* 右侧：工作状态动画（仅在工作时显示） */}
+			{isWorking && (
+				<div className="flex items-center gap-2">
+					<div className="flex gap-0.5">
+						<div
+							className="w-1 h-1 bg-[var(--vscode-statusBar-foreground)] rounded-full animate-bounce opacity-75"
+							style={{ animationDelay: "0ms" }}
+						/>
+						<div
+							className="w-1 h-1 bg-[var(--vscode-statusBar-foreground)] rounded-full animate-bounce opacity-75"
+							style={{ animationDelay: "150ms" }}
+						/>
+						<div
+							className="w-1 h-1 bg-[var(--vscode-statusBar-foreground)] rounded-full animate-bounce opacity-75"
+							style={{ animationDelay: "300ms" }}
+						/>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

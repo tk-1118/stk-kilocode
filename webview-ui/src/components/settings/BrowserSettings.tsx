@@ -1,12 +1,10 @@
-import { VSCodeButton, VSCodeCheckbox, VSCodeTextField, VSCodeLink } from "@vscode/webview-ui-toolkit/react"
+import { VSCodeButton, VSCodeCheckbox, VSCodeTextField } from "@vscode/webview-ui-toolkit/react"
 import { SquareMousePointer } from "lucide-react"
 import { HTMLAttributes, useEffect, useMemo, useState } from "react"
-import { Trans } from "react-i18next"
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, Slider } from "@/components/ui"
 import { useAppTranslation } from "@/i18n/TranslationContext"
 import { vscode } from "@/utils/vscode"
-import { buildDocLink } from "@src/utils/docLinks"
 
 import { Section } from "./Section"
 import { SectionHeader } from "./SectionHeader"
@@ -114,13 +112,7 @@ export const BrowserSettings = ({
 						<span className="font-medium">{t("settings:browser.enable.label")}</span>
 					</VSCodeCheckbox>
 					<div className="text-vscode-descriptionForeground text-sm mt-1">
-						<Trans i18nKey="settings:browser.enable.description">
-							<VSCodeLink
-								href={buildDocLink("features/browser-use", "settings_browser_tool")}
-								style={{ display: "inline" }}>
-								{" "}
-							</VSCodeLink>
-						</Trans>
+						{t("settings:browser.enable.description").replace(/<[^>]*>/g, "")}
 					</div>
 				</div>
 

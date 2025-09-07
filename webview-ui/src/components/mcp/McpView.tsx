@@ -1,9 +1,7 @@
 import React, { useState } from "react"
-import { Trans } from "react-i18next"
 import {
 	VSCodeButton,
 	VSCodeCheckbox,
-	VSCodeLink,
 	VSCodePanels,
 	VSCodePanelTab,
 	VSCodePanelView,
@@ -25,7 +23,6 @@ import {
 	ToggleSwitch,
 	// StandardTooltip, // kilocode_change: not used
 } from "@src/components/ui"
-import { buildDocLink } from "@src/utils/docLinks"
 
 import { Tab, TabContent, TabHeader } from "../common/Tab"
 
@@ -67,13 +64,7 @@ const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
 						marginBottom: "10px",
 						marginTop: "5px",
 					}}>
-					<Trans i18nKey="mcp:description">
-						<VSCodeLink
-							href={buildDocLink("features/mcp/using-mcp-in-kilo-code", "mcp_settings")}
-							style={{ display: "inline" }}>
-							Learn More
-						</VSCodeLink>
-					</Trans>
+					{t("mcp:description").replace(/<[^>]*>/g, "")}
 				</div>
 
 				{/* <McpEnabledToggle /> kilocode_change: we always enable MCP */}
@@ -96,17 +87,7 @@ const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
 									marginTop: "5px",
 									color: "var(--vscode-descriptionForeground)",
 								}}>
-								<Trans i18nKey="mcp:enableServerCreation.description">
-									<VSCodeLink
-										href={buildDocLink(
-											"features/mcp/using-mcp-in-kilo-code#how-to-use-kilo-code-to-create-an-mcp-server",
-											"mcp_server_creation",
-										)}
-										style={{ display: "inline" }}>
-										Learn about server creation
-									</VSCodeLink>
-									<strong>new</strong>
-								</Trans>
+								{t("mcp:enableServerCreation.description").replace(/<[^>]*>/g, "")}
 								<p style={{ marginTop: "8px" }}>{t("mcp:enableServerCreation.hint")}</p>
 							</div>
 						</div>
@@ -192,14 +173,7 @@ const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
 								fontSize: "12px",
 								color: "var(--vscode-descriptionForeground)",
 							}}>
-							<VSCodeLink
-								href={buildDocLink(
-									"features/mcp/using-mcp-in-kilo-code#editing-mcp-settings-files",
-									"mcp_edit_settings",
-								)}
-								style={{ display: "inline" }}>
-								{t("mcp:learnMoreEditingSettings")}
-							</VSCodeLink>
+							{t("mcp:learnMoreEditingSettings")}
 						</div>
 					</>
 				)}
