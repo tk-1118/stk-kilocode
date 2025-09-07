@@ -94,4 +94,12 @@ export const PROVIDERS = [
 	// kilocode_change end
 ].sort((a, b) => a.label.localeCompare(b.label))
 
-PROVIDERS.unshift({ value: "kilocode", label: "HN Code" }) // kilocode_change
+// 暂时注释掉 HN Code 提供商
+// PROVIDERS.unshift({ value: "kilocode", label: "HN Code" }) // kilocode_change
+
+// 将 OpenAI Compatible 设置为默认提供商（移到列表顶部）
+const openAiCompatibleIndex = PROVIDERS.findIndex((p) => p.value === "openai")
+if (openAiCompatibleIndex > -1) {
+	const openAiCompatible = PROVIDERS.splice(openAiCompatibleIndex, 1)[0]
+	PROVIDERS.unshift(openAiCompatible)
+}

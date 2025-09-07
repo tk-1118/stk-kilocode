@@ -8,7 +8,8 @@ import { ApiStreamChunk } from "../../api/transform/stream"
 const KILOCODE_DEFAULT_MODEL = "mistralai/codestral-2508"
 const MISTRAL_DEFAULT_MODEL = "codestral-latest"
 
-const SUPPORTED_DEFAULT_PROVIDERS = ["mistral", "kilocode", "openrouter"]
+// 暂时注释掉 kilocode，添加 openai 作为默认支持的提供商
+const SUPPORTED_DEFAULT_PROVIDERS = ["mistral", "openai", "openrouter"] // "kilocode" 暂时注释
 
 export class GhostModel {
 	private apiHandler: ApiHandler | null = null
@@ -54,17 +55,24 @@ export class GhostModel {
 				})
 				const profileProvider = profile.apiProvider
 				let modelDefinition = {}
-				if (profileProvider === "kilocode") {
-					modelDefinition = {
-						kilocodeModel: KILOCODE_DEFAULT_MODEL,
-					}
-				} else if (profileProvider === "openrouter") {
+				// 暂时注释掉 kilocode 提供商的处理
+				// if (profileProvider === "kilocode") {
+				// 	modelDefinition = {
+				// 		kilocodeModel: KILOCODE_DEFAULT_MODEL,
+				// 	}
+				// } else
+				if (profileProvider === "openrouter") {
 					modelDefinition = {
 						openRouterModelId: KILOCODE_DEFAULT_MODEL,
 					}
 				} else if (profileProvider === "mistral") {
 					modelDefinition = {
 						apiModelId: MISTRAL_DEFAULT_MODEL,
+					}
+				} else if (profileProvider === "openai") {
+					// 为 OpenAI Compatible 提供商设置默认模型
+					modelDefinition = {
+						apiModelId: "gpt-4o-mini", // 设置一个常用的默认模型
 					}
 				}
 				this.apiHandler = buildApiHandler({
