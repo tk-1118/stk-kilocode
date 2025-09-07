@@ -83,6 +83,10 @@ const createValidationSchema = (provider: EmbedderProvider, t: any) => {
 	})
 
 	switch (provider) {
+		case "builtin":
+			// 内置提供商只需要 Qdrant URL，无需其他配置
+			return baseSchema
+
 		case "openai":
 			return baseSchema.extend({
 				codeIndexOpenAiKey: z.string().min(1, t("settings:codeIndex.validation.openaiApiKeyRequired")),
@@ -167,7 +171,7 @@ export const CodeIndexPopover: React.FC<CodeIndexPopoverProps> = ({
 	const getDefaultSettings = (): LocalCodeIndexSettings => ({
 		codebaseIndexEnabled: true,
 		codebaseIndexQdrantUrl: "",
-		codebaseIndexEmbedderProvider: "openai",
+		codebaseIndexEmbedderProvider: "builtin",
 		codebaseIndexEmbedderBaseUrl: "",
 		codebaseIndexEmbedderModelId: "",
 		codebaseIndexEmbedderModelDimension: undefined,
@@ -643,6 +647,9 @@ export const CodeIndexPopover: React.FC<CodeIndexPopoverProps> = ({
 												<SelectValue />
 											</SelectTrigger>
 											<SelectContent>
+												<SelectItem value="builtin">
+													{t("settings:codeIndex.builtinProvider")}
+												</SelectItem>
 												<SelectItem value="openai">
 													{t("settings:codeIndex.openaiProvider")}
 												</SelectItem>
@@ -663,6 +670,16 @@ export const CodeIndexPopover: React.FC<CodeIndexPopoverProps> = ({
 									</div>
 
 									{/* Provider-specific settings */}
+									{currentSettings.codebaseIndexEmbedderProvider === "builtin" && (
+										<div className="space-y-2">
+											<div className="p-3 bg-vscode-textBlockQuote-background rounded border-l-4 border-vscode-textBlockQuote-border">
+												<p className="text-sm text-vscode-descriptionForeground">
+													{t("settings:codeIndex.builtinProviderDescription")}
+												</p>
+											</div>
+										</div>
+									)}
+
 									{currentSettings.codebaseIndexEmbedderProvider === "openai" && (
 										<>
 											<div className="space-y-2">

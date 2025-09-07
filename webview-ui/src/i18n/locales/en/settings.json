@@ -48,6 +48,8 @@
 		"profileLabel": "Embeddings Provider",
 		"embedderProviderLabel": "Embedder Provider",
 		"selectProfilePlaceholder": "Select provider",
+		"builtinProvider": "Built-in",
+		"builtinProviderDescription": "Uses a lightweight built-in embedding algorithm with no external API dependencies. Perfect for offline environments and rapid prototyping.",
 		"openaiProvider": "OpenAI",
 		"ollamaProvider": "Ollama",
 		"geminiProvider": "Gemini",

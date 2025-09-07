@@ -49,6 +49,8 @@
 		"profileLabel": "嵌入提供商",
 		"embedderProviderLabel": "嵌入器提供商",
 		"selectProfilePlaceholder": "选择提供商",
+		"builtinProvider": "内置",
+		"builtinProviderDescription": "使用内置的轻量级嵌入算法，无需外部API依赖。适合离线环境和快速原型开发。",
 		"openaiProvider": "OpenAI",
 		"ollamaProvider": "Ollama",
 		"geminiProvider": "Gemini",

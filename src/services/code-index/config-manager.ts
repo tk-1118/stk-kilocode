@@ -45,7 +45,7 @@ export class CodeIndexConfigManager {
 		const codebaseIndexConfig = this.contextProxy?.getGlobalState("codebaseIndexConfig") ?? {
 			codebaseIndexEnabled: true,
 			codebaseIndexQdrantUrl: "",
-			codebaseIndexEmbedderProvider: "openai",
+			codebaseIndexEmbedderProvider: "builtin", // 默认使用内置提供商
 			codebaseIndexEmbedderBaseUrl: "",
 			codebaseIndexEmbedderModelId: "",
 			codebaseIndexSearchMinScore: undefined,
@@ -80,9 +80,13 @@ export class CodeIndexConfigManager {
 		if (codebaseIndexQdrantUrl && codebaseIndexQdrantUrl.trim() !== "") {
 			// 用户输入了 URL，优先使用用户输入
 			this.qdrantUrl = codebaseIndexQdrantUrl
+			console.log(`[ConfigManager] Using user input qdrantUrl: "${this.qdrantUrl}"`)
 		} else {
 			// 用户没有输入，使用环境变量，无默认值
 			this.qdrantUrl = process.env.KILOCODE_QDRANT_BASE_URL || ""
+			console.log(
+				`[ConfigManager] Using env var qdrantUrl: "${this.qdrantUrl}" (env: "${process.env.KILOCODE_QDRANT_BASE_URL}")`,
+			)
 		}
 
 		// Qdrant API Key 优先级处理：用户输入 > 环境变量 > 默认值
@@ -114,8 +118,10 @@ export class CodeIndexConfigManager {
 
 		this.openAiOptions = { openAiNativeApiKey: openAiKey }
 
-		// Set embedder provider with support for openai-compatible
-		if (codebaseIndexEmbedderProvider === "ollama") {
+		// Set embedder provider with support for openai-compatible and builtin
+		if (codebaseIndexEmbedderProvider === "builtin") {
+			this.embedderProvider = "builtin"
+		} else if (codebaseIndexEmbedderProvider === "ollama") {
 			this.embedderProvider = "ollama"
 		} else if (codebaseIndexEmbedderProvider === "openai-compatible") {
 			this.embedderProvider = "openai-compatible"
@@ -215,7 +221,15 @@ export class CodeIndexConfigManager {
 	 * Checks if the service is properly configured based on the embedder type.
 	 */
 	public isConfigured(): boolean {
-		if (this.embedderProvider === "openai") {
+		console.log(`[ConfigManager] isConfigured() called with embedderProvider="${this.embedderProvider}"`)
+		if (this.embedderProvider === "builtin") {
+			// 内置提供商只需要 Qdrant URL，无需外部 API Key
+			const qdrantUrl = this.qdrantUrl
+			console.log(
+				`[ConfigManager] isConfigured check for builtin: qdrantUrl="${qdrantUrl}", configured=${!!qdrantUrl}`,
+			)
+			return !!qdrantUrl
+		} else if (this.embedderProvider === "openai") {
 			const openAiKey = this.openAiOptions?.openAiNativeApiKey
 			const qdrantUrl = this.qdrantUrl
 			return !!(openAiKey && qdrantUrl)
@@ -412,7 +426,10 @@ export class CodeIndexConfigManager {
 	 * Gets whether the code indexing feature is properly configured
 	 */
 	public get isFeatureConfigured(): boolean {
-		return this.isConfigured()
+		console.log(`[ConfigManager] isFeatureConfigured getter called`)
+		const result = this.isConfigured()
+		console.log(`[ConfigManager] isFeatureConfigured returning: ${result}`)
+		return result
 	}
 
 	/**

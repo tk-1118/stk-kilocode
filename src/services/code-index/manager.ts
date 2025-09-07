@@ -124,15 +124,21 @@ export class CodeIndexManager {
 	 * @returns Object indicating if a restart is needed
 	 */
 	public async initialize(contextProxy: ContextProxy): Promise<{ requiresRestart: boolean }> {
+		console.log("[CodeIndexManager] initialize() called")
 		// 1. ConfigManager Initialization and Configuration Loading
 		if (!this._configManager) {
+			console.log("[CodeIndexManager] Creating new ConfigManager")
 			this._configManager = new CodeIndexConfigManager(contextProxy)
 		}
 		// Load configuration once to get current state and restart requirements
+		console.log("[CodeIndexManager] Loading configuration...")
 		const { requiresRestart } = await this._configManager.loadConfiguration()
+		console.log(`[CodeIndexManager] Configuration loaded, requiresRestart: ${requiresRestart}`)
 
 		// 2. Check if feature is enabled
+		console.log(`[CodeIndexManager] Feature enabled check: ${this.isFeatureEnabled}`)
 		if (!this.isFeatureEnabled) {
+			console.log("[CodeIndexManager] Feature is disabled, stopping")
 			if (this._orchestrator) {
 				this._orchestrator.stopWatcher()
 			}
@@ -141,22 +147,29 @@ export class CodeIndexManager {
 
 		// 3. Check if workspace is available
 		const workspacePath = getWorkspacePath()
+		console.log(`[CodeIndexManager] Workspace path: ${workspacePath}`)
 		if (!workspacePath) {
+			console.log("[CodeIndexManager] No workspace folder open, setting Standby")
 			this._stateManager.setSystemState("Standby", "No workspace folder open")
 			return { requiresRestart }
 		}
 
 		// 4. CacheManager Initialization
+		console.log("[CodeIndexManager] Initializing CacheManager...")
 		if (!this._cacheManager) {
 			this._cacheManager = new CacheManager(this.context, this.workspacePath)
 			await this._cacheManager.initialize()
 		}
+		console.log("[CodeIndexManager] CacheManager initialized")
 
 		// 4. Determine if Core Services Need Recreation
 		const needsServiceRecreation = !this._serviceFactory || requiresRestart
+		console.log(`[CodeIndexManager] Need service recreation: ${needsServiceRecreation}`)
 
 		if (needsServiceRecreation) {
+			console.log("[CodeIndexManager] Recreating services...")
 			await this._recreateServices()
+			console.log("[CodeIndexManager] Services recreated")
 		}
 
 		// 5. Handle Indexing Start/Restart
@@ -166,8 +179,17 @@ export class CodeIndexManager {
 			requiresRestart ||
 			(needsServiceRecreation && (!this._orchestrator || this._orchestrator.state !== "Indexing"))
 
+		console.log(`[CodeIndexManager] Should start indexing: ${shouldStartOrRestartIndexing}`)
+		console.log(
+			`[CodeIndexManager] requiresRestart: ${requiresRestart}, needsServiceRecreation: ${needsServiceRecreation}`,
+		)
+		console.log(`[CodeIndexManager] Feature configured: ${this.isFeatureConfigured}`)
+
 		if (shouldStartOrRestartIndexing) {
+			console.log("[CodeIndexManager] Starting indexing...")
 			this._orchestrator?.startIndexing() // This method is async, but we don't await it here
+		} else {
+			console.log("[CodeIndexManager] Not starting indexing")
 		}
 
 		return { requiresRestart }
@@ -306,6 +328,9 @@ export class CodeIndexManager {
 		this._searchService = undefined
 
 		// (Re)Initialize service factory
+		console.log(
+			`[CodeIndexManager] Creating ServiceFactory with configManager.isFeatureConfigured: ${this._configManager!.isFeatureConfigured}`,
+		)
 		this._serviceFactory = new CodeIndexServiceFactory(
 			this._configManager!,
 			this.workspacePath,
@@ -341,15 +366,19 @@ export class CodeIndexManager {
 		await rooIgnoreController.initialize()
 
 		// (Re)Create shared service instances
+		console.log("[CodeIndexManager] Creating services...")
 		const { embedder, vectorStore, scanner, fileWatcher } = this._serviceFactory.createServices(
 			this.context,
 			this._cacheManager!,
 			ignoreInstance,
 			rooIgnoreController,
 		)
+		console.log("[CodeIndexManager] Services created successfully")
 
 		// Validate embedder configuration before proceeding
+		console.log("[CodeIndexManager] Validating embedder...")
 		const validationResult = await this._serviceFactory.validateEmbedder(embedder)
+		console.log(`[CodeIndexManager] Embedder validation result: ${JSON.stringify(validationResult)}`)
 		if (!validationResult.valid) {
 			const errorMessage = validationResult.error || "Embedder configuration validation failed"
 			this._stateManager.setSystemState("Error", errorMessage)

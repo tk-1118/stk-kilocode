@@ -288,13 +288,13 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		codebaseIndexConfig: {
 			codebaseIndexEnabled: true,
 			codebaseIndexQdrantUrl: "",
-			codebaseIndexEmbedderProvider: "openai",
+			codebaseIndexEmbedderProvider: "builtin", // 默认使用内置提供商
 			codebaseIndexEmbedderBaseUrl: "",
 			codebaseIndexEmbedderModelId: "",
 			codebaseIndexSearchMaxResults: undefined,
 			codebaseIndexSearchMinScore: undefined,
 		},
-		codebaseIndexModels: { ollama: {}, openai: {} },
+		codebaseIndexModels: { builtin: {}, ollama: {}, openai: {} },
 		alwaysAllowUpdateTodoList: true,
 		includeDiagnosticMessages: true,
 		maxDiagnosticMessages: 50,

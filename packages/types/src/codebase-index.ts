@@ -21,7 +21,9 @@ export const CODEBASE_INDEX_DEFAULTS = {
 export const codebaseIndexConfigSchema = z.object({
 	codebaseIndexEnabled: z.boolean().optional(),
 	codebaseIndexQdrantUrl: z.string().optional(),
-	codebaseIndexEmbedderProvider: z.enum(["openai", "ollama", "openai-compatible", "gemini", "mistral"]).optional(),
+	codebaseIndexEmbedderProvider: z
+		.enum(["builtin", "openai", "ollama", "openai-compatible", "gemini", "mistral"])
+		.optional(),
 	codebaseIndexEmbedderBaseUrl: z.string().optional(),
 	codebaseIndexEmbedderModelId: z.string().optional(),
 	codebaseIndexEmbedderModelDimension: z.number().optional(),
@@ -50,6 +52,7 @@ export type CodebaseIndexConfig = z.infer<typeof codebaseIndexConfigSchema>
  */
 
 export const codebaseIndexModelsSchema = z.object({
+	builtin: z.record(z.string(), z.object({ dimension: z.number() })).optional(),
 	openai: z.record(z.string(), z.object({ dimension: z.number() })).optional(),
 	ollama: z.record(z.string(), z.object({ dimension: z.number() })).optional(),
 	"openai-compatible": z.record(z.string(), z.object({ dimension: z.number() })).optional(),

@@ -1,4 +1,5 @@
 import * as vscode from "vscode"
+import { BuiltinEmbedder } from "./embedders/builtin"
 import { OpenAiEmbedder } from "./embedders/openai"
 import { CodeIndexOllamaEmbedder } from "./embedders/ollama"
 import { OpenAICompatibleEmbedder } from "./embedders/openai-compatible"
@@ -34,7 +35,10 @@ export class CodeIndexServiceFactory {
 
 		const provider = config.embedderProvider as EmbedderProvider
 
-		if (provider === "openai") {
+		if (provider === "builtin") {
+			// 内置嵌入器无需任何配置，直接创建
+			return new BuiltinEmbedder(config.modelId)
+		} else if (provider === "openai") {
 			const apiKey = config.openAiOptions?.openAiNativeApiKey
 
 			if (!apiKey) {
@@ -190,7 +194,9 @@ export class CodeIndexServiceFactory {
 		scanner: DirectoryScanner
 		fileWatcher: IFileWatcher
 	} {
+		console.log(`[ServiceFactory] Checking if feature is configured: ${this.configManager.isFeatureConfigured}`)
 		if (!this.configManager.isFeatureConfigured) {
+			console.log("[ServiceFactory] Feature not configured, throwing error")
 			throw new Error(t("embeddings:serviceFactory.codeIndexingNotConfigured"))
 		}
 

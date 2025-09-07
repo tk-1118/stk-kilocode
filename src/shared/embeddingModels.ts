@@ -2,7 +2,7 @@
  * Defines profiles for different embedding models, including their dimensions.
  */
 
-export type EmbedderProvider = "openai" | "ollama" | "openai-compatible" | "gemini" | "mistral" // Add other providers as needed
+export type EmbedderProvider = "builtin" | "openai" | "ollama" | "openai-compatible" | "gemini" | "mistral" // Add other providers as needed
 
 export interface EmbeddingModelProfile {
 	dimension: number
@@ -19,6 +19,9 @@ export type EmbeddingModelProfiles = {
 
 // Example profiles - expand this list as needed
 export const EMBEDDING_MODEL_PROFILES: EmbeddingModelProfiles = {
+	builtin: {
+		"builtin-embedding-v1": { dimension: 384, scoreThreshold: 0.3 }, // 内置轻量级嵌入模型
+	},
 	openai: {
 		"text-embedding-3-small": { dimension: 1536, scoreThreshold: 0.4 },
 		"text-embedding-3-large": { dimension: 3072, scoreThreshold: 0.4 },
@@ -120,6 +123,9 @@ export function getModelQueryPrefix(provider: EmbedderProvider, modelId: string)
  */
 export function getDefaultModelId(provider: EmbedderProvider): string {
 	switch (provider) {
+		case "builtin":
+			return "builtin-embedding-v1"
+
 		case "openai":
 		case "openai-compatible":
 			return "text-embedding-3-small"
