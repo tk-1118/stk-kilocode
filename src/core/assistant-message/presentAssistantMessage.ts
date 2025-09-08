@@ -30,6 +30,7 @@ import { attemptCompletionTool } from "../tools/attemptCompletionTool"
 import { newTaskTool } from "../tools/newTaskTool"
 
 import { updateTodoListTool } from "../tools/updateTodoListTool"
+import { javaDddCodegenTool } from "../tools/javaDddCodegenTool"
 
 import { formatResponse } from "../prompts/responses"
 import { validateToolUse } from "../tools/validateToolUse"
@@ -242,6 +243,8 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 						return `[${block.name}]`
 					case "condense":
 						return `[${block.name}]`
+					case "java_ddd_codegen":
+						return `[${block.name} for '${block.params.package_name}']`
 					// kilocode_change end
 					default:
 						return `[${block.name}]`
@@ -589,6 +592,9 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					break
 				case "condense":
 					await condenseTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
+					break
+				case "java_ddd_codegen":
+					await javaDddCodegenTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
 				// kilocode_change end
 			}

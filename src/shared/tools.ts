@@ -73,6 +73,13 @@ export const toolParamNames = [
 	"query",
 	"args",
 	"todos",
+	// Java DDD代码生成器参数
+	"json_schema",
+	"package_name",
+	"output_dir",
+	"overwrite",
+	"backup",
+	"verbose",
 ] as const
 
 export type ToolParamName = (typeof toolParamNames)[number]
@@ -215,6 +222,7 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 	condense: "condense the current context window", // kilocode_change
 	codebase_search: "codebase search",
 	update_todo_list: "update todo list",
+	java_ddd_codegen: "generate Java DDD code", // Java DDD代码生成器
 } as const
 
 // Define available tool groups.
@@ -237,6 +245,7 @@ export const TOOL_GROUPS: Record<ToolGroup, ToolGroupConfig> = {
 			"insert_content",
 			"search_and_replace",
 			"new_rule",
+			"java_ddd_codegen", // Java DDD代码生成器
 		],
 	},
 	browser: {

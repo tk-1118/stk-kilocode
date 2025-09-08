@@ -26,6 +26,7 @@ import { getSwitchTeamDescription } from "./switch-team"
 import { getNewTaskDescription } from "./new-task"
 import { getCodebaseSearchDescription } from "./codebase-search"
 import { getUpdateTodoListDescription } from "./update-todo-list"
+import { getJavaDddCodegenDescription } from "./java-ddd-codegen"
 import { CodeIndexManager } from "../../../services/code-index/manager"
 import { isMorphAvailable } from "../../tools/editFileTool"
 
@@ -65,6 +66,7 @@ const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined>
 	apply_diff: (args) =>
 		args.diffStrategy ? args.diffStrategy.getToolDescription({ cwd: args.cwd, toolOptions: args.toolOptions }) : "",
 	update_todo_list: (args) => getUpdateTodoListDescription(args),
+	java_ddd_codegen: (args) => getJavaDddCodegenDescription(args),
 }
 
 export function getToolDescriptionsForMode(

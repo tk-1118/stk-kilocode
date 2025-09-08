@@ -41,6 +41,7 @@ export const toolNames = [
 	"condense",
 	// kilocode_change end
 	"update_todo_list",
+	"java_ddd_codegen", // Java DDD代码生成器工具
 ] as const
 
 export const toolNamesSchema = z.enum(toolNames)
