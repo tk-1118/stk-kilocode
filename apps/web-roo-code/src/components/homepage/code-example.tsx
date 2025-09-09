@@ -63,19 +63,19 @@ export function CodeExample() {
 					</div>
 					<div className="flex space-x-1">
 						<button
-							onClick={() => switchMode("code")}
-							className={`rounded px-2 py-0.5 text-xs font-medium transition-colors sm:text-sm ${currentMode === "code" ? "bg-blue-500/20 text-blue-400" : "text-gray-400 hover:bg-gray-800"}`}>
+							onClick={() => switchMode("dev99-coder")}
+							className={`rounded px-2 py-0.5 text-xs font-medium transition-colors sm:text-sm ${currentMode === "dev99-coder" ? "bg-blue-500/20 text-blue-400" : "text-gray-400 hover:bg-gray-800"}`}>
 							Code
 						</button>
 						<button
-							onClick={() => switchMode("architect")}
-							className={`rounded px-2 py-0.5 text-xs font-medium transition-colors sm:text-sm ${currentMode === "architect" ? "bg-purple-500/20 text-purple-400" : "text-gray-400 hover:bg-gray-800"}`}>
+							onClick={() => switchMode("sa01-system-architect")}
+							className={`rounded px-2 py-0.5 text-xs font-medium transition-colors sm:text-sm ${currentMode === "sa01-system-architect" ? "bg-purple-500/20 text-purple-400" : "text-gray-400 hover:bg-gray-800"}`}>
 							Architect
 						</button>
 						<button
-							onClick={() => switchMode("debug")}
-							className={`rounded px-2 py-0.5 text-xs font-medium transition-colors sm:text-sm ${currentMode === "debug" ? "bg-green-500/20 text-green-400" : "text-gray-400 hover:bg-gray-800"}`}>
-							Debug
+							onClick={() => switchMode("qa01-quality-assurance")}
+							className={`rounded px-2 py-0.5 text-xs font-medium transition-colors sm:text-sm ${currentMode === "qa01-quality-assurance" ? "bg-green-500/20 text-green-400" : "text-gray-400 hover:bg-gray-800"}`}>
+							QA
 						</button>
 					</div>
 				</div>
@@ -131,9 +131,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   return (
     <div className="bg-white rounded-lg shadow-md p-6 max-w-sm">
       <div className="flex items-center space-x-4">
-        <img 
-          src={avatar || "/placeholder.svg"} 
-          alt={name} 
+        <img
+          src={avatar || "/placeholder.svg"}
+          alt={name}
           className="w-16 h-16 rounded-full object-cover"
         />
         <div>
@@ -206,28 +206,28 @@ Roo has analyzed your code and found 3 issues:
 
 🐛 Issue #1: Null data reference
   Line 42: const items = data.items.map(item => item.name);
-  
+
   ✓ Root Cause: 'data' is undefined when component mounts
   ✓ Context: API request in useEffect hasn't completed yet
-  
+
   Recommended Fix:
   const items = data?.items?.map(item => item.name) || [];
 
 🐛 Issue #2: Missing dependency in useEffect
   Line 37: useEffect(() => { fetchData() }, []);
-  
+
   ✓ Root Cause: fetchData depends on 'userId' but isn't in deps array
   ✓ Context: This causes stale data when userId changes
-  
+
   Recommended Fix:
   useEffect(() => { fetchData() }, [userId, fetchData]);
 
 🐛 Issue #3: Memory leak from unfinished API call
   Line 38: const response = await api.getItems(userId);
-  
+
   ✓ Root Cause: No cleanup when component unmounts during API call
   ✓ Context: This triggers React warning in development
-  
+
   Recommended Fix:
   Add AbortController to cancel pending requests on unmount
 

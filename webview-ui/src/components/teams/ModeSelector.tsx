@@ -3,6 +3,7 @@ import { Search, X, Plus, Star, Code, Brain, Bug, Layers } from "lucide-react"
 import { ModeConfig } from "@roo-code/types"
 import { Button, StandardTooltip } from "@/components/ui"
 import { cn } from "@/lib/utils"
+import { getBaseModeList } from "@/utils/teams"
 
 interface ModeSelectorProps {
 	availableModes: ModeConfig[]
@@ -20,7 +21,7 @@ export const ModeSelector: React.FC<ModeSelectorProps> = ({ availableModes, onSe
 
 	// 模式分类
 	const categories = useMemo(() => {
-		const basicModes = ["architect", "code", "ask", "debug", "orchestrator"]
+		const basicModes = getBaseModeList()
 
 		return {
 			all: { name: "全部", modes: availableModes },

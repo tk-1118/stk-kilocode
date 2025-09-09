@@ -4,7 +4,7 @@ import type { ClineProviderState } from "../../../webview/ClineProvider"
 describe("getDddGuidelinesSection", () => {
 	it("should return empty string for non-DDD modes", () => {
 		const state: Partial<ClineProviderState> = {
-			mode: "code",
+			mode: "dev99-coder",
 		}
 
 		const result = getDddGuidelinesSection(state as ClineProviderState)
@@ -46,7 +46,7 @@ describe("getDddGuidelinesSection", () => {
 
 	it("should return DDD guidelines for repository mode", () => {
 		const state: Partial<ClineProviderState> = {
-			mode: "outhbound-respository-coder-agent",
+			mode: "dev12-southbound-respository-coder-agent",
 		}
 
 		const result = getDddGuidelinesSection(state as ClineProviderState)
@@ -56,7 +56,7 @@ describe("getDddGuidelinesSection", () => {
 
 	it("should return DDD guidelines for architect mode", () => {
 		const state: Partial<ClineProviderState> = {
-			mode: "architect",
+			mode: "sa01-system-architect",
 		}
 
 		const result = getDddGuidelinesSection(state as ClineProviderState)

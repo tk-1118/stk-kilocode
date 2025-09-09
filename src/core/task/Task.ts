@@ -647,7 +647,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	public recommendTeamMember(taskDescription: string): string {
 		if (!taskDescription) {
 			// 即使没有描述，也优先推荐专业成员
-			return "northbound-api-controller-coder-agent" // 默认推荐API开发专家
+			return "dev02-northbound-api-controller-coder-agent" // 默认推荐API开发专家
 		}
 
 		const task = taskDescription.toLowerCase()
@@ -661,7 +661,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("系统设计") ||
 			task.includes("技术方案")
 		) {
-			return "architect"
+			return "sa01-system-architect"
 		}
 
 		// 调试和问题排查相关任务
@@ -674,19 +674,19 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("故障") ||
 			task.includes("troubleshoot")
 		) {
-			return "debug"
+			return "qa01-debug"
 		}
 
-		// 咨询和问答相关任务
+		// 单元测试相关任务
 		if (
-			task.includes("问题") ||
-			task.includes("咨询") ||
-			task.includes("ask") ||
-			task.includes("帮助") ||
-			task.includes("解释") ||
-			task.includes("说明")
+			task.includes("单元测试") ||
+			task.includes("unit test") ||
+			task.includes("测试") ||
+			task.includes("test") ||
+			task.includes("测试用例") ||
+			task.includes("测试覆盖")
 		) {
-			return "ask"
+			return "qa01-unit-test"
 		}
 
 		// === 编码任务专业化分工（优先级从高到低） ===
@@ -707,7 +707,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("请求") ||
 			task.includes("响应")
 		) {
-			return "northbound-api-controller-coder-agent"
+			return "dev02-northbound-api-controller-coder-agent"
 		}
 
 		// 数据持久化相关任务
@@ -727,7 +727,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("数据访问") ||
 			task.includes("数据操作")
 		) {
-			return "outhbound-respository-coder-agent"
+			return "dev12-southbound-respository-coder-agent"
 		}
 
 		// 领域建模相关任务
@@ -745,7 +745,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("value object") ||
 			task.includes("aggregate")
 		) {
-			return "domain-model-and-value-object-coder-agent"
+			return "dev07-domain-model-and-value-object-coder-agent"
 		}
 
 		// 领域服务相关任务
@@ -758,7 +758,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("业务规则") ||
 			task.includes("业务流程")
 		) {
-			return "domain-service-coder-agent"
+			return "dev09-domain-service-coder-agent"
 		}
 
 		// 产品和项目管理相关任务
@@ -776,7 +776,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("计划") ||
 			task.includes("协调")
 		) {
-			return "product-project-coder-agent"
+			return "dev01-product-project-coder-agent"
 		}
 
 		// 事件发布处理相关任务
@@ -791,7 +791,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("kafka") ||
 			task.includes("rabbitmq")
 		) {
-			return "northbound-app-event-publisher-coder-agent"
+			return "dev06-northbound-app-event-publisher-coder-agent"
 		}
 
 		// CQRS应用服务相关任务
@@ -804,7 +804,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("命令") ||
 			task.includes("查询")
 		) {
-			return "northbound-cqrs-application-service-coder-agent"
+			return "dev05-northbound-cqrs-business-service-and-application-service-coder-agent"
 		}
 
 		// 数据模型开发相关任务
@@ -816,7 +816,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("数据结构") ||
 			task.includes("模型映射")
 		) {
-			return "outhbound-data-model-coder-agent"
+			return "dev11-southbound-data-model-coder-agent"
 		}
 
 		// 资源网关开发相关任务
@@ -828,7 +828,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("路由") ||
 			task.includes("负载均衡")
 		) {
-			return "outhbound-resource-gateway-coder-agent"
+			return "dev13-southbound-resource-gateway-coder-agent"
 		}
 
 		// 通用编码关键词检测（优先推荐专业成员）
@@ -853,11 +853,11 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			task.includes("service")
 		) {
 			// 对于通用编码任务，优先推荐API开发专家
-			return "northbound-api-controller-coder-agent"
+			return "dev02-northbound-api-controller-coder-agent"
 		}
 
 		// 最后的默认选择：仍然优先推荐专业成员而非通用code模式
-		return "northbound-api-controller-coder-agent"
+		return "dev02-northbound-api-controller-coder-agent"
 	}
 
 	/**
@@ -917,7 +917,8 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			return getTeamModes(teamSlug, customTeams).map((mode: any) => mode.slug)
 		} catch (error) {
 			// 如果获取失败，返回默认的基础模式
-			return ["architect", "code", "ask", "debug"]
+			const { getBaseModeList } = require("../../shared/constants/unified-modes")
+			return getBaseModeList().slice(0, 4) // 返回前4个基础模式
 		}
 	}
 

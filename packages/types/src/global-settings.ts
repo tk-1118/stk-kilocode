@@ -325,7 +325,7 @@ export const EVALS_SETTINGS: RooCodeSettings = {
 
 	remoteControlEnabled: false,
 
-	mode: "code", // "architect",
+	mode: "dev99-coder", // 使用统一的模式名称
 
 	customModes: [],
 }

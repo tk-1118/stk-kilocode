@@ -49,21 +49,21 @@ const defaultArgs = {
 export const Default: Story = {
 	args: {
 		...defaultArgs,
-		value: "code" as Mode,
+		value: "dev99-coder" as Mode,
 	},
 }
 
 export const Architect: Story = {
 	args: {
 		...defaultArgs,
-		value: "architect" as Mode,
+		value: "sa01-system-architect" as Mode,
 	},
 }
 
 export const Disabled: Story = {
 	args: {
 		...defaultArgs,
-		value: "debug" as Mode,
+		value: "qa01-quality-assurance" as Mode,
 		disabled: true,
 	},
 }
@@ -71,7 +71,7 @@ export const Disabled: Story = {
 export const Open: Story = {
 	args: {
 		...defaultArgs,
-		value: "ask" as Mode,
+		value: "pm01-project-manager" as Mode,
 		initiallyOpen: true,
 	},
 }

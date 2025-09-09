@@ -1,6 +1,8 @@
 import { z } from "zod"
-// 注意：这些常量在实际使用时需要从正确的路径导入
-// 这里为了避免循环依赖，暂时使用内联定义
+
+/**
+ * 团队相关常量定义
+ */
 const TEAM_SLUGS = {
 	FRONTEND: "frontend-team",
 	BACKEND: "backend-team",
@@ -56,25 +58,37 @@ const PROJECT_DETECTION = {
 	FULLSTACK_DIRECTORIES: ["frontend", "backend", "client", "server", "web", "api"],
 } as const
 
-const BASE_MODE_LIST = ["architect", "code", "ask", "debug", "orchestrator"] as const
+/**
+ * 模式列表 - 从 DEFAULT_MODES 中提取，确保与权威数据源一致
+ * 注意：这里暂时保持内联定义以避免循环依赖，实际使用时应该从统一常量模块导入
+ */
+const BASE_MODE_LIST = [
+	"pm01-project-manager",
+	"sa01-system-architect",
+	"dev99-coder",
+	"qa01-unit-test",
+	"qa01-debug",
+	"qe01-quality-control",
+	"se01-security-control",
+] as const
 
-const SPECIALTY_MODE_LIST = [
-	"product-project-coder-agent",
-	"northbound-app-event-publisher-coder-agent",
-	"northbound-cqrs-business-service-and-application-service-coder-agent",
-	"northbound-api-controller-coder-agent",
-	"northbound-app-event-subscriber-coder-agent",
-	"northbound-client-provider-coder-agent",
-	"value-object-and-java-primitive-data-types-mapping-coder-agent",
-	"domain-model-and-value-object-coder-agent",
-	"domain-service-coder-agent",
-	"domain-event-publisher-coder-agent",
-	"southbound-data-model-coder-agent",
-	"southbound-repository-coder-agent",
-	"southbound-resource-gateway-coder-agent",
-	"southbound-event-publish-adapter-coder-agent",
-	"read-model-coder-agent",
-	"client-coder-agent",
+const BACKEND_SPECIALTY_MODE_LIST = [
+	"dev01-product-project-coder-agent",
+	"dev02-northbound-api-controller-coder-agent",
+	"dev03-northbound-app-event-subscriber-coder-agent",
+	"dev04-northbound-client-provider-coder-agent",
+	"dev05-northbound-cqrs-business-service-and-application-service-coder-agent",
+	"dev06-northbound-app-event-publisher-coder-agent",
+	"dev07-domain-model-and-value-object-coder-agent",
+	"dev08-value-object-and-java-primitive-data-types-mapping-coder-agent",
+	"dev09-domain-service-coder-agent",
+	"dev10-domain-event-publisher-coder-agent",
+	"dev11-southbound-data-model-coder-agent",
+	"dev12-southbound-respository-coder-agent",
+	"dev13-southbound-resource-gateway-coder-agent",
+	"dev14-southbound-event-publish-adapter-coder-agent",
+	"dev15-read-model-coder-agent",
+	"dev16-client-coder-agent",
 ] as const
 
 const FRONTEND_SPECIALTY_MODE_LIST = [
@@ -222,11 +236,11 @@ export type TeamSwitchEvent = z.infer<typeof teamSwitchEventSchema>
 export const DEFAULT_TEAMS: readonly TeamConfig[] = [
 	{
 		slug: TEAM_SLUGS.FRONTEND,
-		name: "Vue3+TS虚拟前端开发团队",
+		name: "Vue3+TS前端开发团队",
 		description: "专注于用户界面和用户体验的开发团队",
 		iconName: TEAM_ICONS.BROWSER,
 		color: TEAM_COLORS.REACT_BLUE,
-		baseModes: BASE_MODE_LIST.filter((mode: string) => ["architect", "code", "ask", "debug"].includes(mode)),
+		baseModes: [...BASE_MODE_LIST],
 		specialtyModes: [...FRONTEND_SPECIALTY_MODE_LIST],
 		projectDetection: {
 			filePatterns: [...PROJECT_DETECTION.FRONTEND_FILE_PATTERNS],
@@ -247,12 +261,12 @@ export const DEFAULT_TEAMS: readonly TeamConfig[] = [
 	},
 	{
 		slug: TEAM_SLUGS.BACKEND,
-		name: "DDD虚拟后端开发团队",
+		name: "DDD后端开发团队",
 		description: "专注于服务端架构和业务逻辑的开发团队",
 		iconName: TEAM_ICONS.SERVER,
 		color: TEAM_COLORS.SPRING_PURPLE,
-		baseModes: BASE_MODE_LIST.filter((mode: string) => ["architect", "code", "ask", "debug"].includes(mode)),
-		specialtyModes: [...SPECIALTY_MODE_LIST],
+		baseModes: [...BASE_MODE_LIST],
+		specialtyModes: [...BACKEND_SPECIALTY_MODE_LIST],
 		projectDetection: {
 			filePatterns: [...PROJECT_DETECTION.BACKEND_FILE_PATTERNS],
 			configFiles: [...PROJECT_DETECTION.BACKEND_CONFIG_FILES],
@@ -273,26 +287,19 @@ export const DEFAULT_TEAMS: readonly TeamConfig[] = [
 	},
 	{
 		slug: TEAM_SLUGS.FULLSTACK,
-		name: "全栈虚拟开发团队",
+		name: "全栈开发团队",
 		description: "具备前后端全栈开发能力的综合团队",
 		iconName: TEAM_ICONS.LAYERS,
 		color: TEAM_COLORS.CORAL_RED,
 		baseModes: [...BASE_MODE_LIST],
-		specialtyModes: [...SPECIALTY_MODE_LIST],
+		specialtyModes: [...FRONTEND_SPECIALTY_MODE_LIST, ...BACKEND_SPECIALTY_MODE_LIST],
 		projectDetection: {
 			filePatterns: [...PROJECT_DETECTION.FULLSTACK_FILE_PATTERNS],
 			configFiles: [...PROJECT_DETECTION.FULLSTACK_CONFIG_FILES],
 			directoryPatterns: [...PROJECT_DETECTION.FULLSTACK_DIRECTORIES],
 		},
 		collaboration: {
-			workflow: [
-				WORKFLOW_STAGES.PROJECT_ANALYSIS,
-				WORKFLOW_STAGES.ARCHITECTURE_DESIGN,
-				WORKFLOW_STAGES.FRONTEND_DEVELOPMENT,
-				WORKFLOW_STAGES.BACKEND_DEVELOPMENT,
-				WORKFLOW_STAGES.INTEGRATION_TESTING,
-				WORKFLOW_STAGES.DEPLOYMENT,
-			],
+			workflow: Object.values(WORKFLOW_STAGES) as string[],
 			taskAssignment: TASK_ASSIGNMENT_STRATEGIES.HYBRID,
 		},
 	},

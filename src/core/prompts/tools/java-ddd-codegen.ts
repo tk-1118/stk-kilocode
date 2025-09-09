@@ -104,5 +104,5 @@ export function getJavaDddCodegenDescription(args: ToolArgs): string {
 - 减少重复性编码工作
 - 保持代码结构一致性
 
-此工具特别适合与domain-model-and-value-object-coder-agent智能体配合使用，实现领域模型的快速生成和验证。`
+此工具特别适合与dev07-domain-model-and-value-object-coder-agent智能体配合使用，实现领域模型的快速生成和验证。`
 }

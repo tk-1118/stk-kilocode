@@ -22,25 +22,25 @@ Usage:
 
 API开发任务：
 <switch_mode>
-<mode_slug>northbound-api-controller-coder-agent</mode_slug>
+<mode_slug>dev02-northbound-api-controller-coder-agent</mode_slug>
 <reason>需要API接口开发专家来设计和实现RESTful API</reason>
 </switch_mode>
 
 数据库任务：
 <switch_mode>
-<mode_slug>southbound-repository-coder-agent</mode_slug>
+<mode_slug>dev12-southbound-respository-coder-agent</mode_slug>
 <reason>需要数据持久化专家来处理数据库操作和Repository模式</reason>
 </switch_mode>
 
 领域建模任务：
 <switch_mode>
-<mode_slug>domain-model-and-value-object-coder-agent</mode_slug>
+<mode_slug>dev07-domain-model-and-value-object-coder-agent</mode_slug>
 <reason>需要领域建模专家来设计业务实体和值对象</reason>
 </switch_mode>
 
 **避免的示例（除非确实没有合适的专业成员）：**
 <switch_mode>
-<mode_slug>code</mode_slug>
+<mode_slug>dev99-coder</mode_slug>
 <reason>通用编码任务</reason>
 </switch_mode>
 

@@ -1,4 +1,5 @@
 import type { ClineProviderState } from "../../webview/ClineProvider"
+import { BACKEND_SPECIALTY_MODE_LIST, BASE_MODES } from "../../../shared/constants/unified-modes"
 
 /**
  * 生成DDD开发指导原则section
@@ -80,17 +81,11 @@ Controller控制器或Client端口 → 应用服务(命令/查询) → 领域服
  * @returns 是否为DDD相关模式
  */
 function isDddRelatedMode(mode: string): boolean {
-	const dddModes = [
-		"domain-model-and-value-object-coder-agent",
-		"domain-service-coder-agent",
-		"northbound-api-controller-coder-agent",
-		"outhbound-respository-coder-agent",
-		"northbound-cqrs-application-service-coder-agent",
-		"outhbound-data-model-coder-agent",
-		"outhbound-resource-gateway-coder-agent",
-		"northbound-app-event-publisher-coder-agent",
-		"product-project-coder-agent",
-		"architect", // 架构师也需要了解DDD原则
+	// 🎯 统一数据源：使用统一常量模块中的后端专业模式列表
+	// DDD相关模式包括：所有后端专业模式 + 系统架构师
+	const dddModes: string[] = [
+		...BACKEND_SPECIALTY_MODE_LIST,
+		BASE_MODES.SA01_SYSTEM_ARCHITECT, // 架构师也需要了解DDD原则
 	]
 
 	return dddModes.includes(mode)

@@ -4,6 +4,7 @@ import { ModeConfig, DEFAULT_MODES } from "@roo-code/types"
 import { Button, StandardTooltip } from "@/components/ui"
 import { cn } from "@/lib/utils"
 import { vscode } from "@/utils/vscode"
+import { getBaseModeList } from "@/utils/teams"
 
 interface ModeLibraryProps {
 	availableModes: ModeConfig[] // 自定义模式
@@ -35,7 +36,7 @@ export const ModeLibrary: React.FC<ModeLibraryProps> = ({ availableModes, onClos
 
 	// 模式分类
 	const categories = useMemo(() => {
-		const basicModes = ["architect", "code", "ask", "debug", "orchestrator"]
+		const basicModes = getBaseModeList()
 
 		return {
 			all: { name: "全部模式", modes: allModes },

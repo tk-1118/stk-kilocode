@@ -11,16 +11,18 @@ import {
 } from "@roo-code/types"
 
 import { getAllModes, getModeBySlug } from "./modes"
-import { MODE_DISPLAY_NAMES, TASK_MODE_MAPPING, BASE_MODE_LIST } from "./constants/modes"
+import { TASK_MODE_MAPPING, BASE_MODE_LIST } from "./constants/modes"
 import { DEFAULT_TEAM_SLUG, TEAM_STATE, CONFIDENCE_THRESHOLDS } from "./constants/teams"
+import { getModeDisplayName } from "./constants/unified-modes"
 
 export type Team = string
 
 /**
  * 获取模式的显示名称（团队成员名称）
+ * @deprecated 使用统一常量模块中的 getModeDisplayName 函数
  */
-function getModeDisplayName(modeSlug: string): string {
-	return MODE_DISPLAY_NAMES[modeSlug] || modeSlug
+function getModeDisplayNameLocal(modeSlug: string): string {
+	return getModeDisplayName(modeSlug)
 }
 
 /**

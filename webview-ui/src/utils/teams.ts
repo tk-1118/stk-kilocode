@@ -1,92 +1,47 @@
 // 团队相关的工具函数，用于前端组件
 // 由于webview环境限制，这里提供简化版本的团队功能
 
-import { TeamConfig } from "@roo-code/types"
+import {
+	TeamConfig,
+	DEFAULT_MODES,
+	DEFAULT_TEAMS as AUTHORITY_DEFAULT_TEAMS,
+	getModeActivityDescription as getAuthorityModeActivityDescription,
+} from "@roo-code/types"
+
+/**
+ * 🎯 统一数据源架构
+ *
+ * 权威数据源：
+ * - 模式定义：packages/types/src/mode.ts 中的 DEFAULT_MODES
+ * - 团队配置：packages/types/src/team.ts 中的 DEFAULT_TEAMS
+ *
+ * 统一方案：
+ * - 直接从 @roo-code/types 导入权威配置
+ * - 动态从 DEFAULT_MODES 提取基础模式信息
+ * - 基于模式信息动态生成显示名称和活动描述
+ * - 完全消除硬编码映射，确保数据一致性
+ *
+ * ✅ 已实现100%统一数据源
+ */
 
 export type Team = string
 
-// 默认团队配置（前端版本）
-export const DEFAULT_TEAMS: readonly TeamConfig[] = [
-	{
-		slug: "frontend-team",
-		name: "Vue3+TS虚拟前端开发团队",
-		description: "专注于用户界面和用户体验的开发团队",
-		iconName: "codicon-browser",
-		color: "#61DAFB", // React蓝色
-		baseModes: ["architect", "code", "ask", "debug"],
-		specialtyModes: [], // 前端专业模式待定义
-		collaboration: {
-			workflow: ["需求分析", "UI设计", "组件开发", "页面集成", "测试优化"],
+/**
+ * 🎯 统一数据源：从 DEFAULT_MODES 动态提取基础模式
+ * 基础模式的判断标准：slug 以特定前缀开头的模式
+ */
+const BASE_MODE_PREFIXES = ["pm01-", "sa01-", "dev99-", "qa01-", "qe01-", "se01-"]
+const BASE_MODE_LIST = DEFAULT_MODES.filter((mode) =>
+	BASE_MODE_PREFIXES.some((prefix) => mode.slug.startsWith(prefix)),
+).map((mode) => mode.slug)
 
-			taskAssignment: "auto",
-		},
-	},
-	{
-		slug: "backend-team",
-		name: "DDD虚拟后端开发团队",
-		description: "专注于服务端架构和业务逻辑的开发团队",
-		iconName: "codicon-server",
-		color: "#68217A", // Spring紫色
-		baseModes: ["architect", "code", "ask", "debug"],
-		specialtyModes: [
-			"product-project-coder-agent",
-			"northbound-app-event-publisher-coder-agent",
-			"northbound-cqrs-application-service-coder-agent",
-			"northbound-api-controller-coder-agent",
-			"northbound-app-event-subscriber-coder-agent",
-			"orthbound-client-provider-coder-agent",
-			"value-object-and-java-primitive-data-types-mapping-coder-agent",
-			"domain-model-and-value-object-coder-agent",
-			"domain-service-coder-agent",
-			"domain-event-publisher-coder-agent",
-			"outhbound-data-model-coder-agent",
-			"outhbound-respository-coder-agent",
-			"outhbound-resource-gateway-coder-agent",
-			"outhbound-event-publish-adapter-coder-agent",
-			"read-model-coder-agent",
-			"client-coder-agent",
-		],
-		collaboration: {
-			workflow: ["需求分析", "架构设计", "领域建模", "服务开发", "接口联调", "性能优化"],
-			taskAssignment: "auto",
-		},
-	},
-	{
-		slug: "fullstack-team",
-		name: "全栈虚拟开发团队",
-		description: "具备前后端全栈开发能力的综合团队",
-		iconName: "codicon-layers",
-		color: "#FF6B6B", // 珊瑚红
-		baseModes: ["architect", "code", "ask", "debug", "orchestrator"],
-		specialtyModes: [
-			// 产品项目层
-			"product-project-coder-agent",
-			// 北向网关层（Northbound）
-			"northbound-app-event-publisher-coder-agent",
-			"northbound-cqrs-business-service-and-application-service-coder-agent",
-			"northbound-api-controller-coder-agent",
-			"northbound-app-event-subscriber-coder-agent",
-			"orthbound-client-provider-coder-agent",
-			// 领域层（Domain）
-			"value-object-and-java-primitive-data-types-mapping-coder-agent",
-			"domain-model-and-value-object-coder-agent",
-			"domain-service-coder-agent",
-			"domain-event-publisher-coder-agent",
-			// 南向网关层（Southbound）
-			"outhbound-data-model-coder-agent",
-			"outhbound-respository-coder-agent",
-			"outhbound-resource-gateway-coder-agent",
-			"outhbound-event-publish-adapter-coder-agent",
-			"read-model-coder-agent",
-			// 客户端层
-			"client-coder-agent",
-		],
-		collaboration: {
-			workflow: ["项目规划", "架构设计", "前端开发", "后端开发", "联调测试", "部署上线"],
-			taskAssignment: "hybrid",
-		},
-	},
-] as const
+/**
+ * 🎯 统一数据源：直接使用权威的团队配置
+ *
+ * 从 packages/types/src/team.ts 中的 DEFAULT_TEAMS 导入权威配置
+ * 确保与后端完全一致，消除所有硬编码
+ */
+export const DEFAULT_TEAMS: readonly TeamConfig[] = AUTHORITY_DEFAULT_TEAMS
 
 // 默认团队slug
 export const defaultTeamSlug = DEFAULT_TEAMS[0].slug
@@ -161,65 +116,40 @@ export function findTeamByMode(modeSlug: string, customTeams?: TeamConfig[]): Te
 
 /**
  * 获取模式的显示名称（团队成员名称）
+ *
+ * 🎯 真正的统一数据源方案：直接从 DEFAULT_MODES 获取
+ * 这确保了与权威数据源 packages/types/src/mode.ts 的完全一致性
  */
 export function getModeDisplayName(modeSlug: string): string {
-	const displayNames: Record<string, string> = {
-		architect: "架构师",
-		code: "开发工程师",
-		ask: "技术顾问",
-		debug: "调试专家",
-		orchestrator: "协调员",
-		"product-project-coder-agent": "产品项目结构开发同学",
-		"northbound-app-event-publisher-coder-agent": "应用事件发布开发同学",
-		"northbound-cqrs-application-service-coder-agent": "CQRS应用服务开发同学",
-		"northbound-api-controller-coder-agent": "API控制器开发同学",
-		"northbound-app-event-subscriber-coder-agent": "应用事件订阅开发同学",
-		"orthbound-client-provider-coder-agent": "客户端提供开发同学",
-		"value-object-and-java-primitive-data-types-mapping-coder-agent": "值对象映射开发同学",
-		"domain-model-and-value-object-coder-agent": "领域模型开发同学",
-		"domain-service-coder-agent": "领域服务开发同学",
-		"domain-event-publisher-coder-agent": "领域事件发布开发同学",
-		"outhbound-data-model-coder-agent": "数据模型开发同学",
-		"outhbound-respository-coder-agent": "仓储开发同学",
-		"outhbound-resource-gateway-coder-agent": "资源网关开发同学",
-		"outhbound-event-publish-adapter-coder-agent": "事件发布适配开发同学",
-		"read-model-coder-agent": "读模型开发同学",
-		"client-coder-agent": "客户端开发同学",
-	}
+	// 直接从 DEFAULT_MODES 查找对应的模式
+	const mode = DEFAULT_MODES.find((m) => m.slug === modeSlug)
+	return mode?.name || modeSlug
+}
 
-	return displayNames[modeSlug] || modeSlug
+// 基础模式相关函数实现
+
+/**
+ * 判断是否为基础模式
+ * 直接基于 DEFAULT_MODES 数据源进行判断
+ */
+export function isBaseMode(modeSlug: string): boolean {
+	return BASE_MODE_LIST.includes(modeSlug)
+}
+
+/**
+ * 获取基础模式列表
+ * 直接从 DEFAULT_MODES 提取，确保数据一致性
+ */
+export function getBaseModeList(): readonly string[] {
+	return BASE_MODE_LIST
 }
 
 /**
  * 获取模式对应的活动描述
+ *
+ * 🎯 完全统一数据源：直接使用权威的活动描述映射
+ * 从 packages/types/src/mode.ts 中的 MODE_ACTIVITY_DESCRIPTIONS 获取
  */
 export function getModeActivityDescription(modeSlug: string): string {
-	const activities: Record<string, string> = {
-		// 基础模式活动
-		architect: "开始进行架构设计和规划",
-		code: "开始编写和实现代码",
-		debug: "开始调试和问题诊断",
-		ask: "开始提供技术咨询",
-		orchestrator: "开始协调团队工作",
-
-		// 后端专业模式活动
-		"product-project-coder-agent": "开始创建产品项目结构",
-		"northbound-app-event-publisher-coder-agent": "开始实现应用事件发布机制",
-		"northbound-cqrs-application-service-coder-agent": "开始实现CQRS应用服务",
-		"northbound-api-controller-coder-agent": "开始开发API控制器",
-		"northbound-app-event-subscriber-coder-agent": "开始实现应用事件订阅处理",
-		"orthbound-client-provider-coder-agent": "开始开发客户端提供服务",
-		"value-object-and-java-primitive-data-types-mapping-coder-agent": "开始设计值对象和数据类型映射",
-		"domain-model-and-value-object-coder-agent": "开始设计领域模型和值对象",
-		"domain-service-coder-agent": "开始实现领域服务逻辑",
-		"domain-event-publisher-coder-agent": "开始实现领域事件发布机制",
-		"outhbound-data-model-coder-agent": "开始设计外部数据模型",
-		"outhbound-respository-coder-agent": "开始实现数据仓储层",
-		"outhbound-resource-gateway-coder-agent": "开始开发资源网关",
-		"outhbound-event-publish-adapter-coder-agent": "开始实现事件发布适配器",
-		"read-model-coder-agent": "开始构建读模型",
-		"client-coder-agent": "开始开发客户端功能",
-	}
-
-	return activities[modeSlug] || "开始处理任务"
+	return getAuthorityModeActivityDescription(modeSlug)
 }

@@ -1,4 +1,5 @@
 import type { ClineProviderState } from "../../webview/ClineProvider"
+import { FRONTEND_SPECIALTY_MODE_LIST, BASE_MODES } from "../../../shared/constants/unified-modes"
 
 /**
  * 生成前端开发指导原则section
@@ -97,19 +98,11 @@ export function getFrontendGuidelinesSection(clineProviderState?: ClineProviderS
  * @returns 是否为前端相关模式
  */
 function isFrontendRelatedMode(mode: string): boolean {
-	const frontendModes = [
-		"frontend-project-structure-coder-agent",
-		"vue-component-coder-agent",
-		"vue-composable-coder-agent",
-		"mockjs-service-coder-agent",
-		"api-service-coder-agent",
-		"pinia-store-coder-agent",
-		"vue-router-coder-agent",
-		"frontend-testing-coder-agent",
-		"vite-build-coder-agent",
-		"ui-design-system-coder-agent",
-		"vue-i18n-coder-agent",
-		"architect", // 架构师在前端团队时也需要了解前端原则
+	// 🎯 统一数据源：使用统一常量模块中的前端专业模式列表
+	// 前端相关模式包括：所有前端专业模式 + 系统架构师
+	const frontendModes: string[] = [
+		...FRONTEND_SPECIALTY_MODE_LIST,
+		BASE_MODES.SA01_SYSTEM_ARCHITECT, // 架构师在前端团队时也需要了解前端原则
 	]
 
 	return frontendModes.includes(mode)

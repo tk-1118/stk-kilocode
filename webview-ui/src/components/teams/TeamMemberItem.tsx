@@ -3,7 +3,7 @@ import { GripVertical, Eye, EyeOff, Trash2, Settings } from "lucide-react"
 import { TeamMemberConfig, ModeConfig } from "@roo-code/types"
 import { Button, StandardTooltip } from "@/components/ui"
 import { cn } from "@/lib/utils"
-import { getModeDisplayName } from "@/utils/teams"
+import { getModeDisplayName, isBaseMode } from "@/utils/teams"
 
 interface TeamMemberItemProps {
 	member: TeamMemberConfig
@@ -94,13 +94,11 @@ export const TeamMemberItem: React.FC<TeamMemberItemProps> = ({ member, mode, in
 						<span
 							className={cn(
 								"px-2 py-0.5 text-xs rounded",
-								["architect", "code", "ask", "debug", "orchestrator"].includes(member.modeSlug)
+								isBaseMode(member.modeSlug)
 									? "bg-vscode-button-background text-vscode-button-foreground"
 									: "bg-vscode-badge-background text-vscode-badge-foreground",
 							)}>
-							{["architect", "code", "ask", "debug", "orchestrator"].includes(member.modeSlug)
-								? "基础"
-								: "专业"}
+							{isBaseMode(member.modeSlug) ? "基础" : "专业"}
 						</span>
 
 						{/* 优先级 */}

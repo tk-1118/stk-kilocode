@@ -8,6 +8,7 @@ import {
 	DEFAULT_TEAMS,
 } from "@roo-code/types"
 import { getAllModes, getModeBySlug } from "../shared/modes"
+import { isBaseMode, getModeDisplayName, BASE_MODE_LIST } from "../shared/constants/unified-modes"
 
 /**
  * 团队管理服务
@@ -114,7 +115,7 @@ export class TeamManagementService {
 			throw new Error(`团队标识 "${teamData.slug}" 已存在`)
 		}
 
-		const baseModes = teamData.baseModes || ["architect", "code"]
+		const baseModes = teamData.baseModes || BASE_MODE_LIST.slice(0, 2)
 		const specialtyModes = teamData.specialtyModes || []
 		const allModes = [...baseModes, ...specialtyModes]
 
@@ -290,8 +291,8 @@ export class TeamManagementService {
 		const updatedTeam = await this.updateTeam(teamSlug, {
 			members: [...(team.members || []), newMember],
 			// 同时更新baseModes或specialtyModes
-			baseModes: this.isBasicMode(modeSlug) ? [...new Set([...team.baseModes, modeSlug])] : team.baseModes,
-			specialtyModes: !this.isBasicMode(modeSlug)
+			baseModes: isBaseMode(modeSlug) ? [...new Set([...team.baseModes, modeSlug])] : team.baseModes,
+			specialtyModes: !isBaseMode(modeSlug)
 				? [...new Set([...team.specialtyModes, modeSlug])]
 				: team.specialtyModes,
 		})
@@ -392,6 +393,7 @@ export class TeamManagementService {
 		const newMode: ModeConfig = {
 			slug: modeConfig.slug,
 			name: modeConfig.name,
+			roleName: modeConfig.roleName || modeConfig.name,
 			roleDefinition: modeConfig.roleDefinition || "",
 			groups: modeConfig.groups || ["read", "edit"],
 			source: "project" as const,
@@ -482,28 +484,19 @@ export class TeamManagementService {
 
 	/**
 	 * 判断是否为基础模式
+	 * @deprecated 使用统一常量模块中的 isBaseMode 函数
 	 */
 	private isBasicMode(modeSlug: string): boolean {
-		const basicModes = ["architect", "code", "ask", "debug", "orchestrator"]
-		return basicModes.includes(modeSlug)
+		return isBaseMode(modeSlug)
 	}
 
 	/**
 	 * 将模式slug列表转换为成员配置
 	 */
 	private convertModesToMembers(modeSlugs: string[]): TeamMemberConfig[] {
-		// 内置模式名称映射
-		const modeNames: Record<string, string> = {
-			architect: "架构师",
-			code: "编程助手",
-			ask: "问答助手",
-			debug: "调试专家",
-			orchestrator: "协调者",
-		}
-
 		return modeSlugs.map((slug, index) => ({
 			modeSlug: slug,
-			displayName: modeNames[slug] || slug,
+			displayName: getModeDisplayName(slug),
 			isActive: true,
 			priority: index,
 			permissions: [],

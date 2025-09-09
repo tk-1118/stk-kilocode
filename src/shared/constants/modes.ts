@@ -1,63 +1,74 @@
 /**
  * 模式相关常量定义
- * 避免硬编码，统一管理所有模式相关的常量
+ *
+ * @deprecated 此文件已弃用，请使用 ./unified-modes.ts 中的统一常量
+ *
+ * 新的统一常量模块基于 packages/types/src/mode.ts 中的 DEFAULT_MODES 作为权威数据源，
+ * 确保所有模式信息的一致性和准确性。
+ *
+ * 迁移指南：
+ * - 使用 MODE_DISPLAY_NAMES 替代 MODE_DISPLAY_NAMES
+ * - 使用 isBaseMode() 替代硬编码的基础模式判断
+ * - 使用 getModeDisplayName() 等工具函数获取模式信息
  */
 
 /**
  * 基础模式常量
  */
 export const BASE_MODES = {
-	ARCHITECT: "architect",
-	CODE: "code",
-	ASK: "ask",
-	DEBUG: "debug",
-	ORCHESTRATOR: "orchestrator",
+	SA01_SYSTEM_ARCHITECT: "sa01-system-architect",
+	DEV99_CODER: "dev99-coder",
+	QA01_UNIT_TEST: "qa01-unit-test",
+	QA01_DEBUG: "qa01-debug",
+	QE01_QUALITY_CONTROL: "qe01-quality-control",
+	SE01_SECURITY_CONTROL: "se01-security-control",
+	PM01_PROJECT_MANAGER: "pm01-project-manager",
 } as const
 
 /**
  * 专业模式常量 - 产品项目层
  */
 export const PRODUCT_MODES = {
-	PRODUCT_PROJECT: "product-project-coder-agent",
+	PRODUCT_PROJECT: "dev01-product-project-coder-agent",
 } as const
 
 /**
  * 专业模式常量 - 北向网关层
  */
 export const NORTHBOUND_MODES = {
-	APP_EVENT_PUBLISHER: "northbound-app-event-publisher-coder-agent",
-	CQRS_BUSINESS_SERVICE: "northbound-cqrs-business-service-and-application-service-coder-agent",
-	API_CONTROLLER: "northbound-api-controller-coder-agent",
-	APP_EVENT_SUBSCRIBER: "northbound-app-event-subscriber-coder-agent",
-	CLIENT_PROVIDER: "northbound-client-provider-coder-agent",
+	APP_EVENT_PUBLISHER: "dev06-northbound-app-event-publisher-coder-agent",
+	CQRS_BUSINESS_SERVICE: "dev05-northbound-cqrs-business-service-and-application-service-coder-agent",
+	API_CONTROLLER: "dev02-northbound-api-controller-coder-agent",
+	APP_EVENT_SUBSCRIBER: "dev03-northbound-app-event-subscriber-coder-agent",
+	CLIENT_PROVIDER: "dev04-northbound-client-provider-coder-agent",
 } as const
 
 /**
  * 专业模式常量 - 领域层
  */
 export const DOMAIN_MODES = {
-	VALUE_OBJECT_MAPPING: "value-object-and-java-primitive-data-types-mapping-coder-agent",
-	DOMAIN_MODEL: "domain-model-and-value-object-coder-agent",
-	DOMAIN_SERVICE: "domain-service-coder-agent",
-	DOMAIN_EVENT_PUBLISHER: "domain-event-publisher-coder-agent",
+	VALUE_OBJECT_MAPPING: "dev08-value-object-and-java-primitive-data-types-mapping-coder-agent",
+	DOMAIN_MODEL: "dev07-domain-model-and-value-object-coder-agent",
+	DOMAIN_SERVICE: "dev09-domain-service-coder-agent",
+	DOMAIN_EVENT_PUBLISHER: "dev10-domain-event-publisher-coder-agent",
 } as const
 
 /**
  * 专业模式常量 - 南向网关层
  */
 export const SOUTHBOUND_MODES = {
-	DATA_MODEL: "southbound-data-model-coder-agent",
-	REPOSITORY: "southbound-repository-coder-agent",
-	RESOURCE_GATEWAY: "southbound-resource-gateway-coder-agent",
-	EVENT_PUBLISH_ADAPTER: "southbound-event-publish-adapter-coder-agent",
-	READ_MODEL: "read-model-coder-agent",
+	DATA_MODEL: "dev11-southbound-data-model-coder-agent",
+	REPOSITORY: "dev12-southbound-respository-coder-agent",
+	RESOURCE_GATEWAY: "dev13-southbound-resource-gateway-coder-agent",
+	EVENT_PUBLISH_ADAPTER: "dev14-southbound-event-publish-adapter-coder-agent",
+	READ_MODEL: "dev15-read-model-coder-agent",
 } as const
 
 /**
  * 专业模式常量 - 客户端层
  */
 export const CLIENT_MODES = {
-	CLIENT: "client-coder-agent",
+	CLIENT: "dev16-client-coder-agent",
 } as const
 
 /**
@@ -118,54 +129,16 @@ export const ALL_MODE_LIST = Object.values(ALL_MODES)
 
 /**
  * 模式显示名称映射
+ *
+ * @deprecated 此映射已完全移除，请使用 ./unified-modes.ts 中的 MODE_DISPLAY_NAMES
+ *
+ * 新的统一映射基于 packages/types/src/mode.ts 中的 DEFAULT_MODES，确保数据一致性
+ *
+ * 迁移指南：
+ * import { getModeDisplayName } from "./unified-modes"
+ * const displayName = getModeDisplayName(modeSlug)
  */
-export const MODE_DISPLAY_NAMES: Record<string, string> = {
-	// 基础模式
-	[BASE_MODES.ARCHITECT]: "架构师",
-	[BASE_MODES.CODE]: "开发工程师",
-	[BASE_MODES.ASK]: "技术顾问",
-	[BASE_MODES.DEBUG]: "调试专家",
-	[BASE_MODES.ORCHESTRATOR]: "协调员",
-
-	// 产品项目层
-	[PRODUCT_MODES.PRODUCT_PROJECT]: "产品项目结构开发同学",
-
-	// 北向网关层
-	[NORTHBOUND_MODES.APP_EVENT_PUBLISHER]: "应用事件发布开发同学",
-	[NORTHBOUND_MODES.CQRS_BUSINESS_SERVICE]: "CQRS业务服务应用服务开发同学",
-	[NORTHBOUND_MODES.API_CONTROLLER]: "API控制器开发同学",
-	[NORTHBOUND_MODES.APP_EVENT_SUBSCRIBER]: "应用事件订阅开发同学",
-	[NORTHBOUND_MODES.CLIENT_PROVIDER]: "客户端提供开发同学",
-
-	// 领域层
-	[DOMAIN_MODES.VALUE_OBJECT_MAPPING]: "值对象映射开发同学",
-	[DOMAIN_MODES.DOMAIN_MODEL]: "领域模型开发同学",
-	[DOMAIN_MODES.DOMAIN_SERVICE]: "领域服务开发同学",
-	[DOMAIN_MODES.DOMAIN_EVENT_PUBLISHER]: "领域事件发布开发同学",
-
-	// 南向网关层
-	[SOUTHBOUND_MODES.DATA_MODEL]: "数据模型开发同学",
-	[SOUTHBOUND_MODES.REPOSITORY]: "仓储开发同学",
-	[SOUTHBOUND_MODES.RESOURCE_GATEWAY]: "资源网关开发同学",
-	[SOUTHBOUND_MODES.EVENT_PUBLISH_ADAPTER]: "事件发布适配开发同学",
-	[SOUTHBOUND_MODES.READ_MODEL]: "读模型开发同学",
-
-	// 客户端层
-	[CLIENT_MODES.CLIENT]: "客户端开发同学",
-
-	// 前端层
-	[FRONTEND_MODES.PROJECT_STRUCTURE]: "前端项目结构开发同学",
-	[FRONTEND_MODES.VUE_COMPONENT]: "Vue组件开发同学",
-	[FRONTEND_MODES.VUE_COMPOSABLE]: "Vue组合式函数开发同学",
-	[FRONTEND_MODES.MOCKJS_SERVICE]: "MockJS数据模拟开发同学",
-	[FRONTEND_MODES.API_SERVICE]: "API服务开发同学",
-	[FRONTEND_MODES.PINIA_STORE]: "Pinia状态管理开发同学",
-	[FRONTEND_MODES.VUE_ROUTER]: "Vue路由开发同学",
-	[FRONTEND_MODES.FRONTEND_TESTING]: "前端测试开发同学",
-	[FRONTEND_MODES.VITE_BUILD]: "Vite构建开发同学",
-	[FRONTEND_MODES.UI_DESIGN_SYSTEM]: "UI设计系统开发同学",
-	[FRONTEND_MODES.VUE_I18N]: "Vue国际化开发同学",
-} as const
+// export const MODE_DISPLAY_NAMES: Record<string, string> = {} // 已移除，使用 unified-modes.ts
 
 /**
  * 任务关键词与模式的映射配置
@@ -213,18 +186,13 @@ export const TASK_MODE_MAPPING = [
 	},
 	{
 		keywords: ["架构", "设计", "规划"],
-		mode: BASE_MODES.ARCHITECT,
+		mode: BASE_MODES.SA01_SYSTEM_ARCHITECT,
 		reason: "任务涉及架构设计",
 	},
 	{
 		keywords: ["开发", "实现", "编码"],
-		mode: BASE_MODES.CODE,
+		mode: BASE_MODES.DEV99_CODER,
 		reason: "任务涉及代码开发",
-	},
-	{
-		keywords: ["调试", "修复", "错误"],
-		mode: BASE_MODES.DEBUG,
-		reason: "任务涉及问题调试",
 	},
 	// 前端相关任务映射
 	{

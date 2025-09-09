@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { ModeSelector } from "./ModeSelector"
 import { TeamMemberItem } from "./TeamMemberItem"
 import { validateTeamConfig, formatTeamSlug } from "@/utils/teamValidation"
+import { isBaseMode, getBaseModeList } from "@/utils/teams"
 import { TeamStatusIndicator } from "./TeamStatusIndicator"
 
 interface TeamEditorProps {
@@ -38,7 +39,7 @@ export const TeamEditor: React.FC<TeamEditorProps> = ({ team, availableModes, is
 		description: "",
 		iconName: "codicon-organization",
 		color: "#007ACC",
-		baseModes: ["architect", "code"],
+		baseModes: getBaseModeList().slice(0, 2),
 		specialtyModes: [],
 		members: [],
 		collaboration: {
@@ -146,8 +147,7 @@ export const TeamEditor: React.FC<TeamEditorProps> = ({ team, availableModes, is
 			updateField("members", updatedMembers)
 
 			// 同时更新baseModes或specialtyModes
-			const isBasicMode = ["architect", "code", "ask", "debug", "orchestrator"].includes(modeSlug)
-			if (isBasicMode) {
+			if (isBaseMode(modeSlug)) {
 				const currentBaseModes = formData.baseModes || []
 				if (!currentBaseModes.includes(modeSlug)) {
 					updateField("baseModes", [...currentBaseModes, modeSlug])
