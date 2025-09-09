@@ -7,6 +7,101 @@ import type { ModeConfig, TeamConfig } from "@roo-code/types"
 import { getAllModesWithPrompts } from "../../../shared/modes"
 import { getTeamModes, getTeamBySlug } from "../../../shared/teams"
 
+/**
+ * 生成团队特定的成员选择指导
+ */
+function generateTeamSpecificGuidelines(currentTeam?: string): string {
+	switch (currentTeam) {
+		case "backend-team":
+			return `TEAM MEMBER SELECTION GUIDELINES (SPECIALIST MEMBERS FIRST):
+
+**CODING TASKS - PRIORITIZE SPECIALIST MEMBERS:**
+- API interface development: Use "northbound-api-controller-coder-agent" mode (PRIORITY)
+- Database and persistence: Use "southbound-repository-coder-agent" mode (PRIORITY)
+- Domain model development: Use "domain-model-and-value-object-coder-agent" mode (PRIORITY)
+- Domain service development: Use "domain-service-coder-agent" mode (PRIORITY)
+- Product project structure development: Use "product-project-coder-agent" mode (PRIORITY)
+- Event publishing: Use "northbound-app-event-publisher-coder-agent" mode (PRIORITY)
+- CQRS application services: Use "northbound-cqrs-business-service-and-application-service-coder-agent" mode (PRIORITY)
+- Data model development: Use "southbound-data-model-coder-agent" mode (PRIORITY)
+- Resource gateway development: Use "southbound-resource-gateway-coder-agent" mode (PRIORITY)
+
+**BASIC TASKS - USE ONLY WHEN NO SPECIALIST AVAILABLE:**
+- Architecture and design: Use "architect" mode
+- Generic coding: Use "code" mode (ONLY when no specialist member fits)
+- Debugging and troubleshooting: Use "debug" mode
+- Questions and consultation: Use "ask" mode
+
+**CRITICAL RULE: For any coding task, you MUST first check if a specialist member is available. Only use the generic "code" mode as a last resort when no specialist member matches the task requirements.**
+
+Always analyze the task deeply and choose the most specialized team member for optimal professional results.`
+
+		case "frontend-team":
+			return `TEAM MEMBER SELECTION GUIDELINES (SPECIALIST MEMBERS FIRST):
+
+**CODING TASKS - PRIORITIZE SPECIALIST MEMBERS:**
+- Project structure setup: Use "frontend-project-structure-coder-agent" mode (PRIORITY)
+- Vue component development: Use "vue-component-coder-agent" mode (PRIORITY)
+- Composable functions: Use "vue-composable-coder-agent" mode (PRIORITY)
+- API service layer: Use "api-service-coder-agent" mode (PRIORITY)
+- Mock data services: Use "mockjs-service-coder-agent" mode (PRIORITY)
+- State management: Use "pinia-store-coder-agent" mode (PRIORITY)
+- Routing configuration: Use "vue-router-coder-agent" mode (PRIORITY)
+- Testing implementation: Use "frontend-testing-coder-agent" mode (PRIORITY)
+- Build configuration: Use "vite-build-coder-agent" mode (PRIORITY)
+- UI design system: Use "ui-design-system-coder-agent" mode (PRIORITY)
+- Internationalization: Use "vue-i18n-coder-agent" mode (PRIORITY)
+
+**BASIC TASKS - USE ONLY WHEN NO SPECIALIST AVAILABLE:**
+- Architecture and design: Use "architect" mode
+- Generic coding: Use "code" mode (ONLY when no specialist member fits)
+- Debugging and troubleshooting: Use "debug" mode
+- Questions and consultation: Use "ask" mode
+
+**CRITICAL RULE: For any coding task, you MUST first check if a specialist member is available. Only use the generic "code" mode as a last resort when no specialist member matches the task requirements.**
+
+Always analyze the task deeply and choose the most specialized team member for optimal professional results.`
+
+		case "fullstack-team":
+			return `TEAM MEMBER SELECTION GUIDELINES (SPECIALIST MEMBERS FIRST):
+
+**BACKEND CODING TASKS - PRIORITIZE BACKEND SPECIALISTS:**
+- API interface development: Use "northbound-api-controller-coder-agent" mode (PRIORITY)
+- Database and persistence: Use "southbound-repository-coder-agent" mode (PRIORITY)
+- Domain model development: Use "domain-model-and-value-object-coder-agent" mode (PRIORITY)
+- Domain service development: Use "domain-service-coder-agent" mode (PRIORITY)
+- Product project structure development: Use "product-project-coder-agent" mode (PRIORITY)
+
+**FRONTEND CODING TASKS - PRIORITIZE FRONTEND SPECIALISTS:**
+- Vue component development: Use "vue-component-coder-agent" mode (PRIORITY)
+- API service layer: Use "api-service-coder-agent" mode (PRIORITY)
+- State management: Use "pinia-store-coder-agent" mode (PRIORITY)
+- Routing configuration: Use "vue-router-coder-agent" mode (PRIORITY)
+- UI design system: Use "ui-design-system-coder-agent" mode (PRIORITY)
+
+**BASIC TASKS - USE ONLY WHEN NO SPECIALIST AVAILABLE:**
+- Architecture and design: Use "architect" mode
+- Generic coding: Use "code" mode (ONLY when no specialist member fits)
+- Debugging and troubleshooting: Use "debug" mode
+- Questions and consultation: Use "ask" mode
+
+**CRITICAL RULE: For any coding task, you MUST first check if a specialist member is available. Only use the generic "code" mode as a last resort when no specialist member matches the task requirements.**
+
+Always analyze the task deeply and choose the most specialized team member for optimal professional results.`
+
+		default:
+			return `TEAM MEMBER SELECTION GUIDELINES (SPECIALIST MEMBERS FIRST):
+
+**BASIC TASKS:**
+- Architecture and design: Use "architect" mode
+- Generic coding: Use "code" mode
+- Debugging and troubleshooting: Use "debug" mode
+- Questions and consultation: Use "ask" mode
+
+Always analyze the task deeply and choose the most appropriate team member for optimal results.`
+	}
+}
+
 export async function getModesSection(
 	context: vscode.ExtensionContext,
 	currentTeam?: string,
@@ -42,28 +137,7 @@ Team Description: ${teamConfig.description || "A professional development team"}
 
 You can switch to any of these team members using the switch_mode tool when their expertise is needed for the current task.
 
-TEAM MEMBER SELECTION GUIDELINES (SPECIALIST MEMBERS FIRST):
-
-**CODING TASKS - PRIORITIZE SPECIALIST MEMBERS:**
-- API interface development: Use "northbound-api-controller-coder-agent" mode (PRIORITY)
-- Database and persistence: Use "outhbound-respository-coder-agent" mode (PRIORITY)
-- Domain model development: Use "domain-model-and-value-object-coder-agent" mode (PRIORITY)
-- Domain service development: Use "domain-service-coder-agent" mode (PRIORITY)
-- Product project structure development: Use "product-project-coder-agent" mode (PRIORITY)
-- Event publishing: Use "northbound-app-event-publisher-coder-agent" mode (PRIORITY)
-- CQRS application services: Use "northbound-cqrs-business-service-and-application-service-coder-agent" mode (PRIORITY)
-- Data model development: Use "outhbound-data-model-coder-agent" mode (PRIORITY)
-- Resource gateway development: Use "outhbound-resource-gateway-coder-agent" mode (PRIORITY)
-
-**BASIC TASKS - USE ONLY WHEN NO SPECIALIST AVAILABLE:**
-- Architecture and design: Use "architect" mode
-- Generic coding: Use "code" mode (ONLY when no specialist member fits)
-- Debugging and troubleshooting: Use "debug" mode
-- Questions and consultation: Use "ask" mode
-
-**CRITICAL RULE: For any coding task, you MUST first check if a specialist member is available. Only use the generic "code" mode as a last resort when no specialist member matches the task requirements.**
-
-Always analyze the task deeply and choose the most specialized team member for optimal professional results.
+${generateTeamSpecificGuidelines(currentTeam)}
 `
 
 			modesContent += `

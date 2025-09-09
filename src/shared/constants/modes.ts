@@ -61,6 +61,23 @@ export const CLIENT_MODES = {
 } as const
 
 /**
+ * 专业模式常量 - 前端层
+ */
+export const FRONTEND_MODES = {
+	PROJECT_STRUCTURE: "frontend-project-structure-coder-agent",
+	VUE_COMPONENT: "vue-component-coder-agent",
+	VUE_COMPOSABLE: "vue-composable-coder-agent",
+	MOCKJS_SERVICE: "mockjs-service-coder-agent",
+	API_SERVICE: "api-service-coder-agent",
+	PINIA_STORE: "pinia-store-coder-agent",
+	VUE_ROUTER: "vue-router-coder-agent",
+	FRONTEND_TESTING: "frontend-testing-coder-agent",
+	VITE_BUILD: "vite-build-coder-agent",
+	UI_DESIGN_SYSTEM: "ui-design-system-coder-agent",
+	VUE_I18N: "vue-i18n-coder-agent",
+} as const
+
+/**
  * 所有模式常量的联合类型
  */
 export const ALL_MODES = {
@@ -70,6 +87,7 @@ export const ALL_MODES = {
 	...DOMAIN_MODES,
 	...SOUTHBOUND_MODES,
 	...CLIENT_MODES,
+	...FRONTEND_MODES,
 } as const
 
 /**
@@ -87,6 +105,11 @@ export const SPECIALTY_MODE_LIST = [
 	...Object.values(SOUTHBOUND_MODES),
 	...Object.values(CLIENT_MODES),
 ]
+
+/**
+ * 前端专业模式列表
+ */
+export const FRONTEND_SPECIALTY_MODE_LIST = Object.values(FRONTEND_MODES)
 
 /**
  * 所有模式列表
@@ -129,6 +152,19 @@ export const MODE_DISPLAY_NAMES: Record<string, string> = {
 
 	// 客户端层
 	[CLIENT_MODES.CLIENT]: "客户端开发同学",
+
+	// 前端层
+	[FRONTEND_MODES.PROJECT_STRUCTURE]: "前端项目结构开发同学",
+	[FRONTEND_MODES.VUE_COMPONENT]: "Vue组件开发同学",
+	[FRONTEND_MODES.VUE_COMPOSABLE]: "Vue组合式函数开发同学",
+	[FRONTEND_MODES.MOCKJS_SERVICE]: "MockJS数据模拟开发同学",
+	[FRONTEND_MODES.API_SERVICE]: "API服务开发同学",
+	[FRONTEND_MODES.PINIA_STORE]: "Pinia状态管理开发同学",
+	[FRONTEND_MODES.VUE_ROUTER]: "Vue路由开发同学",
+	[FRONTEND_MODES.FRONTEND_TESTING]: "前端测试开发同学",
+	[FRONTEND_MODES.VITE_BUILD]: "Vite构建开发同学",
+	[FRONTEND_MODES.UI_DESIGN_SYSTEM]: "UI设计系统开发同学",
+	[FRONTEND_MODES.VUE_I18N]: "Vue国际化开发同学",
 } as const
 
 /**
@@ -190,6 +226,52 @@ export const TASK_MODE_MAPPING = [
 		mode: BASE_MODES.DEBUG,
 		reason: "任务涉及问题调试",
 	},
+	// 前端相关任务映射
+	{
+		keywords: ["vue", "组件", "component"],
+		mode: FRONTEND_MODES.VUE_COMPONENT,
+		reason: "任务涉及Vue组件开发",
+	},
+	{
+		keywords: ["路由", "router", "导航"],
+		mode: FRONTEND_MODES.VUE_ROUTER,
+		reason: "任务涉及路由配置",
+	},
+	{
+		keywords: ["状态管理", "pinia", "store"],
+		mode: FRONTEND_MODES.PINIA_STORE,
+		reason: "任务涉及状态管理",
+	},
+	{
+		keywords: ["api", "接口", "请求", "axios"],
+		mode: FRONTEND_MODES.API_SERVICE,
+		reason: "任务涉及API服务",
+	},
+	{
+		keywords: ["mock", "模拟", "数据"],
+		mode: FRONTEND_MODES.MOCKJS_SERVICE,
+		reason: "任务涉及数据模拟",
+	},
+	{
+		keywords: ["测试", "test", "单元测试"],
+		mode: FRONTEND_MODES.FRONTEND_TESTING,
+		reason: "任务涉及前端测试",
+	},
+	{
+		keywords: ["构建", "打包", "vite", "build"],
+		mode: FRONTEND_MODES.VITE_BUILD,
+		reason: "任务涉及构建配置",
+	},
+	{
+		keywords: ["国际化", "i18n", "多语言"],
+		mode: FRONTEND_MODES.VUE_I18N,
+		reason: "任务涉及国际化",
+	},
+	{
+		keywords: ["ui", "设计", "主题", "样式"],
+		mode: FRONTEND_MODES.UI_DESIGN_SYSTEM,
+		reason: "任务涉及UI设计系统",
+	},
 ] as const
 
 export type ModeConstant = (typeof ALL_MODES)[keyof typeof ALL_MODES]
@@ -200,3 +282,4 @@ export type SpecialtyModeConstant =
 	| (typeof DOMAIN_MODES)[keyof typeof DOMAIN_MODES]
 	| (typeof SOUTHBOUND_MODES)[keyof typeof SOUTHBOUND_MODES]
 	| (typeof CLIENT_MODES)[keyof typeof CLIENT_MODES]
+	| (typeof FRONTEND_MODES)[keyof typeof FRONTEND_MODES]

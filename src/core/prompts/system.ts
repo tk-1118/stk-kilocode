@@ -34,8 +34,37 @@ import {
 	addCustomInstructions,
 	markdownFormattingSection,
 	getDddGuidelinesSection,
+	getFrontendGuidelinesSection,
 } from "./sections"
 import { type ClineProviderState } from "../webview/ClineProvider" // kilocode_change
+
+/**
+ * 生成团队特定的指导原则
+ *
+ * @param clineProviderState - ClineProvider状态信息
+ * @returns 团队特定指导原则字符串
+ */
+function generateTeamSpecificGuidelines(clineProviderState?: ClineProviderState): string {
+	if (!clineProviderState?.currentTeam) {
+		return ""
+	}
+
+	// 根据当前团队决定显示哪种指导原则
+	switch (clineProviderState.currentTeam) {
+		case "backend-team":
+			return getDddGuidelinesSection(clineProviderState)
+		case "frontend-team":
+			return getFrontendGuidelinesSection(clineProviderState)
+		case "fullstack-team": {
+			// 全栈团队显示两种指导原则
+			const dddSection = getDddGuidelinesSection(clineProviderState)
+			const frontendSection = getFrontendGuidelinesSection(clineProviderState)
+			return dddSection + "\n\n" + frontendSection
+		}
+		default:
+			return ""
+	}
+}
 
 /**
  * 生成团队成员推荐信息
@@ -180,8 +209,8 @@ async function generatePrompt(
 	// 生成团队成员推荐信息
 	const teamRecommendationSection = generateTeamRecommendationSection(clineProviderState)
 
-	// 生成DDD指导原则信息
-	const dddGuidelinesSection = getDddGuidelinesSection(clineProviderState)
+	// 生成团队特定的指导原则信息
+	const guidelinesSection = generateTeamSpecificGuidelines(clineProviderState)
 
 	const basePrompt = `${roleDefinition}
 
@@ -216,7 +245,7 @@ ${modesSection}
 
 ${teamRecommendationSection}
 
-${dddGuidelinesSection}
+${guidelinesSection}
 
 ${getRulesSection(cwd, supportsComputerUse, effectiveDiffStrategy, codeIndexManager, clineProviderState /* kilocode_change */)}
 

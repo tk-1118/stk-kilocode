@@ -77,6 +77,20 @@ const SPECIALTY_MODE_LIST = [
 	"client-coder-agent",
 ] as const
 
+const FRONTEND_SPECIALTY_MODE_LIST = [
+	"frontend-project-structure-coder-agent",
+	"vue-component-coder-agent",
+	"vue-composable-coder-agent",
+	"mockjs-service-coder-agent",
+	"api-service-coder-agent",
+	"pinia-store-coder-agent",
+	"vue-router-coder-agent",
+	"frontend-testing-coder-agent",
+	"vite-build-coder-agent",
+	"ui-design-system-coder-agent",
+	"vue-i18n-coder-agent",
+] as const
+
 /**
  * 开发团队配置
  */
@@ -213,7 +227,7 @@ export const DEFAULT_TEAMS: readonly TeamConfig[] = [
 		iconName: TEAM_ICONS.BROWSER,
 		color: TEAM_COLORS.REACT_BLUE,
 		baseModes: BASE_MODE_LIST.filter((mode: string) => ["architect", "code", "ask", "debug"].includes(mode)),
-		specialtyModes: [], // 前端专业模式待定义
+		specialtyModes: [...FRONTEND_SPECIALTY_MODE_LIST],
 		projectDetection: {
 			filePatterns: [...PROJECT_DETECTION.FRONTEND_FILE_PATTERNS],
 			configFiles: [...PROJECT_DETECTION.FRONTEND_CONFIG_FILES],
