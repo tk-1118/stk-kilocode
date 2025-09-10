@@ -2131,7 +2131,7 @@ export class ClineProvider
 			terminalZshP10k: stateValues.terminalZshP10k ?? false,
 			terminalZdotdir: stateValues.terminalZdotdir ?? false,
 			terminalCompressProgressBar: stateValues.terminalCompressProgressBar ?? true,
-			mode: stateValues.mode ?? defaultModeSlug,
+			mode: await this.validateAndMigrateMode(stateValues.mode, customModes),
 			language: stateValues.language ?? formatLanguage(vscode.env.language),
 			mcpEnabled: true, // kilocode_change: always true
 			enableMcpServerCreation: stateValues.enableMcpServerCreation ?? true,
@@ -2419,6 +2419,52 @@ export class ClineProvider
 		return {
 			cloudIsAuthenticated,
 		}
+	}
+
+	/**
+	 * 验证和迁移模式值
+	 * 处理旧模式到新模式的迁移，确保模式值始终有效
+	 */
+	private async validateAndMigrateMode(currentMode: string | undefined, customModes: ModeConfig[]): Promise<string> {
+		// 使用默认模式作为后备
+		const mode = currentMode ?? defaultModeSlug
+
+		// 检查当前模式是否仍然存在
+		const modeExists = getModeBySlug(mode, customModes) !== undefined
+
+		if (!modeExists) {
+			// 处理旧模式的迁移
+			const migratedMode = this.migrateOldMode(mode)
+			if (migratedMode !== mode) {
+				this.log(`Mode '${mode}' no longer exists. Migrating to '${migratedMode}'.`)
+				// 更新持久化状态
+				await this.updateGlobalState("mode", migratedMode)
+				return migratedMode
+			} else {
+				// 如果没有合适的迁移，使用默认模式
+				this.log(`Mode '${mode}' no longer exists. Falling back to default mode '${defaultModeSlug}'.`)
+				await this.updateGlobalState("mode", defaultModeSlug)
+				return defaultModeSlug
+			}
+		}
+
+		return mode
+	}
+
+	/**
+	 * 迁移旧模式到新模式
+	 * 定义旧模式到新模式的映射关系
+	 */
+	private migrateOldMode(oldMode: string): string {
+		// 定义旧模式到新模式的映射
+		const migrationMap: Record<string, string> = {
+			ask: "sa01-system-architect",
+			architect: "sa01-system-architect",
+			code: "dev99-coder",
+			debug: "qa01-debug",
+		}
+
+		return migrationMap[oldMode] || defaultModeSlug
 	}
 
 	private async getTaskProperties(): Promise<DynamicAppProperties & TaskProperties> {

@@ -17,18 +17,21 @@ describe("isToolAllowedForMode", () => {
 		{
 			slug: "markdown-editor",
 			name: "Markdown Editor",
+			roleName: "Markdown Editor",
 			roleDefinition: "You are a markdown editor",
 			groups: ["read", ["edit", { fileRegex: "\\.md$" }], "browser"],
 		},
 		{
 			slug: "css-editor",
 			name: "CSS Editor",
+			roleName: "CSS Editor",
 			roleDefinition: "You are a CSS editor",
 			groups: ["read", ["edit", { fileRegex: "\\.css$" }], "browser"],
 		},
 		{
 			slug: "test-exp-mode",
 			name: "Test Exp Mode",
+			roleName: "Test Exp Mode",
 			roleDefinition: "You are an experimental tester",
 			groups: ["read", "edit", "browser"],
 		},
@@ -149,6 +152,7 @@ describe("isToolAllowedForMode", () => {
 				{
 					slug: "docs-editor",
 					name: "Documentation Editor",
+					roleName: "Documentation Editor",
 					roleDefinition: "You are a documentation editor",
 					groups: [
 						"read",
@@ -421,6 +425,7 @@ describe("FileRestrictionError", () => {
 				{
 					slug: "debug",
 					name: "Custom Debug",
+					roleName: "Custom Debug",
 					roleDefinition: "Custom debug role",
 					groups: ["read"],
 				},
@@ -504,6 +509,7 @@ describe("getModeSelection", () => {
 		{
 			slug: "code", // Override
 			name: "Custom Code Mode",
+			roleName: "Custom Code Mode",
 			roleDefinition: "Custom Code Role",
 			customInstructions: "Custom Code Instructions",
 			groups: ["read"],
@@ -511,6 +517,7 @@ describe("getModeSelection", () => {
 		{
 			slug: "new-custom",
 			name: "New Custom Mode",
+			roleName: "New Custom Mode",
 			roleDefinition: "New Custom Role",
 			customInstructions: "New Custom Instructions",
 			groups: ["edit"],
@@ -594,6 +601,7 @@ describe("getModeSelection", () => {
 			{
 				slug: "no-instr",
 				name: "No Instructions Mode",
+				roleName: "No Instructions Mode",
 				roleDefinition: "Role for no instructions",
 				groups: ["read"],
 				// customInstructions is undefined
@@ -609,6 +617,7 @@ describe("getModeSelection", () => {
 			{
 				slug: "empty-role",
 				name: "Empty Role Mode",
+				roleName: "Empty Role Mode",
 				roleDefinition: "",
 				customInstructions: "Instructions for empty role",
 				groups: ["read"],
@@ -622,6 +631,7 @@ describe("getModeSelection", () => {
 			{
 				slug: "undefined-role",
 				name: "Undefined Role Mode",
+				roleName: "Undefined Role Mode",
 				roleDefinition: "", // Test undefined explicitly by using an empty string
 				customInstructions: "Instructions for undefined role",
 				groups: ["read"],
@@ -638,6 +648,7 @@ describe("getModeSelection", () => {
 			{
 				slug: "role-custom",
 				name: "Role Custom",
+				roleName: "Role Custom",
 				roleDefinition: "Custom Role Only",
 				groups: ["read"] /* customInstructions undefined */,
 			},
@@ -656,6 +667,7 @@ describe("getModeSelection", () => {
 			{
 				slug: "instr-custom",
 				name: "Instr Custom",
+				roleName: "Instr Custom",
 				roleDefinition: "", // Explicitly empty
 				customInstructions: "Custom Instructions Only",
 				groups: ["read"],
@@ -671,7 +683,13 @@ describe("getModeSelection", () => {
 
 	test("customMode with empty/undefined fields takes precedence over promptComponent and builtInMode", () => {
 		const customModeMinimal: ModeConfig[] = [
-			{ slug: "ask", name: "Custom Ask Minimal", roleDefinition: "", groups: ["read"] }, // roleDef empty, customInstr undefined
+			{
+				slug: "ask",
+				name: "Custom Ask Minimal",
+				roleName: "Custom Ask Minimal",
+				roleDefinition: "",
+				groups: ["read"],
+			}, // roleDef empty, customInstr undefined
 		]
 		const promptComponentMinimal: PromptComponent = {
 			roleDefinition: "Prompt Min Role",

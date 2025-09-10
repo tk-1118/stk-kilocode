@@ -126,6 +126,18 @@ export function getModeDisplayName(modeSlug: string): string {
 	return mode?.name || modeSlug
 }
 
+/**
+ * 获取模式的角色名称（团队成员岗位名称）
+ *
+ * 🎯 真正的统一数据源方案：直接从 DEFAULT_MODES 获取
+ * 这确保了与权威数据源 packages/types/src/mode.ts 的完全一致性
+ */
+export function getModeRoleName(modeSlug: string): string {
+	// 直接从 DEFAULT_MODES 查找对应的模式
+	const mode = DEFAULT_MODES.find((m) => m.slug === modeSlug)
+	return mode?.roleName || modeSlug
+}
+
 // 基础模式相关函数实现
 
 /**

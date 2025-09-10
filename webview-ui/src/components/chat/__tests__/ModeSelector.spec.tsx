@@ -79,6 +79,7 @@ describe("ModeSelector", () => {
 		mockModes = Array.from({ length: 7 }, (_, i) => ({
 			slug: `mode-${i}`,
 			name: `Mode ${i}`,
+			roleName: `Mode ${i}`,
 			description: `Description for mode ${i}`,
 			roleDefinition: "Role definition",
 			groups: ["read", "edit"],
@@ -103,6 +104,7 @@ describe("ModeSelector", () => {
 		mockModes = Array.from({ length: 5 }, (_, i) => ({
 			slug: `mode-${i}`,
 			name: `Mode ${i}`,
+			roleName: `Mode ${i}`,
 			description: `Description for mode ${i}`,
 			roleDefinition: "Role definition",
 			groups: ["read", "edit"],
@@ -129,6 +131,7 @@ describe("ModeSelector", () => {
 		mockModes = Array.from({ length: 7 }, (_, i) => ({
 			slug: `mode-${i}`,
 			name: `Mode ${i}`,
+			roleName: `Mode ${i}`,
 			description: `Description for mode ${i}`,
 			roleDefinition: "Role definition",
 			groups: ["read", "edit"],
@@ -153,6 +156,7 @@ describe("ModeSelector", () => {
 		mockModes = Array.from({ length: 10 }, (_, i) => ({
 			slug: `mode-${i}`,
 			name: `Mode ${i}`,
+			roleName: `Mode ${i}`,
 			description: `Description for mode ${i}`,
 			roleDefinition: "Role definition",
 			groups: ["read", "edit"],
@@ -181,6 +185,7 @@ describe("ModeSelector", () => {
 		mockModes = Array.from({ length: 8 }, (_, i) => ({
 			slug: `mode-${i}`,
 			name: `Mode ${i}`,
+			roleName: `Mode ${i}`,
 			description: `Description for mode ${i}`,
 			roleDefinition: "Role definition",
 			groups: ["read", "edit"],

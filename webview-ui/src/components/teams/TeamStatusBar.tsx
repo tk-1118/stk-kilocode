@@ -1,7 +1,7 @@
 import React from "react"
 import { TeamConfig } from "@roo-code/types"
 import { cn } from "@/lib/utils"
-import { getTeamBySlug, getModeDisplayName } from "@/utils/teams"
+import { getTeamBySlug, getModeDisplayName, getModeRoleName } from "@/utils/teams"
 
 interface TeamStatusBarProps {
 	currentTeam?: string
@@ -25,6 +25,9 @@ export const TeamStatusBar: React.FC<TeamStatusBarProps> = ({
 	// 使用统一的模式显示名称
 	const memberName = getModeDisplayName(currentMode)
 
+	// 使用统一的模式角色名称
+	const modeRoleName = getModeRoleName(currentMode)
+
 	return (
 		<div
 			className={cn(
@@ -42,7 +45,12 @@ export const TeamStatusBar: React.FC<TeamStatusBarProps> = ({
 					)}
 					<span className="font-medium">{team.name}</span>
 				</div>
-
+				{/* 分隔符 */}
+				<div className="w-px h-3 bg-[var(--vscode-statusBar-border)]" />
+				{/* 当前成员所属岗位 */}
+				<div className="flex items-center gap-1.5">
+					<span>{modeRoleName}</span>
+				</div>
 				{/* 分隔符 */}
 				<div className="w-px h-3 bg-[var(--vscode-statusBar-border)]" />
 
@@ -57,7 +65,7 @@ export const TeamStatusBar: React.FC<TeamStatusBarProps> = ({
 					<span>{memberName}</span>
 					{/* 状态文字紧贴成员名 */}
 					<span className="text-[var(--vscode-statusBar-foreground)] opacity-75">
-						{isWorking ? "工作中" : "待命中"}
+						{isWorking ? "正在工作" : "待命中"}
 					</span>
 				</div>
 			</div>

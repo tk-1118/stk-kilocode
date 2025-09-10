@@ -315,6 +315,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 		const newMode: ModeConfig = {
 			slug: newModeSlug,
 			name: newModeName,
+			roleName: newModeName, // 使用模式名称作为角色名称
 			description: newModeDescription.trim() || undefined,
 			roleDefinition: newModeRoleDefinition.trim(),
 			whenToUse: newModeWhenToUse.trim() || undefined,

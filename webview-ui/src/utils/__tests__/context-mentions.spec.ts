@@ -464,12 +464,14 @@ describe("getContextMenuOptions", () => {
 			{
 				slug: "code",
 				name: "Code",
+				roleName: "Code",
 				roleDefinition: "You are a coding assistant",
 				groups: ["read" as const, "edit" as const],
 			},
 			{
 				slug: "architect",
 				name: "Architect",
+				roleName: "Architect",
 				roleDefinition: "You are an architecture assistant",
 				groups: ["read" as const],
 			},
