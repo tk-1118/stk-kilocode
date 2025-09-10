@@ -33,7 +33,7 @@ export const ActiveTeamMember: React.FC<ActiveTeamMemberProps> = ({
 			<div className="flex-1 min-w-0">
 				<div className="text-xs font-medium text-[var(--vscode-foreground)] truncate">{memberName}</div>
 				<div className="text-xs text-[var(--vscode-descriptionForeground)] truncate">
-					{isWorking ? "正在工作" : "待命中"}
+					{isWorking ? "正在工作中" : "待命中"}
 				</div>
 			</div>
 

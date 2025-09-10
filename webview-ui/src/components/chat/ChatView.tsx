@@ -1989,6 +1989,12 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						currentMode={mode}
 						customTeams={customTeams}
 						isWorking={sendingDisabled}
+						messages={messages}
+						apiMetrics={{
+							tokensIn: apiMetrics.totalTokensIn,
+							tokensOut: apiMetrics.totalTokensOut,
+							totalCost: apiMetrics.totalCost,
+						}}
 					/>
 
 					{hasSystemPromptOverride && (

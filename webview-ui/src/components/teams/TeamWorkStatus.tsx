@@ -113,7 +113,7 @@ export const TeamWorkStatus: React.FC<TeamWorkStatusProps> = ({ team, workStatus
 									<div className="flex-1">
 										<div className="font-medium text-[var(--vscode-foreground)]">{memberName}</div>
 										<div className="text-xs text-[var(--vscode-descriptionForeground)]">
-											{isWorking ? "正在工作" : isActive ? "待命中" : "空闲"}
+											{isWorking ? "正在工作中" : isActive ? "待命中" : "空闲"}
 										</div>
 									</div>
 								</div>
