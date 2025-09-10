@@ -84,17 +84,20 @@ export const CLIENT_MODES = {
  * 专业模式常量 - 前端层
  */
 export const FRONTEND_MODES = {
-	PROJECT_STRUCTURE: "frontend-project-structure-coder-agent",
-	VUE_COMPONENT: "vue-component-coder-agent",
-	VUE_COMPOSABLE: "vue-composable-coder-agent",
-	MOCKJS_SERVICE: "mockjs-service-coder-agent",
-	API_SERVICE: "api-service-coder-agent",
-	PINIA_STORE: "pinia-store-coder-agent",
-	VUE_ROUTER: "vue-router-coder-agent",
-	FRONTEND_TESTING: "frontend-testing-coder-agent",
-	VITE_BUILD: "vite-build-coder-agent",
-	UI_DESIGN_SYSTEM: "ui-design-system-coder-agent",
-	VUE_I18N: "vue-i18n-coder-agent",
+	PROJECT_STRUCTURE: "dev01-vue3ts-frontend-project-structure-coder-agent",
+	VUE_COMPONENT: "dev02-vue3ts-component-coder-agent",
+	VUE_COMPOSABLE: "dev03-vue3ts-composable-coder-agent",
+	MOCKJS_SERVICE: "dev04-vue3ts-mockjs-service-coder-agent",
+	API_SERVICE: "dev05-vue3ts-api-service-coder-agent",
+	PINIA_STORE: "dev06-vue3ts-pinia-store-coder-agent",
+	VUE_ROUTER: "dev07-vue3ts-router-coder-agent",
+	FRONTEND_TESTING: "dev08-vue3ts-frontend-testing-coder-agent",
+	VITE_BUILD: "dev09-vue3ts-vite-build-coder-agent",
+	UI_DESIGN_SYSTEM: "dev10-vue3ts-ui-design-system-coder-agent",
+	VUE_I18N: "dev11-vue3ts-i18n-coder-agent",
+	OBSERVABILITY_PERFORMANCE: "dev12-vue3ts-observability-performance-coder-agent",
+	FRONTEND_SECURITY: "dev13-vue3ts-frontend-security-coder-agent",
+	PAGE_DEVELOPMENT: "dev14-vue3ts-page-coder-agent",
 } as const
 
 /**

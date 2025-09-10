@@ -92,17 +92,20 @@ const BACKEND_SPECIALTY_MODE_LIST = [
 ] as const
 
 const FRONTEND_SPECIALTY_MODE_LIST = [
-	"frontend-project-structure-coder-agent",
-	"vue-component-coder-agent",
-	"vue-composable-coder-agent",
-	"mockjs-service-coder-agent",
-	"api-service-coder-agent",
-	"pinia-store-coder-agent",
-	"vue-router-coder-agent",
-	"frontend-testing-coder-agent",
-	"vite-build-coder-agent",
-	"ui-design-system-coder-agent",
-	"vue-i18n-coder-agent",
+	"dev01-vue3ts-frontend-project-structure-coder-agent",
+	"dev02-vue3ts-component-coder-agent",
+	"dev03-vue3ts-composable-coder-agent",
+	"dev04-vue3ts-mockjs-service-coder-agent",
+	"dev05-vue3ts-api-service-coder-agent",
+	"dev06-vue3ts-pinia-store-coder-agent",
+	"dev07-vue3ts-router-coder-agent",
+	"dev08-vue3ts-frontend-testing-coder-agent",
+	"dev09-vue3ts-vite-build-coder-agent",
+	"dev10-vue3ts-ui-design-system-coder-agent",
+	"dev11-vue3ts-i18n-coder-agent",
+	"dev12-vue3ts-observability-performance-coder-agent",
+	"dev13-vue3ts-frontend-security-coder-agent",
+	"dev14-vue3ts-page-coder-agent",
 ] as const
 
 /**
