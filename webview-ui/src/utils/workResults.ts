@@ -1,5 +1,21 @@
 /**
  * 工作成果数据处理工具函数
+ *
+ * 主要功能：
+ * 1. 从AI助手消息历史中提取工作成果数据
+ * 2. 全面统计代码行数，包括：
+ *    - 传统代码块 (```...```)
+ *    - 文件操作（新建、编辑、应用差异）
+ *    - 命令执行操作
+ *    - 特殊架构模板操作
+ * 3. 按团队和成员分配工作量和Token消耗
+ * 4. 生成详细的工作成果报告和分析
+ *
+ * 改进说明：
+ * - 解决了之前仅依赖```代码块识别的局限性
+ * - 新增了对工具操作JSON和文本描述的识别
+ * - 添加了详细的调试日志和统计明细
+ * - 支持导出详细分析结果用于调试
  */
 
 import type { ClineMessage } from "@roo-code/types"
@@ -306,48 +322,411 @@ function extractModeFromMessage(message: ClineMessage): string | null {
 }
 
 /**
- * 估算代码行数
+ * 工具操作类型定义
+ */
+interface ToolOperation {
+	tool: string
+	path?: string
+	content?: string
+	diff?: string
+	batchDiffs?: Array<{ path: string; diff: string }>
+	batchFiles?: Array<{ path: string }>
+	command?: string
+	output?: string
+}
+
+/**
+ * 代码行数统计结果
+ */
+interface CodeLinesResult {
+	totalLines: number
+	breakdown: {
+		codeBlocks: number
+		fileOperations: number
+		commandOperations: number
+		archetype: number
+	}
+	details: Array<{
+		type: string
+		lines: number
+		description: string
+	}>
+}
+
+/**
+ * 全面的代码行数估算函数
+ * 统计所有类型的工作成果：代码块、文件操作、命令执行等
  */
 function estimateCodeLines(text: string): number {
 	if (!text) return 0
 
-	// 只统计明确的代码块，不进行关键字估算
+	const result = estimateCodeLinesDetailed(text)
+
+	console.log("📊 代码行数统计详情:", {
+		文本长度: text.length,
+		总代码行数: result.totalLines,
+		统计明细: result.breakdown,
+		操作详情: result.details,
+		文本预览: text.substring(0, 200) + (text.length > 200 ? "..." : ""),
+	})
+
+	return result.totalLines
+}
+
+/**
+ * 详细的代码行数估算函数
+ * 返回完整的统计结果和明细
+ */
+function estimateCodeLinesDetailed(text: string): CodeLinesResult {
+	if (!text) {
+		return {
+			totalLines: 0,
+			breakdown: { codeBlocks: 0, fileOperations: 0, commandOperations: 0, archetype: 0 },
+			details: [],
+		}
+	}
+
+	const result: CodeLinesResult = {
+		totalLines: 0,
+		breakdown: { codeBlocks: 0, fileOperations: 0, commandOperations: 0, archetype: 0 },
+		details: [],
+	}
+
+	// 1. 统计传统代码块 (```...```)
+	const codeBlockLines = countCodeBlocks(text, result)
+
+	// 2. 统计工具操作产生的代码行数
+	const toolOperationLines = countToolOperations(text, result)
+
+	// 3. 统计特殊架构模板
+	const archetypeLines = countArchetypeOperations(text, result)
+
+	result.totalLines = codeBlockLines + toolOperationLines + archetypeLines
+
+	return result
+}
+
+/**
+ * 统计代码块行数
+ */
+function countCodeBlocks(text: string, result: CodeLinesResult): number {
 	const codeBlockRegex = /```[\s\S]*?```/g
 	const codeBlocks = text.match(codeBlockRegex) || []
-
 	let totalLines = 0
-	codeBlocks.forEach((block) => {
+
+	codeBlocks.forEach((block, index) => {
 		// 移除开头和结尾的```
 		const code = block.replace(/^```[\w]*\n?/, "").replace(/\n?```$/, "")
 		// 计算非空行数
 		const lines = code.split("\n").filter((line) => line.trim().length > 0)
-		totalLines += lines.length
+		const lineCount = lines.length
+		totalLines += lineCount
 
-		lines.forEach((line) => {
-			if (line?.indexOf("zz-rhombus-project-archetype") !== -1) {
-				totalLines += 150
-			} else if (line?.indexOf("zz-rhombus-group-archetype") !== -1) {
-				totalLines += 60
-			} else if (line?.indexOf("zz-rhombus-module-archetype") !== -1) {
-				totalLines += 300
-			}
+		result.details.push({
+			type: "代码块",
+			lines: lineCount,
+			description: `代码块 #${index + 1} (${lineCount} 行)`,
 		})
+
 		console.log("📝 发现代码块:", {
+			索引: index + 1,
 			原始长度: block.length,
 			代码内容长度: code.length,
-			代码行数: lines.length,
+			代码行数: lineCount,
 			代码预览: code.substring(0, 100) + (code.length > 100 ? "..." : ""),
 		})
 	})
 
-	console.log("📊 代码行数统计:", {
-		文本长度: text.length,
-		代码块数量: codeBlocks.length,
-		总代码行数: totalLines,
-		文本预览: text.substring(0, 200) + (text.length > 200 ? "..." : ""),
+	result.breakdown.codeBlocks = totalLines
+	return totalLines
+}
+
+/**
+ * 统计工具操作产生的代码行数
+ */
+function countToolOperations(text: string, result: CodeLinesResult): number {
+	let totalLines = 0
+
+	try {
+		// 尝试解析为工具操作JSON
+		const toolOperation = JSON.parse(text) as ToolOperation
+		const operationLines = estimateToolOperationLines(toolOperation, result)
+		totalLines += operationLines
+	} catch (_e) {
+		// 不是JSON格式，可能包含多个工具操作描述
+		// 查找工具操作的文本描述模式
+		totalLines += countToolOperationDescriptions(text, result)
+	}
+
+	result.breakdown.fileOperations += totalLines
+	return totalLines
+}
+
+/**
+ * 估算单个工具操作的代码行数
+ */
+function estimateToolOperationLines(tool: ToolOperation, result: CodeLinesResult): number {
+	let lines = 0
+	let description = ""
+
+	switch (tool.tool) {
+		case "newFileCreated":
+		case "editedExistingFile":
+		case "appliedDiff":
+			if (tool.content) {
+				lines = countNonEmptyLines(tool.content)
+				description = `${tool.tool} - ${tool.path} (${lines} 行)`
+			} else if (tool.diff) {
+				// 对于diff，只统计新增的行（+开头的行）
+				const addedLines = tool.diff
+					.split("\n")
+					.filter((line) => line.startsWith("+") && !line.startsWith("+++")).length
+				lines = addedLines
+				description = `${tool.tool} - ${tool.path} (新增 ${lines} 行)`
+			}
+			break
+
+		case "insertContent":
+			if (tool.content) {
+				lines = countNonEmptyLines(tool.content)
+				description = `插入内容 - ${tool.path} (${lines} 行)`
+			}
+			break
+
+		case "batchDiffs":
+			if (tool.batchDiffs && Array.isArray(tool.batchDiffs)) {
+				tool.batchDiffs.forEach((batchItem, index) => {
+					const batchLines = batchItem.diff
+						.split("\n")
+						.filter((line) => line.startsWith("+") && !line.startsWith("+++")).length
+					lines += batchLines
+					result.details.push({
+						type: "批量编辑",
+						lines: batchLines,
+						description: `批量编辑 #${index + 1} - ${batchItem.path} (新增 ${batchLines} 行)`,
+					})
+				})
+				description = `批量文件编辑 (${tool.batchDiffs.length} 个文件，共 ${lines} 行)`
+			}
+			break
+
+		case "command":
+			// 命令执行通常不直接产生代码，但可以根据命令类型估算影响
+			lines = estimateCommandImpact(tool.command || "", tool.output || "")
+			if (lines > 0) {
+				description = `命令执行 - ${tool.command} (估算影响 ${lines} 行)`
+			}
+			break
+
+		case "readFile":
+		case "list_files":
+		case "search_files":
+			// 读取操作不产生代码行数
+			lines = 0
+			break
+
+		default:
+			// 其他工具操作的默认估算
+			if (tool.content) {
+				lines = Math.min(countNonEmptyLines(tool.content), 50) // 限制最大50行
+				description = `${tool.tool} (估算 ${lines} 行)`
+			}
+			break
+	}
+
+	if (lines > 0 && description) {
+		result.details.push({
+			type: "工具操作",
+			lines,
+			description,
+		})
+	}
+
+	return lines
+}
+
+/**
+ * 统计工具操作描述文本中的代码行数
+ */
+function countToolOperationDescriptions(text: string, result: CodeLinesResult): number {
+	let totalLines = 0
+
+	// 查找文件操作描述模式
+	const fileOperationPatterns = [
+		/创建(?:了|新)?文件[：:]?\s*([^\n]+)/gi,
+		/编辑(?:了)?文件[：:]?\s*([^\n]+)/gi,
+		/修改(?:了)?文件[：:]?\s*([^\n]+)/gi,
+		/新建(?:了)?文件[：:]?\s*([^\n]+)/gi,
+		/写入(?:了)?文件[：:]?\s*([^\n]+)/gi,
+	]
+
+	fileOperationPatterns.forEach((pattern) => {
+		let match
+		while ((match = pattern.exec(text)) !== null) {
+			// 为每个文件操作估算基础行数
+			const estimatedLines = 20 // 每个文件操作的基础估算行数
+			totalLines += estimatedLines
+
+			result.details.push({
+				type: "文件操作描述",
+				lines: estimatedLines,
+				description: `文件操作: ${match[1] || "未知文件"} (估算 ${estimatedLines} 行)`,
+			})
+		}
+	})
+
+	// 查找命令执行描述模式
+	const commandPatterns = [
+		/执行(?:了)?命令[：:]?\s*([^\n]+)/gi,
+		/运行(?:了)?[：:]?\s*([^\n]+)/gi,
+		/安装(?:了)?[：:]?\s*([^\n]+)/gi,
+	]
+
+	commandPatterns.forEach((pattern) => {
+		let match
+		while ((match = pattern.exec(text)) !== null) {
+			const commandImpact = estimateCommandImpact(match[1] || "", "")
+			if (commandImpact > 0) {
+				totalLines += commandImpact
+				result.details.push({
+					type: "命令执行描述",
+					lines: commandImpact,
+					description: `命令执行: ${match[1]} (估算影响 ${commandImpact} 行)`,
+				})
+			}
+		}
 	})
 
 	return totalLines
+}
+
+/**
+ * 统计特殊架构模板操作
+ */
+function countArchetypeOperations(text: string, result: CodeLinesResult): number {
+	let totalLines = 0
+	if (text.match("java_ddd_codegen") && text.match(/生成了\d+个文件/)) {
+		return 300
+	}
+	const archetypePatterns = [
+		{ pattern: "zz-rhombus-project-archetype", lines: 150, name: "项目架构模板" },
+		{ pattern: "zz-rhombus-group-archetype", lines: 60, name: "组架构模板" },
+		{ pattern: "zz-rhombus-module-archetype", lines: 300, name: "模块架构模板" },
+		{ pattern: "java_ddd_codegen", lines: 1000, name: "java_ddd_codegen工具" },
+	]
+
+	archetypePatterns.forEach((archetype) => {
+		const count = (text.match(new RegExp(archetype.pattern, "g")) || []).length
+		if (count > 0) {
+			const lines = count * archetype.lines
+			totalLines += lines
+
+			result.details.push({
+				type: "架构模板",
+				lines,
+				description: `${archetype.name} x${count} (${lines} 行)`,
+			})
+		}
+	})
+
+	result.breakdown.archetype = totalLines
+	return totalLines
+}
+
+/**
+ * 估算命令执行的代码影响
+ */
+function estimateCommandImpact(command: string, output: string): number {
+	if (!command) return 0
+
+	const cmd = command.toLowerCase().trim()
+
+	// 代码生成类命令
+	if (cmd.includes("create") || cmd.includes("generate") || cmd.includes("init")) {
+		if (cmd.includes("project") || cmd.includes("app")) return 100
+		if (cmd.includes("component") || cmd.includes("service")) return 50
+		if (cmd.includes("test")) return 30
+		return 20
+	}
+
+	// 安装类命令
+	if (cmd.includes("install") || cmd.includes("add") || cmd.includes("npm") || cmd.includes("yarn")) {
+		return 5 // 安装依赖通常会修改package.json等配置文件
+	}
+
+	// 构建类命令
+	if (cmd.includes("build") || cmd.includes("compile") || cmd.includes("bundle")) {
+		return 0 // 构建不直接产生源代码
+	}
+
+	// 测试类命令
+	if (cmd.includes("test") || cmd.includes("jest") || cmd.includes("mocha")) {
+		return 0 // 测试执行不产生代码
+	}
+
+	// Maven/Gradle 特殊命令
+	if (cmd.includes("mvn") || cmd.includes("gradle")) {
+		if (cmd.includes("archetype:generate") || cmd.includes("create")) return 200
+		if (cmd.includes("test")) return 0
+		return 10
+	}
+
+	// 根据输出长度估算影响（如果有输出的话）
+	if (output && output.length > 100) {
+		return Math.min(Math.floor(output.length / 100), 50)
+	}
+
+	return 0
+}
+
+/**
+ * 计算文本中的非空行数
+ */
+function countNonEmptyLines(text: string): number {
+	if (!text) return 0
+	return text.split("\n").filter((line) => line.trim().length > 0).length
+}
+
+/**
+ * 导出详细的代码行数统计结果（用于调试和分析）
+ */
+export function exportCodeLinesAnalysis(messages: ClineMessage[]): {
+	totalMessages: number
+	totalCodeLines: number
+	messageAnalysis: Array<{
+		messageIndex: number
+		messageType: string
+		messageAsk?: string
+		textLength: number
+		codeLines: number
+		breakdown: CodeLinesResult["breakdown"]
+		details: CodeLinesResult["details"]
+		textPreview: string
+	}>
+} {
+	const messageAnalysis = messages.map((message, index) => {
+		const text = message.text || ""
+		const result = estimateCodeLinesDetailed(text)
+
+		return {
+			messageIndex: index,
+			messageType: message.type,
+			messageAsk: message.ask,
+			textLength: text.length,
+			codeLines: result.totalLines,
+			breakdown: result.breakdown,
+			details: result.details,
+			textPreview: text.substring(0, 200) + (text.length > 200 ? "..." : ""),
+		}
+	})
+
+	const totalCodeLines = messageAnalysis.reduce((sum, analysis) => sum + analysis.codeLines, 0)
+
+	return {
+		totalMessages: messages.length,
+		totalCodeLines,
+		messageAnalysis,
+	}
 }
 
 /**
