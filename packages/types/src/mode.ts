@@ -270,6 +270,18 @@ export const DEFAULT_MODES: readonly ModeConfig[] = [
 - 在根据项目结构生成完整的项目后, 除非显式下达更改项目结构命令, 不要对项目结构进行修改.
 - 直接使用maven命令创建产品，禁止任何手动mkdir
 - 按照用户需求和提示规范进行项目结构目录的生成
+
+项目结构检测与约束
+- **执行前必须检测**：在执行任何maven命令前，必须先检查当前工作目录是否已存在Maven项目结构（pom.xml文件）
+- **已有项目结构处理**：如果当前目录已存在pom.xml文件，说明已有项目结构，此时：
+  1. 不得再次创建产品初始模块
+  2. 直接在当前项目结构中创建分组或上下文模块
+  3. 使用当前目录的项目名称作为父级项目名称
+- **新项目创建**：只有在当前目录不存在pom.xml文件时，才可以创建产品初始模块
+- **目录导航规则**：
+  1. 创建分组时：如果当前不在产品根目录，先cd到产品根目录
+  2. 创建上下文时：如果要在分组下创建，先cd到对应分组目录
+
 概念识别
 - 产品/项目
 这个概念指的是整个工程, 我们的所有工作都是在这个限定范围内展开的
@@ -277,16 +289,24 @@ export const DEFAULT_MODES: readonly ModeConfig[] = [
 对于一些中间层的限界上下文, 其并没有对应任何实际代码, 只是对多个限界上下文进行封装分组, 我们将其称为分组, 在项目命名上我们以grp为后缀.
 - 限界上下文
 在产品/项目下细分的概念, 这是领域驱动设计中的概念, 一个限界上下文对应一个Maven项目, 在项目命名和包命名上我们以bc为后缀.
+
 生成代码模块结构使用maven命令
 如果用户未提供maven-setting-path自定义mvn配置，则不需要：-s {maven-setting-path}
-创建产品初始模块：根据项目整体规范，填充以下命令并使用, 不需要提前创建文件夹, 不要指定任何上下文, 如果在Power Shell环境下, 参数值需要使用单引号包裹, 该命令会创建对应产品文件夹，无需提前创建产品文件夹：
+
+**执行流程**：
+1. 首先执行：ls -la 检查当前目录结构
+2. 检查是否存在pom.xml文件
+3. 根据检查结果选择对应的创建策略
+
+创建产品初始模块：**仅在当前目录不存在pom.xml时执行**，根据项目整体规范，填充以下命令并使用, 不需要提前创建文件夹, 不要指定任何上下文, 如果在Power Shell环境下, 参数值需要使用单引号包裹, 该命令会创建对应产品文件夹，无需提前创建产品文件夹，如果在Power Shell环境下, 参数值需要使用单引号包裹，如果不是powershell环境，不需要单引号包裹:
 mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=产品名称 -Dversion=产品版本 -Dpackage=包名 -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-project-archetype -DarchetypeVersion=3.0.0-SNAPSHOT -DinteractiveMode=false
 
-创建分组模块：根据项目整体规范，填充以下命令并使用, 父级指定为产品名称, 生成的结构完全符合DDD规范且是完整的DDD上下文结构, 无需关心子模块内容, 如果没有在产品文件夹下，先进入产品文件夹再进行创建. 如果在Power Shell环境下, 参数值需要使用单引号包裹，如果不是powershell环境，不需要单引号包裹:
-mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=分组名称 -Dversion=产品版本 -Dpackage=包名 -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-group-archetype  -Dparent-version=3.0.0-SNAPSHOT -Dparent-artifactId=产品名称 -Dparent-groupId=com.zz -DinteractiveMode=false
+创建分组模块：**在已有项目结构中创建**，根据项目整体规范，填充以下命令并使用, 父级指定为当前项目名称, 生成的结构完全符合DDD规范且是完整的DDD上下文结构, 无需关心子模块内容, 确保在产品根目录下执行. 如果在Power Shell环境下, 参数值需要使用单引号包裹，如果不是powershell环境，不需要单引号包裹:
+mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=分组名称 -Dversion=产品版本 -Dpackage=包名 -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-group-archetype  -Dparent-version=3.0.0-SNAPSHOT -Dparent-artifactId=当前项目名称 -Dparent-groupId=com.zz -DinteractiveMode=false
 
-创建上下文模块：根据项目整体规范，填充以下命令并使用, 父级指定为产品名称或分组名称, 生成的结构完全符合DDD规范且是完整的DDD上下文结构, 无需关心子模块内容, 如果上下文层级是定义在分组文件夹下，请先进入对应的分组文件夹下再进行创建. 如果在Power Shell环境下, 参数值需要使用单引号包裹:
-mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=上下文名称 -Dversion=产品版本 -Dpackage=包名 -Dparent-artifactId=产品名称/分组名称 -Dparent-groupId=com.zz -Dparent-version=3.0.0-SNAPSHOT -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-module-archetype -DinteractiveMode=false
+创建上下文模块：**在已有项目结构中创建**，根据项目整体规范，填充以下命令并使用, 父级指定为当前项目名称或分组名称, 生成的结构完全符合DDD规范且是完整的DDD上下文结构, 无需关心子模块内容, 如果上下文层级是定义在分组文件夹下，请先进入对应的分组文件夹下再进行创建. 如果在Power Shell环境下, 参数值需要使用单引号包裹:
+mvn -s {maven-setting-path} archetype:generate -DgroupId=com.zz -DartifactId=上下文名称 -Dversion=产品版本 -Dpackage=包名 -Dparent-artifactId=当前项目名称/分组名称 -Dparent-groupId=com.zz -Dparent-version=3.0.0-SNAPSHOT -DarchetypeGroupId=com.zz -DarchetypeArtifactId=zz-rhombus-module-archetype -DinteractiveMode=false
+
 产品、分组及上下文完整创建后, 在zz-server模块中引入所有上下文的northbound-remote模块以及southbound-adapter模块`,
 	},
 	// Northbound Gateway Layer
