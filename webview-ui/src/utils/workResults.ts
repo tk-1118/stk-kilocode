@@ -333,6 +333,16 @@ interface ToolOperation {
 	batchFiles?: Array<{ path: string }>
 	command?: string
 	output?: string
+	// Java DDD代码生成工具特有字段
+	packageName?: string
+	outputDir?: string
+	totalFiles?: number
+	successFiles?: number
+	errorFiles?: number
+	skippedFiles?: number
+	generatedFiles?: Array<{ path: string; status: string; type: string }>
+	estimatedCodeLines?: number
+	summary?: string
 }
 
 /**
@@ -518,6 +528,27 @@ function estimateToolOperationLines(tool: ToolOperation, result: CodeLinesResult
 			}
 			break
 
+		case "java_ddd_codegen":
+			// Java DDD代码生成工具的特殊处理
+			if (tool.successFiles && typeof tool.successFiles === "number") {
+				// 使用实际成功生成的文件数量，每个文件估算60行代码
+				lines = tool.successFiles * 70
+				description = `Java DDD代码生成 - 生成${tool.successFiles}个文件 (${lines} 行)`
+			} else if (tool.estimatedCodeLines && typeof tool.estimatedCodeLines === "number") {
+				// 使用工具提供的估算行数
+				lines = tool.estimatedCodeLines
+				description = `Java DDD代码生成 - 估算 ${lines} 行`
+			} else if (tool.generatedFiles && Array.isArray(tool.generatedFiles)) {
+				// 根据生成的文件列表估算
+				lines = tool.generatedFiles.length * 70
+				description = `Java DDD代码生成 - ${tool.generatedFiles.length}个文件 (${lines} 行)`
+			} else {
+				// 默认估算
+				lines = 300
+				description = `Java DDD代码生成 - 默认估算 ${lines} 行`
+			}
+			break
+
 		case "readFile":
 		case "list_files":
 		case "search_files":
@@ -605,14 +636,48 @@ function countToolOperationDescriptions(text: string, result: CodeLinesResult): 
  */
 function countArchetypeOperations(text: string, result: CodeLinesResult): number {
 	let totalLines = 0
-	if (text.match("java_ddd_codegen") && text.match(/生成了\d+个文件/)) {
-		return 300
+
+	// 优先检查是否是java_ddd_codegen工具的JSON输出
+	try {
+		const toolData = JSON.parse(text)
+		if (toolData.tool === "java_ddd_codegen") {
+			// 这种情况已经在countToolOperations中处理了，这里不重复计算
+			return 0
+		}
+	} catch {
+		// 不是JSON格式，继续检查文本模式
 	}
+
+	// 检查文本中的java_ddd_codegen描述
+	if (text.includes("java_ddd_codegen") || text.includes("Java DDD代码生成")) {
+		// 尝试从文本中提取文件数量
+		const fileCountMatch =
+			text.match(/(?:生成|创建)了?(\d+)个?(?:文件|领域模型文件)/) || text.match(/(\d+)个?(?:文件|领域模型文件)/)
+		if (fileCountMatch) {
+			const fileCount = parseInt(fileCountMatch[1], 10)
+			const lines = fileCount * 60 // 每个文件估算60行
+			totalLines += lines
+			result.details.push({
+				type: "架构模板",
+				lines,
+				description: `Java DDD代码生成 - ${fileCount}个文件 (${lines} 行)`,
+			})
+		} else {
+			// 没有找到具体文件数量，使用默认估算
+			const lines = 300
+			totalLines += lines
+			result.details.push({
+				type: "架构模板",
+				lines,
+				description: `Java DDD代码生成 - 默认估算 (${lines} 行)`,
+			})
+		}
+	}
+
 	const archetypePatterns = [
 		{ pattern: "zz-rhombus-project-archetype", lines: 150, name: "项目架构模板" },
 		{ pattern: "zz-rhombus-group-archetype", lines: 60, name: "组架构模板" },
 		{ pattern: "zz-rhombus-module-archetype", lines: 300, name: "模块架构模板" },
-		{ pattern: "java_ddd_codegen", lines: 1000, name: "java_ddd_codegen工具" },
 	]
 
 	archetypePatterns.forEach((archetype) => {

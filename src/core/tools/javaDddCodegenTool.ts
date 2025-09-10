@@ -534,6 +534,32 @@ export async function javaDddCodegenTool(
 			}
 		}
 
+		// 输出标准化的工具操作JSON，供workResults.ts统计代码行数
+		const toolOperationJson = JSON.stringify({
+			tool: "java_ddd_codegen",
+			packageName: params.package_name,
+			outputDir: outputDir,
+			totalFiles: result.totalFiles,
+			successFiles: result.successFiles,
+			errorFiles: result.errorFiles,
+			skippedFiles: result.skippedFiles,
+			generatedFiles: successFiles.map((file: any) => ({
+				path: file.filePath,
+				status: file.status,
+				type: file.filePath.includes("valueobject")
+					? "ValueObject"
+					: file.filePath.includes(jsonSchema.name)
+						? "AggregateEntity"
+						: "Entity",
+			})),
+			estimatedCodeLines: result.successFiles * 70, // 每个文件估算60行代码
+			summary: `生成了${result.successFiles}个Java DDD文件，包含聚合根、值对象等`,
+		})
+
+		// 先输出工具操作JSON（用于workResults.ts统计）
+		pushToolResult(formatResponse.toolResult(toolOperationJson))
+
+		// 再输出详细报告（用于用户查看）
 		pushToolResult(formatResponse.toolResult(reportContent))
 	} catch (error) {
 		await handleError("Java DDD代码生成", error)
