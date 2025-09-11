@@ -38,66 +38,66 @@ export const BASE_MODES = {
  * 专业模式常量 - 产品项目层
  */
 export const PRODUCT_MODES = {
-	PRODUCT_PROJECT: "product-project-coder-agent",
+	PRODUCT_PROJECT: "bdev01-product-project-coder-agent",
 } as const
 
 /**
  * 专业模式常量 - 北向网关层
  */
 export const NORTHBOUND_MODES = {
-	API_CONTROLLER: "northbound-api-controller-coder-agent",
-	APP_EVENT_SUBSCRIBER: "northbound-app-event-subscriber-coder-agent",
-	CLIENT_PROVIDER: "northbound-client-provider-coder-agent",
-	CQRS_APPLICATION_SERVICE: "northbound-cqrs-business-service-and-application-service-coder-agent",
-	APP_EVENT_PUBLISHER: "northbound-app-event-publisher-coder-agent",
+	API_CONTROLLER: "bdev02-northbound-api-controller-coder-agent",
+	APP_EVENT_SUBSCRIBER: "bdev03-northbound-app-event-subscriber-coder-agent",
+	CLIENT_PROVIDER: "bdev04-northbound-client-provider-coder-agent",
+	CQRS_APPLICATION_SERVICE: "bdev05-northbound-cqrs-business-service-and-application-service-coder-agent",
+	APP_EVENT_PUBLISHER: "bdev06-northbound-app-event-publisher-coder-agent",
 } as const
 
 /**
  * 专业模式常量 - 领域层
  */
 export const DOMAIN_MODES = {
-	DOMAIN_MODEL: "domain-model-and-value-object-coder-agent",
-	VALUE_OBJECT_MAPPING: "value-object-and-java-primitive-data-types-mapping-coder-agent",
-	DOMAIN_SERVICE: "domain-service-coder-agent",
-	DOMAIN_EVENT_PUBLISHER: "domain-event-publisher-coder-agent",
+	DOMAIN_MODEL: "bdev07-domain-model-and-value-object-coder-agent",
+	VALUE_OBJECT_MAPPING: "bdev08-value-object-and-java-primitive-data-types-mapping-coder-agent",
+	DOMAIN_SERVICE: "bdev09-domain-service-coder-agent",
+	DOMAIN_EVENT_PUBLISHER: "bdev10-domain-event-publisher-coder-agent",
 } as const
 
 /**
  * 专业模式常量 - 南向网关层
  */
 export const SOUTHBOUND_MODES = {
-	DATA_MODEL: "southbound-data-model-coder-agent",
-	REPOSITORY: "southbound-respository-coder-agent",
-	RESOURCE_GATEWAY: "southbound-resource-gateway-coder-agent",
-	EVENT_PUBLISH_ADAPTER: "southbound-event-publish-adapter-coder-agent",
-	READ_MODEL: "read-model-coder-agent",
+	DATA_MODEL: "bdev11-southbound-data-model-coder-agent",
+	REPOSITORY: "bdev12-southbound-respository-coder-agent",
+	RESOURCE_GATEWAY: "bdev13-southbound-resource-gateway-coder-agent",
+	EVENT_PUBLISH_ADAPTER: "bdev14-southbound-event-publish-adapter-coder-agent",
+	READ_MODEL: "bdev15-read-model-coder-agent",
 } as const
 
 /**
  * 专业模式常量 - 客户端层
  */
 export const CLIENT_MODES = {
-	CLIENT: "client-coder-agent",
+	CLIENT: "bdev16-client-coder-agent",
 } as const
 
 /**
  * 专业模式常量 - 前端层
  */
 export const FRONTEND_MODES = {
-	PROJECT_STRUCTURE: "dev01-vue3ts-frontend-project-structure-coder-agent",
-	VUE_COMPONENT: "dev02-vue3ts-component-coder-agent",
-	VUE_COMPOSABLE: "dev03-vue3ts-composable-coder-agent",
-	MOCKJS_SERVICE: "dev04-vue3ts-mockjs-service-coder-agent",
-	API_SERVICE: "dev05-vue3ts-api-service-coder-agent",
-	PINIA_STORE: "dev06-vue3ts-pinia-store-coder-agent",
-	VUE_ROUTER: "dev07-vue3ts-router-coder-agent",
-	FRONTEND_TESTING: "dev08-vue3ts-frontend-testing-coder-agent",
-	VITE_BUILD: "dev09-vue3ts-vite-build-coder-agent",
-	UI_DESIGN_SYSTEM: "dev10-vue3ts-ui-design-system-coder-agent",
-	VUE_I18N: "dev11-vue3ts-i18n-coder-agent",
-	OBSERVABILITY_PERFORMANCE: "dev12-vue3ts-observability-performance-coder-agent",
-	FRONTEND_SECURITY: "dev13-vue3ts-frontend-security-coder-agent",
-	PAGE_DEVELOPMENT: "dev14-vue3ts-page-coder-agent",
+	PROJECT_STRUCTURE: "fdev01-vue3ts-frontend-project-structure-coder-agent",
+	VUE_COMPONENT: "fdev02-vue3ts-component-coder-agent",
+	VUE_COMPOSABLE: "fdev03-vue3ts-composable-coder-agent",
+	MOCKJS_SERVICE: "fdev04-vue3ts-mockjs-service-coder-agent",
+	API_SERVICE: "fdev05-vue3ts-api-service-coder-agent",
+	PINIA_STORE: "fdev06-vue3ts-pinia-store-coder-agent",
+	VUE_ROUTER: "fdev07-vue3ts-router-coder-agent",
+	FRONTEND_TESTING: "fdev08-vue3ts-frontend-testing-coder-agent",
+	VITE_BUILD: "fdev09-vue3ts-vite-build-coder-agent",
+	UI_DESIGN_SYSTEM: "fdev10-vue3ts-ui-design-system-coder-agent",
+	VUE_I18N: "fdev11-vue3ts-i18n-coder-agent",
+	OBSERVABILITY_PERFORMANCE: "fdev12-vue3ts-observability-performance-coder-agent",
+	FRONTEND_SECURITY: "fdev13-vue3ts-frontend-security-coder-agent",
+	PAGE_DEVELOPMENT: "fdev14-vue3ts-page-coder-agent",
 } as const
 
 /**

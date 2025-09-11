@@ -66,7 +66,7 @@ function extractModeFromMessage(message: ClineMessage): string | null {
 // 模式分段示例
 const modeSegments = [
   {
-    mode: "dev07-domain-model-and-value-object-coder-agent",
+    mode: "bdev07-domain-model-and-value-object-coder-agent",
     messages: [...], // 该模式下的消息
     tokensIn: 15420,
     tokensOut: 8930,
@@ -74,7 +74,7 @@ const modeSegments = [
     duration: 45 * 60 * 1000 // 45分钟
   },
   {
-    mode: "dev09-domain-service-coder-agent",
+    mode: "bdev09-domain-service-coder-agent",
     messages: [...],
     tokensIn: 12680,
     tokensOut: 7240,
@@ -128,12 +128,12 @@ function estimateCodeLines(text: string): number {
 ```
 🔍 提取工作成果数据: { messagesCount: 25, currentTeam: "backend-team", apiMetrics: {...} }
 🔄 模式分段结果: [
-  { mode: "dev07-domain-model-and-value-object-coder-agent", messageCount: 8, startIndex: 0, endIndex: 7 },
-  { mode: "dev09-domain-service-coder-agent", messageCount: 12, startIndex: 8, endIndex: 19 },
-  { mode: "dev05-northbound-cqrs-business-service-and-application-service-coder-agent", messageCount: 5, startIndex: 20, endIndex: 24 }
+  { mode: "bdev07-domain-model-and-value-object-coder-agent", messageCount: 8, startIndex: 0, endIndex: 7 },
+  { mode: "bdev09-domain-service-coder-agent", messageCount: 12, startIndex: 8, endIndex: 19 },
+  { mode: "bdev05-northbound-cqrs-business-service-and-application-service-coder-agent", messageCount: 5, startIndex: 20, endIndex: 24 }
 ]
-📊 处理模式段: { mode: "dev07-...", tokensIn: 15420, tokensOut: 8930, codeLines: 156, duration: 2700000 }
-📈 成员统计结果: [["dev07-...", {...}], ["dev09-...", {...}]]
+📊 处理模式段: { mode: "bdev07-...", tokensIn: 15420, tokensOut: 8930, codeLines: 156, duration: 2700000 }
+📈 成员统计结果: [["bdev07-...", {...}], ["bdev09-...", {...}]]
 ✅ 团队统计创建成功: { teamSlug: "backend-team", totalTokens: 59790, ... }
 🎯 最终工作成果: { taskId: "...", teams: [...], totalTokens: 59790, ... }
 ```

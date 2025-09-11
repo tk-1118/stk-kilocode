@@ -46,7 +46,7 @@ describe("getDddGuidelinesSection", () => {
 
 	it("should return DDD guidelines for repository mode", () => {
 		const state: Partial<ClineProviderState> = {
-			mode: "dev12-southbound-respository-coder-agent",
+			mode: "bdev12-southbound-respository-coder-agent",
 		}
 
 		const result = getDddGuidelinesSection(state as ClineProviderState)

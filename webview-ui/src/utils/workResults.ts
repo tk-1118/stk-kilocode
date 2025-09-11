@@ -310,8 +310,8 @@ function extractModeFromMessage(message: ClineMessage): string | null {
 
 	// 检查消息文本中是否包含模式切换信息
 	if (message.text) {
-		// 查找模式切换的文本模式，如 "切换到 dev07-domain-model-and-value-object-coder-agent"
-		const modePattern = /(dev\d+-[\w-]+)/g
+		// 查找模式切换的文本模式，如 "切换到 bdev07-domain-model-and-value-object-coder-agent" 或 "fdev01-vue3ts-frontend-project-structure-coder-agent"
+		const modePattern = /([bf]?dev\d+-[\w-]+)/g
 		const matches = message.text.match(modePattern)
 		if (matches && matches.length > 0) {
 			return matches[0]

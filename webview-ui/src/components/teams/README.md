@@ -32,7 +32,7 @@ function App() {
 	return (
 		<TeamStatusBar
 			currentTeam="backend-team"
-			currentMode="dev07-domain-model-and-value-object-coder-agent"
+			currentMode="bdev07-domain-model-and-value-object-coder-agent"
 			customTeams={customTeams}
 			isWorking={true}
 			messages={messageHistory}
