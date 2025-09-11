@@ -31,10 +31,13 @@ export function extractWorkResultsFromMessages(
 	currentTeam?: string,
 	customTeams?: TeamConfig[],
 	apiMetrics?: { tokensIn: number; tokensOut: number; totalCost: number },
+	currentMode?: string,
 ): TaskWorkResults | null {
 	console.log("🔍 提取工作成果数据:", {
 		messagesCount: messages?.length || 0,
 		currentTeam,
+		currentMode,
+		初始活跃模式: currentMode || currentTeam || "dev99-coder",
 		apiMetrics,
 		apiMetricsDetail: {
 			tokensIn: apiMetrics?.tokensIn,
@@ -83,7 +86,8 @@ export function extractWorkResultsFromMessages(
 	})
 
 	// 跟踪当前活跃的模式
-	let currentActiveMode = currentTeam || "dev99-coder"
+	// 优先使用传入的当前模式，其次使用当前团队，最后默认为dev99-coder
+	let currentActiveMode = currentMode || currentTeam || "dev99-coder"
 	const modeSegments: Array<{
 		mode: string
 		startIndex: number
@@ -310,11 +314,21 @@ function extractModeFromMessage(message: ClineMessage): string | null {
 
 	// 检查消息文本中是否包含模式切换信息
 	if (message.text) {
-		// 查找模式切换的文本模式，如 "切换到 bdev07-domain-model-and-value-object-coder-agent" 或 "fdev01-vue3ts-frontend-project-structure-coder-agent"
-		const modePattern = /([bf]?dev\d+-[\w-]+)/g
-		const matches = message.text.match(modePattern)
-		if (matches && matches.length > 0) {
-			return matches[0]
+		// 扩展的模式匹配正则表达式，支持所有模式类型：
+		// - 专业模式：bdev01-xxx, fdev01-xxx 等（优先匹配，避免与基础模式冲突）
+		// - 基础模式：pm01-project-manager, sa01-system-architect, dev99-coder, qa01-unit-test, qa01-debug, qe01-quality-control, se01-security-control
+		const modePatterns = [
+			// 专业模式匹配：bdev, fdev 等（优先匹配，避免与基础模式的dev\d+冲突）
+			/([bf]dev\d+-[\w-]+)/g,
+			// 基础模式匹配：pm01, sa01, qa01, qe01, se01 等，以及独立的dev99等
+			/(pm\d+|sa\d+|(?<![bf])dev\d+|qa\d+|qe\d+|se\d+)-[\w-]+/g,
+		]
+
+		for (const pattern of modePatterns) {
+			const matches = message.text.match(pattern)
+			if (matches && matches.length > 0) {
+				return matches[0]
+			}
 		}
 	}
 

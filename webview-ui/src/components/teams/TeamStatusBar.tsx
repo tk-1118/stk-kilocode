@@ -42,7 +42,9 @@ export const TeamStatusBar: React.FC<TeamStatusBarProps> = ({
 	const modeRoleName = getModeRoleName(currentMode)
 
 	// 生成工作成果数据
-	const workResults = messages ? extractWorkResultsFromMessages(messages, currentTeam, customTeams, apiMetrics) : null
+	const workResults = messages
+		? extractWorkResultsFromMessages(messages, currentTeam, customTeams, apiMetrics, currentMode)
+		: null
 
 	// 处理工作成果按钮点击
 	const handleWorkResultsClick = () => {
@@ -103,7 +105,7 @@ export const TeamStatusBar: React.FC<TeamStatusBarProps> = ({
 						border border-[var(--vscode-button-border)]"
 						title="查看工作成果清单">
 						<BarChart3 className="w-3 h-3" />
-						<span>成果</span>
+						<span>工作成果清单</span>
 					</button>
 
 					{/* 工作状态动画（仅在工作时显示） */}
