@@ -4,7 +4,9 @@ import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 
 export function CodeExample() {
-	const [currentMode, setCurrentMode] = useState<"code" | "architect" | "debug">("code")
+	const [currentMode, setCurrentMode] = useState<"dev99-coder" | "sa01-system-architect" | "qa01-quality-assurance">(
+		"dev99-coder",
+	)
 	const [isTyping, setIsTyping] = useState(false)
 	const [currentText, setCurrentText] = useState("")
 	const [textIndex, setTextIndex] = useState(0)
@@ -27,7 +29,12 @@ export function CodeExample() {
 			setIsTyping(false)
 			// switch to next mode after a delay
 			const timer = setTimeout(() => {
-				const nextMode = currentMode === "code" ? "architect" : currentMode === "architect" ? "debug" : "code"
+				const nextMode =
+					currentMode === "dev99-coder"
+						? "sa01-system-architect"
+						: currentMode === "sa01-system-architect"
+							? "qa01-quality-assurance"
+							: "dev99-coder"
 				switchMode(nextMode)
 			}, 1000) // wait a second before switching
 			return () => clearTimeout(timer)
@@ -35,7 +42,7 @@ export function CodeExample() {
 	}, [isTyping, textIndex, currentMode])
 
 	// switch modes with typing effect
-	const switchMode = (mode: "code" | "architect" | "debug") => {
+	const switchMode = (mode: "dev99-coder" | "sa01-system-architect" | "qa01-quality-assurance") => {
 		setCurrentMode(mode)
 		setCurrentText("")
 		setTextIndex(0)
@@ -101,7 +108,7 @@ export function CodeExample() {
 }
 
 const codeExamples = {
-	code: {
+	"dev99-coder": {
 		code: `// Code Mode
 You: Generate a React component for a user profile card
 
@@ -160,7 +167,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   );
 };`,
 	},
-	architect: {
+	"sa01-system-architect": {
 		code: `// Architect Mode
 // Project: E-commerce Platform
 // Request: Design the authentication system
@@ -198,7 +205,7 @@ auth/
 
 Would you like me to generate any of these files?`,
 	},
-	debug: {
+	"qa01-quality-assurance": {
 		code: `// Debug Mode
 // Analyzing error: TypeError: Cannot read property 'map' of undefined
 

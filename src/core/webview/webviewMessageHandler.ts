@@ -370,11 +370,11 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			break
 		case "allowedMaxRequests":
-			await updateGlobalState("allowedMaxRequests", message.value)
+			await updateGlobalState("allowedMaxRequests", typeof message.value === "number" ? message.value : null)
 			await provider.postStateToWebview()
 			break
 		case "allowedMaxCost":
-			await updateGlobalState("allowedMaxCost", message.value)
+			await updateGlobalState("allowedMaxCost", typeof message.value === "number" ? message.value : null)
 			await provider.postStateToWebview()
 			break
 		case "alwaysAllowSubtasks":
@@ -393,7 +393,10 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			break
 		case "autoCondenseContextPercent":
-			await updateGlobalState("autoCondenseContextPercent", message.value)
+			await updateGlobalState(
+				"autoCondenseContextPercent",
+				typeof message.value === "number" ? message.value : undefined,
+			)
 			await provider.postStateToWebview()
 			break
 		case "terminalOperation":
@@ -1046,7 +1049,7 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			break
 		case "soundVolume":
-			const soundVolume = message.value ?? 0.5
+			const soundVolume = typeof message.value === "number" ? message.value : 0.5
 			await updateGlobalState("soundVolume", soundVolume)
 			await provider.postStateToWebview()
 			break
@@ -1057,7 +1060,7 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			break
 		case "ttsSpeed":
-			const ttsSpeed = message.value ?? 1.0
+			const ttsSpeed = typeof message.value === "number" ? message.value : 1.0
 			await updateGlobalState("ttsSpeed", ttsSpeed)
 			setTtsSpeed(ttsSpeed)
 			await provider.postStateToWebview()
@@ -1139,7 +1142,10 @@ export const webviewMessageHandler = async (
 			}
 			break
 		case "fuzzyMatchThreshold":
-			await updateGlobalState("fuzzyMatchThreshold", message.value)
+			await updateGlobalState(
+				"fuzzyMatchThreshold",
+				typeof message.value === "number" ? message.value : undefined,
+			)
 			await provider.postStateToWebview()
 			break
 		// kilocode_change start
@@ -1189,11 +1195,11 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			break
 		case "requestDelaySeconds":
-			await updateGlobalState("requestDelaySeconds", message.value ?? 5)
+			await updateGlobalState("requestDelaySeconds", typeof message.value === "number" ? message.value : 5)
 			await provider.postStateToWebview()
 			break
 		case "writeDelayMs":
-			await updateGlobalState("writeDelayMs", message.value)
+			await updateGlobalState("writeDelayMs", typeof message.value === "number" ? message.value : undefined)
 			await provider.postStateToWebview()
 			break
 		case "diagnosticsEnabled":
@@ -1226,9 +1232,12 @@ export const webviewMessageHandler = async (
 			}
 			break
 		case "terminalShellIntegrationTimeout":
-			await updateGlobalState("terminalShellIntegrationTimeout", message.value)
+			await updateGlobalState(
+				"terminalShellIntegrationTimeout",
+				typeof message.value === "number" ? message.value : undefined,
+			)
 			await provider.postStateToWebview()
-			if (message.value !== undefined) {
+			if (typeof message.value === "number") {
 				Terminal.setShellIntegrationTimeout(message.value)
 			}
 			break
@@ -1240,9 +1249,12 @@ export const webviewMessageHandler = async (
 			}
 			break
 		case "terminalCommandDelay":
-			await updateGlobalState("terminalCommandDelay", message.value)
+			await updateGlobalState(
+				"terminalCommandDelay",
+				typeof message.value === "number" ? message.value : undefined,
+			)
 			await provider.postStateToWebview()
-			if (message.value !== undefined) {
+			if (typeof message.value === "number") {
 				Terminal.setCommandDelay(message.value)
 			}
 			break
@@ -1359,16 +1371,16 @@ export const webviewMessageHandler = async (
 			break
 		}
 		case "screenshotQuality":
-			await updateGlobalState("screenshotQuality", message.value)
+			await updateGlobalState("screenshotQuality", typeof message.value === "number" ? message.value : undefined)
 			await provider.postStateToWebview()
 			break
 		case "maxOpenTabsContext":
-			const tabCount = Math.min(Math.max(0, message.value ?? 20), 500)
+			const tabCount = Math.min(Math.max(0, typeof message.value === "number" ? message.value : 20), 500)
 			await updateGlobalState("maxOpenTabsContext", tabCount)
 			await provider.postStateToWebview()
 			break
 		case "maxWorkspaceFiles":
-			const fileCount = Math.min(Math.max(0, message.value ?? 200), 500)
+			const fileCount = Math.min(Math.max(0, typeof message.value === "number" ? message.value : 200), 500)
 			await updateGlobalState("maxWorkspaceFiles", fileCount)
 			await provider.postStateToWebview()
 			break
@@ -1377,7 +1389,10 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			break
 		case "followupAutoApproveTimeoutMs":
-			await updateGlobalState("followupAutoApproveTimeoutMs", message.value)
+			await updateGlobalState(
+				"followupAutoApproveTimeoutMs",
+				typeof message.value === "number" ? message.value : undefined,
+			)
 			await provider.postStateToWebview()
 			break
 		case "browserToolEnabled":
@@ -1398,7 +1413,7 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			break
 		case "maxReadFileLine":
-			await updateGlobalState("maxReadFileLine", message.value)
+			await updateGlobalState("maxReadFileLine", typeof message.value === "number" ? message.value : undefined)
 			await provider.postStateToWebview()
 			break
 		// kilocode_change start
@@ -1416,15 +1431,15 @@ export const webviewMessageHandler = async (
 			break
 		// kilocode_change end
 		case "maxImageFileSize":
-			await updateGlobalState("maxImageFileSize", message.value)
+			await updateGlobalState("maxImageFileSize", typeof message.value === "number" ? message.value : undefined)
 			await provider.postStateToWebview()
 			break
 		case "maxTotalImageSize":
-			await updateGlobalState("maxTotalImageSize", message.value)
+			await updateGlobalState("maxTotalImageSize", typeof message.value === "number" ? message.value : undefined)
 			await provider.postStateToWebview()
 			break
 		case "maxConcurrentFileReads":
-			const valueToSave = message.value // Capture the value intended for saving
+			const valueToSave = typeof message.value === "number" ? message.value : undefined // Capture the value intended for saving
 			await updateGlobalState("maxConcurrentFileReads", valueToSave)
 			await provider.postStateToWebview()
 			break
@@ -1435,7 +1450,7 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			break
 		case "maxDiagnosticMessages":
-			await updateGlobalState("maxDiagnosticMessages", message.value ?? 50)
+			await updateGlobalState("maxDiagnosticMessages", typeof message.value === "number" ? message.value : 50)
 			await provider.postStateToWebview()
 			break
 		case "setHistoryPreviewCollapsed": // Add the new case handler
@@ -3528,6 +3543,7 @@ export const webviewMessageHandler = async (
 				const newMode = {
 					slug: modeData.slug,
 					name: modeData.name,
+					roleName: modeData.roleName || modeData.name || "Custom Role",
 					roleDefinition: modeData.roleDefinition || "",
 					groups: modeData.groups || ["read", "edit"],
 					source: "project" as const,

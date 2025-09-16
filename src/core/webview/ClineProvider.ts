@@ -28,6 +28,7 @@ import {
 	type CodeActionName,
 	type TerminalActionId,
 	type TerminalActionPromptType,
+	type ModeConfig,
 	type HistoryItem,
 	type ClineAsk,
 	RooCodeEventName,
