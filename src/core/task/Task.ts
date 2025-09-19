@@ -343,7 +343,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		}
 
 		// 初始化临时系统提示词（仅对新任务有效，历史任务不支持）
-		this.temporarySystemPrompt = historyItem ? undefined : temporarySystemPrompt
+		this.temporarySystemPrompt = historyItem ? "" : temporarySystemPrompt
 
 		// Normal use-case is usually retry similar history task with new workspace.
 		this.workspacePath = parentTask
@@ -1518,10 +1518,20 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 
 		console.log(`[subtasks] task ${this.taskId}.${this.instanceId} starting`)
 
+		// 构建任务消息，包含任务上下文（如果存在）
+		const taskContext = this.getTaskContext()
+		let taskMessage: string
+		if (taskContext) {
+			// 将任务上下文作为背景信息提供，而不是系统指令
+			taskMessage = `<task_context>\n${taskContext}\n</task_context>\n\n<task>\n${task}\n</task>`
+		} else {
+			taskMessage = `<task>\n${task}\n</task>`
+		}
+
 		await this.initiateTaskLoop([
 			{
 				type: "text",
-				text: `<task>\n${task}\n</task>`,
+				text: taskMessage,
 			},
 			...imageBlocks,
 		])
@@ -2700,6 +2710,14 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	}
 	// kilocode_change end
 
+	/**
+	 * 获取任务上下文信息（包括temporarySystemPrompt）
+	 * 用于在对话开始时提供给AI，而不是作为系统提示词的一部分
+	 */
+	public getTaskContext(): string | undefined {
+		return this.temporarySystemPrompt
+	}
+
 	/*private kilocode_change*/ async getSystemPrompt(): Promise<string> {
 		const { mcpEnabled } = (await this.providerRef.deref()?.getState()) ?? {}
 		let mcpHub: McpHub | undefined
@@ -2779,11 +2797,6 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				this.api.getModel().id,
 				await provider.getState(), // kilocode_change
 			)
-
-			// 如果存在临时系统提示词，将其附加到基础系统提示词中
-			if (this.temporarySystemPrompt) {
-				return `${baseSystemPrompt}\n\n## 临时任务指令\n\n${this.temporarySystemPrompt}`
-			}
 
 			return baseSystemPrompt
 		})()
