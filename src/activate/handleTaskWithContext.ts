@@ -21,6 +21,8 @@ export interface CreateTaskWithContextParams {
 	newTab?: boolean
 	/** 可选的模式（如 "code", "ask", "architect"） */
 	mode?: string
+	/** 是否自动启动任务 */
+	isAutoStartTask?: boolean
 }
 
 /**
@@ -42,7 +44,7 @@ export const handleCreateTaskWithContext = async (params: CreateTaskWithContextP
 		return
 	}
 
-	const { userPrompt, temporarySystemPrompt, images, newTab = false, mode } = params
+	const { userPrompt, temporarySystemPrompt, images, mode, isAutoStartTask = false } = params
 
 	try {
 		// 获取当前的 provider 实例
@@ -77,37 +79,61 @@ export const handleCreateTaskWithContext = async (params: CreateTaskWithContextP
 			await provider.handleModeSwitch(mode)
 		}
 
-		// 更新 webview 状态
-		await provider.postStateToWebview()
+		if (isAutoStartTask) {
+			// 创建任务，传入临时系统提示词
+			const task = await provider.createTask(userPrompt, images, undefined, {
+				// 传入临时系统提示词作为选项
+				temporarySystemPrompt,
+			})
 
-		// 构建要发送到聊天框的消息
-		let chatMessage = userPrompt
+			// 如果任务创建失败，抛出错误
+			if (!task) {
+				throw new Error(t("commands:createTaskWithContext.errors.task_creation_failed"))
+			}
 
-		// 如果有临时系统提示词，将其作为上下文信息添加到用户消息中
-		if (temporarySystemPrompt) {
-			console.log(`[createTaskWithContext] 包含临时系统提示词到聊天消息中`)
-			chatMessage = `## 任务上下文\n\n${temporarySystemPrompt}\n\n## 用户请求\n\n${userPrompt}`
+			// 设置任务完成/取消时的清理回调
+			const cleanupTemporaryPrompt = () => {
+				// 临时系统提示词会在任务实例销毁时自动清理
+				// 这里可以添加额外的清理逻辑
+			}
+
+			task.once(RooCodeEventName.TaskCompleted, cleanupTemporaryPrompt)
+			task.once(RooCodeEventName.TaskAborted, cleanupTemporaryPrompt)
+
+			// 注意：不需要手动发送 newChat 消息，createTask 会自动处理 webview 更新
+		} else {
+			// 更新 webview 状态
+			await provider.postStateToWebview()
+
+			// 构建要发送到聊天框的消息
+			let chatMessage = userPrompt
+
+			// 如果有临时系统提示词，将其作为上下文信息添加到用户消息中
+			if (temporarySystemPrompt) {
+				console.log(`[createTaskWithContext] 包含临时系统提示词到聊天消息中`)
+				chatMessage = `## 任务上下文\n\n${temporarySystemPrompt}\n\n## 用户请求\n\n${userPrompt}`
+			}
+
+			// 将构建的消息设置到聊天框中，而不是自动执行任务
+			await provider.postMessageToWebview({
+				type: "invoke",
+				invoke: "newChat",
+				text: "",
+			})
+
+			// 等待 600ms
+			await new Promise((resolve) => setTimeout(resolve, 600))
+
+			// 将构建的消息设置到聊天框中，而不是自动执行任务
+			await provider.postMessageToWebview({
+				type: "invoke",
+				invoke: "setChatBoxMessage",
+				text: chatMessage,
+			})
+
+			// 聚焦到聊天界面
+			await provider.postMessageToWebview({ type: "action", action: "chatButtonClicked" })
 		}
-
-		// 将构建的消息设置到聊天框中，而不是自动执行任务
-		await provider.postMessageToWebview({
-			type: "invoke",
-			invoke: "newChat",
-			text: "",
-		})
-
-		// 等待 600ms
-		await new Promise((resolve) => setTimeout(resolve, 600))
-
-		// 将构建的消息设置到聊天框中，而不是自动执行任务
-		await provider.postMessageToWebview({
-			type: "invoke",
-			invoke: "setChatBoxMessage",
-			text: chatMessage,
-		})
-
-		// 聚焦到聊天界面
-		await provider.postMessageToWebview({ type: "action", action: "chatButtonClicked" })
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : String(error)
 		vscode.window.showErrorMessage(t("commands:createTaskWithContext.errors.general", { error: errorMessage }))
