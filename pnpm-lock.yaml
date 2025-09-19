@@ -10255,7 +10255,7 @@ packages:
     engines: {node: 20 || >=22}
 
   java-ddd-codegen-ts@file:java-ddd-codegen-ts-1.1.0.tgz:
-    resolution: {integrity: sha512-ROcM/3/7fHp+ygbVZaEQuS4S2qqgLrXugeE/C/3aOofBTJlybAbw73G48cckTbUTduonUnh8cOTxKPCVtTAbxw==, tarball: file:java-ddd-codegen-ts-1.1.0.tgz}
+    resolution: {integrity: sha512-1DBh5PKGUtgSjmQ0G4BJNF5N3WjEUj0LiNGc5NSdfWqZJUFHS6axa5CJOg2vsVPZc9GtOt4xENCe79y8DMGD8w==, tarball: file:java-ddd-codegen-ts-1.1.0.tgz}
     version: 1.1.0
     hasBin: true
 

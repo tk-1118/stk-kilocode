@@ -75,20 +75,11 @@ export const CLIENT_MODES = {
  * 专业模式常量 - 前端层
  */
 export const FRONTEND_MODES = {
-	PROJECT_STRUCTURE: "fdev01-vue3ts-frontend-project-structure-coder-agent",
-	VUE_COMPONENT: "fdev02-vue3ts-component-coder-agent",
-	VUE_COMPOSABLE: "fdev03-vue3ts-composable-coder-agent",
-	MOCKJS_SERVICE: "fdev04-vue3ts-mockjs-service-coder-agent",
-	API_SERVICE: "fdev05-vue3ts-api-service-coder-agent",
-	PINIA_STORE: "fdev06-vue3ts-pinia-store-coder-agent",
-	VUE_ROUTER: "fdev07-vue3ts-router-coder-agent",
-	FRONTEND_TESTING: "fdev08-vue3ts-frontend-testing-coder-agent",
-	VITE_BUILD: "fdev09-vue3ts-vite-build-coder-agent",
-	UI_DESIGN_SYSTEM: "fdev10-vue3ts-ui-design-system-coder-agent",
-	VUE_I18N: "fdev11-vue3ts-i18n-coder-agent",
-	OBSERVABILITY_PERFORMANCE: "fdev12-vue3ts-observability-performance-coder-agent",
-	FRONTEND_SECURITY: "fdev13-vue3ts-frontend-security-coder-agent",
-	PAGE_DEVELOPMENT: "fdev14-vue3ts-page-coder-agent",
+	COORDINATOR: "fdev00-coordinator-agent",
+	PAGE_COMPONENT: "fdev01-page-component-coder-agent",
+	LAYOUT_STYLE: "fdev02-layout-style-coder-agent",
+	// MOCK: "fdev03-mock-coder-agent",
+	// API_INTEGRATION: "fdev04-api-integration-coder-agent",
 } as const
 
 /**
@@ -199,75 +190,25 @@ export const TASK_MODE_MAPPING = [
 	},
 	// 前端相关任务映射
 	{
-		keywords: ["前端项目", "项目结构", "vue3", "typescript", "vite", "脚手架"],
-		mode: FRONTEND_MODES.PROJECT_STRUCTURE,
-		reason: "任务涉及前端项目结构搭建",
-	},
-	{
-		keywords: ["vue", "组件", "component", "组件开发"],
-		mode: FRONTEND_MODES.VUE_COMPONENT,
-		reason: "任务涉及Vue组件开发",
-	},
-	{
-		keywords: ["composable", "组合式", "hooks", "复用逻辑"],
-		mode: FRONTEND_MODES.VUE_COMPOSABLE,
-		reason: "任务涉及Vue组合式函数开发",
-	},
-	{
-		keywords: ["路由", "router", "导航"],
-		mode: FRONTEND_MODES.VUE_ROUTER,
-		reason: "任务涉及路由配置",
-	},
-	{
-		keywords: ["状态管理", "pinia", "store"],
-		mode: FRONTEND_MODES.PINIA_STORE,
-		reason: "任务涉及状态管理",
-	},
-	{
-		keywords: ["api", "接口", "请求", "axios"],
-		mode: FRONTEND_MODES.API_SERVICE,
-		reason: "任务涉及API服务",
-	},
-	{
-		keywords: ["mock", "模拟", "数据", "mockjs"],
-		mode: FRONTEND_MODES.MOCKJS_SERVICE,
-		reason: "任务涉及MockJS数据模拟",
-	},
-	{
-		keywords: ["测试", "test", "单元测试"],
-		mode: FRONTEND_MODES.FRONTEND_TESTING,
-		reason: "任务涉及前端测试",
-	},
-	{
-		keywords: ["构建", "打包", "vite", "build"],
-		mode: FRONTEND_MODES.VITE_BUILD,
-		reason: "任务涉及构建配置",
-	},
-	{
-		keywords: ["国际化", "i18n", "多语言"],
-		mode: FRONTEND_MODES.VUE_I18N,
-		reason: "任务涉及国际化",
-	},
-	{
-		keywords: ["ui", "设计", "主题", "样式", "设计系统"],
-		mode: FRONTEND_MODES.UI_DESIGN_SYSTEM,
-		reason: "任务涉及UI设计系统",
-	},
-	{
-		keywords: ["性能", "监控", "可观测", "observability", "performance"],
-		mode: FRONTEND_MODES.OBSERVABILITY_PERFORMANCE,
-		reason: "任务涉及可观测与性能优化",
-	},
-	{
-		keywords: ["安全", "security", "前端安全", "xss", "csrf"],
-		mode: FRONTEND_MODES.FRONTEND_SECURITY,
-		reason: "任务涉及前端安全",
-	},
-	{
 		keywords: ["页面", "page", "页面开发", "视图"],
-		mode: FRONTEND_MODES.PAGE_DEVELOPMENT,
+		mode: FRONTEND_MODES.PAGE_COMPONENT,
 		reason: "任务涉及页面开发",
 	},
+	{
+		keywords: ["布局", "style", "样式", "样式开发"],
+		mode: FRONTEND_MODES.LAYOUT_STYLE,
+		reason: "任务涉及布局与样式开发",
+	},
+	// {
+	// 	keywords: ["mock", "模拟", "数据", "mockjs"],
+	// 	mode: FRONTEND_MODES.MOCK,
+	// 	reason: "任务涉及Mock数据开发",
+	// },
+	// {
+	// 	keywords: ["api", "接口", "请求", "axios"],
+	// 	mode: FRONTEND_MODES.API_INTEGRATION,
+	// 	reason: "任务涉及API接口开发",
+	// },
 ] as const
 
 export type ModeConstant = (typeof ALL_MODES)[keyof typeof ALL_MODES]

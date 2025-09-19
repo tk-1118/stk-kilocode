@@ -92,20 +92,11 @@ const BACKEND_SPECIALTY_MODE_LIST = [
 ] as const
 
 const FRONTEND_SPECIALTY_MODE_LIST = [
-	"fdev01-vue3ts-frontend-project-structure-coder-agent",
-	"fdev02-vue3ts-component-coder-agent",
-	"fdev03-vue3ts-composable-coder-agent",
-	"fdev04-vue3ts-mockjs-service-coder-agent",
-	"fdev05-vue3ts-api-service-coder-agent",
-	"fdev06-vue3ts-pinia-store-coder-agent",
-	"fdev07-vue3ts-router-coder-agent",
-	"fdev08-vue3ts-frontend-testing-coder-agent",
-	"fdev09-vue3ts-vite-build-coder-agent",
-	"fdev10-vue3ts-ui-design-system-coder-agent",
-	"fdev11-vue3ts-i18n-coder-agent",
-	"fdev12-vue3ts-observability-performance-coder-agent",
-	"fdev13-vue3ts-frontend-security-coder-agent",
-	"fdev14-vue3ts-page-coder-agent",
+	"fdev00-coordinator-agent",
+	"fdev01-page-component-coder-agent",
+	"fdev02-layout-style-coder-agent",
+	// "fdev03-mock-coder-agent",
+	// "fdev04-api-integration-coder-agent",
 ] as const
 
 /**
@@ -243,7 +234,7 @@ export const DEFAULT_TEAMS: readonly TeamConfig[] = [
 		description: "专注于用户界面和用户体验的开发团队",
 		iconName: TEAM_ICONS.BROWSER,
 		color: TEAM_COLORS.REACT_BLUE,
-		baseModes: [...BASE_MODE_LIST],
+		baseModes: [],
 		specialtyModes: [...FRONTEND_SPECIALTY_MODE_LIST],
 		projectDetection: {
 			filePatterns: [...PROJECT_DETECTION.FRONTEND_FILE_PATTERNS],

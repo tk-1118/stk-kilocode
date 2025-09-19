@@ -84,20 +84,11 @@ export const CLIENT_MODES = {
  * 专业模式常量 - 前端层
  */
 export const FRONTEND_MODES = {
-	PROJECT_STRUCTURE: "fdev01-vue3ts-frontend-project-structure-coder-agent",
-	VUE_COMPONENT: "fdev02-vue3ts-component-coder-agent",
-	VUE_COMPOSABLE: "fdev03-vue3ts-composable-coder-agent",
-	MOCKJS_SERVICE: "fdev04-vue3ts-mockjs-service-coder-agent",
-	API_SERVICE: "fdev05-vue3ts-api-service-coder-agent",
-	PINIA_STORE: "fdev06-vue3ts-pinia-store-coder-agent",
-	VUE_ROUTER: "fdev07-vue3ts-router-coder-agent",
-	FRONTEND_TESTING: "fdev08-vue3ts-frontend-testing-coder-agent",
-	VITE_BUILD: "fdev09-vue3ts-vite-build-coder-agent",
-	UI_DESIGN_SYSTEM: "fdev10-vue3ts-ui-design-system-coder-agent",
-	VUE_I18N: "fdev11-vue3ts-i18n-coder-agent",
-	OBSERVABILITY_PERFORMANCE: "fdev12-vue3ts-observability-performance-coder-agent",
-	FRONTEND_SECURITY: "fdev13-vue3ts-frontend-security-coder-agent",
-	PAGE_DEVELOPMENT: "fdev14-vue3ts-page-coder-agent",
+	COORDINATOR: "fdev00-coordinator-agent",
+	PAGE_COMPONENT: "fdev01-page-component-coder-agent",
+	LAYOUT_STYLE: "fdev02-layout-style-coder-agent",
+	// MOCK: "fdev03-mock-coder-agent",
+	// API_INTEGRATION: "fdev04-api-integration-coder-agent",
 } as const
 
 /**

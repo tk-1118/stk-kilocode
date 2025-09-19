@@ -62,37 +62,52 @@ export const handleCreateTaskWithContext = async (params: CreateTaskWithContextP
 			// 显示用户通知
 			vscode.window.showInformationMessage(t("commands:createTaskWithContext.info.closing_current_task"))
 
+			// 取消任务
 			await provider.cancelTask()
 			// 等待任务完全关闭
-			await new Promise((resolve) => setTimeout(resolve, 500))
+			await new Promise((resolve) => setTimeout(resolve, 600))
 		}
+
+		// 清理任务栈，创建一个新的聊天会话
+		await provider.clearTask()
 
 		// 如果指定了模式，先切换模式
 		if (mode) {
-			await provider.handleModeSwitch(mode)
 			// handleModeSwitch 是异步的，已经等待完成，不需要额外延迟
+			await provider.handleModeSwitch(mode)
 		}
 
-		// 创建任务，传入临时系统提示词
-		const task = await provider.createTask(userPrompt, images, undefined, {
-			// 传入临时系统提示词作为选项
-			temporarySystemPrompt,
+		// 更新 webview 状态
+		await provider.postStateToWebview()
+
+		// 构建要发送到聊天框的消息
+		let chatMessage = userPrompt
+
+		// 如果有临时系统提示词，将其作为上下文信息添加到用户消息中
+		if (temporarySystemPrompt) {
+			console.log(`[createTaskWithContext] 包含临时系统提示词到聊天消息中`)
+			chatMessage = `## 任务上下文\n\n${temporarySystemPrompt}\n\n## 用户请求\n\n${userPrompt}`
+		}
+
+		// 将构建的消息设置到聊天框中，而不是自动执行任务
+		await provider.postMessageToWebview({
+			type: "invoke",
+			invoke: "newChat",
+			text: "",
 		})
 
-		if (!task) {
-			throw new Error(t("commands:createTaskWithContext.errors.task_creation_failed"))
-		}
+		// 等待 600ms
+		await new Promise((resolve) => setTimeout(resolve, 600))
 
-		// 设置任务完成/取消时的清理回调
-		const cleanupTemporaryPrompt = () => {
-			// 临时系统提示词会在任务实例销毁时自动清理
-			// 这里可以添加额外的清理逻辑
-		}
+		// 将构建的消息设置到聊天框中，而不是自动执行任务
+		await provider.postMessageToWebview({
+			type: "invoke",
+			invoke: "setChatBoxMessage",
+			text: chatMessage,
+		})
 
-		task.once(RooCodeEventName.TaskCompleted, cleanupTemporaryPrompt)
-		task.once(RooCodeEventName.TaskAborted, cleanupTemporaryPrompt)
-
-		// 注意：不需要手动发送 newChat 消息，createTask 会自动处理 webview 更新
+		// 聚焦到聊天界面
+		await provider.postMessageToWebview({ type: "action", action: "chatButtonClicked" })
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : String(error)
 		vscode.window.showErrorMessage(t("commands:createTaskWithContext.errors.general", { error: errorMessage }))
