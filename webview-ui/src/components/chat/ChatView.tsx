@@ -758,16 +758,17 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 	}, [sendingDisabled, messageQueue, handleSendMessage, clineAsk])
 
 	const handleSetChatBoxMessage = useCallback(
-		(text: string, images: string[]) => {
-			// Avoid nested template literals by breaking down the logic
+		(text: string, images: string[], replace = false) => {
+			// If replace is true, directly set the text without concatenation
 			let newValue = text
 
-			if (inputValue !== "") {
+			if (!replace && inputValue !== "") {
 				newValue = inputValue + " " + text
 			}
 
 			setInputValue(newValue)
-			setSelectedImages([...selectedImages, ...images])
+			// For images, if replace is true, replace the array; otherwise, concatenate
+			setSelectedImages(replace ? images : [...selectedImages, ...images])
 		},
 		[inputValue, selectedImages],
 	)
@@ -938,7 +939,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							handleSendMessage(message.text ?? "", message.images ?? [])
 							break
 						case "setChatBoxMessage":
-							handleSetChatBoxMessage(message.text ?? "", message.images ?? [])
+							handleSetChatBoxMessage(message.text ?? "", message.images ?? [], message.replace ?? false)
 							break
 						case "primaryButtonClick":
 							handlePrimaryButtonClick(message.text ?? "", message.images ?? [])

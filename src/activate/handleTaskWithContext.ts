@@ -131,21 +131,12 @@ export const handleCreateTaskWithContext = async (params: CreateTaskWithContextP
 			// 构建要发送到聊天框的消息
 			let chatMessage = userPrompt
 
-			// 将构建的消息设置到聊天框中，而不是自动执行任务
-			await provider.postMessageToWebview({
-				type: "invoke",
-				invoke: "newChat",
-				text: "",
-			})
-
-			// 等待 600ms
-			await new Promise((resolve) => setTimeout(resolve, 600))
-
-			// 将构建的消息设置到聊天框中，而不是自动执行任务
+			// 使用replace模式设置消息到聊天框，直接替换而不是拼接
 			await provider.postMessageToWebview({
 				type: "invoke",
 				invoke: "setChatBoxMessage",
 				text: chatMessage,
+				replace: true,
 			})
 
 			// 聚焦到聊天界面

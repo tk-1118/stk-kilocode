@@ -171,6 +171,7 @@ export interface ExtensionMessage {
 		| "switchTab"
 		| "focusChatInput" // kilocode_change
 	invoke?: "newChat" | "sendMessage" | "primaryButtonClick" | "secondaryButtonClick" | "setChatBoxMessage"
+	replace?: boolean // 用于setChatBoxMessage，true表示替换而不是拼接
 	state?: ExtensionState
 	images?: string[]
 	filePaths?: string[]
