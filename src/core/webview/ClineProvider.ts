@@ -130,12 +130,21 @@ export class ClineProvider
 	private taskEventListeners: WeakMap<Task, Array<() => void>> = new WeakMap()
 
 	private recentTasksCache?: string[]
+	private pendingTemporarySystemPrompt?: string
 
 	public isViewLaunched = false
 	public settingsImportedAt?: number
 	public readonly latestAnnouncementId = "aug-20-2025-stealth-model" // Update for stealth model announcement
 	public readonly providerSettingsManager: ProviderSettingsManager
 	public readonly customModesManager: CustomModesManager
+
+	/**
+	 * 设置待处理的临时系统提示词
+	 * @param prompt 临时系统提示词
+	 */
+	public setPendingTemporarySystemPrompt(prompt?: string): void {
+		this.pendingTemporarySystemPrompt = prompt
+	}
 
 	constructor(
 		readonly context: vscode.ExtensionContext,
@@ -799,6 +808,14 @@ export class ClineProvider
 			throw new OrganizationAllowListViolationError(t("common:errors.violated_organization_allowlist"))
 		}
 
+		// 检查是否有待处理的临时系统提示词
+		let finalTemporarySystemPrompt = options.temporarySystemPrompt
+		if (!finalTemporarySystemPrompt && this.pendingTemporarySystemPrompt) {
+			finalTemporarySystemPrompt = this.pendingTemporarySystemPrompt
+			// 清除存储的临时提示词，避免影响后续任务
+			this.pendingTemporarySystemPrompt = undefined
+		}
+
 		const task = new Task({
 			context: this.context, // kilocode_change
 			provider: this,
@@ -817,6 +834,7 @@ export class ClineProvider
 			enableTaskBridge: isRemoteControlEnabled(cloudUserInfo, remoteControlEnabled),
 			initialTodos: options.initialTodos,
 			...options,
+			temporarySystemPrompt: finalTemporarySystemPrompt,
 		})
 
 		await this.addClineToStack(task)

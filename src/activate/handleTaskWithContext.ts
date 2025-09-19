@@ -21,6 +21,8 @@ export interface CreateTaskWithContextParams {
 	newTab?: boolean
 	/** 可选的模式（如 "code", "ask", "architect"） */
 	mode?: string
+	/** 可选的团队标识（如 "backend-team", "frontend-team"） */
+	team?: string
 	/** 是否自动启动任务 */
 	isAutoStartTask?: boolean
 }
@@ -44,7 +46,7 @@ export const handleCreateTaskWithContext = async (params: CreateTaskWithContextP
 		return
 	}
 
-	const { userPrompt, temporarySystemPrompt, images, mode, isAutoStartTask = false } = params
+	const { userPrompt, temporarySystemPrompt, images, mode, team, isAutoStartTask = false } = params
 
 	try {
 		// 获取当前的 provider 实例
@@ -79,6 +81,20 @@ export const handleCreateTaskWithContext = async (params: CreateTaskWithContextP
 			await provider.handleModeSwitch(mode)
 		}
 
+		// 如果指定了团队，先切换团队
+		if (team) {
+			try {
+				// 通过 provider 的 contextProxy 切换团队
+				await provider.contextProxy.setValue("currentTeam", team)
+				console.log(`[createTaskWithContext] 切换到团队: ${team}`)
+			} catch (error) {
+				console.error(`[createTaskWithContext] 团队切换失败: ${error}`)
+				vscode.window.showWarningMessage(
+					t("commands:createTaskWithContext.warnings.team_switch_failed", { team, error: String(error) }),
+				)
+			}
+		}
+
 		if (isAutoStartTask) {
 			// 创建任务，传入临时系统提示词
 			const task = await provider.createTask(userPrompt, images, undefined, {
@@ -102,17 +118,18 @@ export const handleCreateTaskWithContext = async (params: CreateTaskWithContextP
 
 			// 注意：不需要手动发送 newChat 消息，createTask 会自动处理 webview 更新
 		} else {
+			// 如果有临时系统提示词，先将其存储到 provider 实例中
+			// 这样当用户手动启动任务时，可以在任务创建时使用它
+			if (temporarySystemPrompt) {
+				console.log(`[createTaskWithContext] 存储临时系统提示词到 provider 实例`)
+				provider.setPendingTemporarySystemPrompt(temporarySystemPrompt)
+			}
+
 			// 更新 webview 状态
 			await provider.postStateToWebview()
 
 			// 构建要发送到聊天框的消息
 			let chatMessage = userPrompt
-
-			// 如果有临时系统提示词，将其作为上下文信息添加到用户消息中
-			if (temporarySystemPrompt) {
-				console.log(`[createTaskWithContext] 包含临时系统提示词到聊天消息中`)
-				chatMessage = `## 任务上下文\n\n${temporarySystemPrompt}\n\n## 用户请求\n\n${userPrompt}`
-			}
 
 			// 将构建的消息设置到聊天框中，而不是自动执行任务
 			await provider.postMessageToWebview({

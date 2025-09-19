@@ -343,7 +343,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		}
 
 		// 初始化临时系统提示词（仅对新任务有效，历史任务不支持）
-		this.temporarySystemPrompt = historyItem ? "" : temporarySystemPrompt
+		this.temporarySystemPrompt = historyItem ? undefined : temporarySystemPrompt
 
 		// Normal use-case is usually retry similar history task with new workspace.
 		this.workspacePath = parentTask
